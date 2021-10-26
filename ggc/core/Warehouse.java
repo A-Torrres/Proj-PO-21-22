@@ -14,11 +14,13 @@ public class Warehouse implements Serializable {
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202109192006L;
-
+  
+  // FIXME define attributes
   private Date _date = new Date();
 
-  // FIXME define attributes
+  
   // FIXME define contructor(s)
+  
   // FIXME define methods
 
   /**

@@ -10,7 +10,6 @@ import ggc.core.exception.NegativeDaysException;
 public class Date implements Serializable {
 
     private static final long serialVersionUID = 201589871010L; //?!?!
-
     private int _day;
 
     int getDay(){
@@ -31,7 +30,7 @@ public class Date implements Serializable {
 
     /**
    * @param other another Date to be compared.
-   * @return int with the difference of days between Dates.
+   * @return int with difference of days between current Date and other Date.
    */
     int difference(Date other){
         return this._day - other.getDay();
