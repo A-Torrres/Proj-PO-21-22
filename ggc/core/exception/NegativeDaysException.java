@@ -6,7 +6,7 @@ package ggc.core.exception;
 public class NegativeDaysException extends Exception {
 
     /** Serial number for serialization. */
-    private static final long serialVersionUID = 201708301010L; //????
+    private static final long serialVersionUID = 201586301010L; //?!?!
   
     /**
      * Default constructor

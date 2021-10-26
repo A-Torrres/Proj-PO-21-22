@@ -19,7 +19,6 @@ class DoAdvanceDate extends Command<WarehouseManager> {
   @Override
   public final void execute() throws CommandException {
     Integer days = integerField("days");
-    //_form.parse();
     try {
       _receiver.advanceDate(days);
 
