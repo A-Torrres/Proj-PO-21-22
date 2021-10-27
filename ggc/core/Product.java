@@ -11,27 +11,28 @@ public abstract class Product implements Serializable {
     private double _maxPrice;
     private List<Batch> _batch;
     
-    // temos de ter uma maneira de atualizar o maxPrice
     Product(String id){
         this(id, 0);
     }
-    
-    Product(String id, double maxPrice){
+
+    // temos de ter uma maneira de atualizar o maxPrice
+    Product(String id, double price) {
         _id = id;
-        _maxPrice = maxPrice;
+        if(_maxPrice < price)
+            _maxPrice = price;
     }
 
     /**
-   * @return the product's id.
-   */
-    String getID(){
+     * @return the product's id.
+     */
+    String getID() {
         return _id;
     }
     
     /**
-   * @return the product's maxPrice.
-   */
-    double getMaxPrice(){
+     * @return the product's maxPrice.
+     */
+    double getMaxPrice() {
         return _maxPrice;
     }
 
@@ -50,9 +51,13 @@ public abstract class Product implements Serializable {
     }
     */
     
+    /**
+     * @return idProduto|preço-máximo|stock-actual-total
+     */
     @Override
     public String toString() {
-        return _id;
+        return getID() + "|" + getMaxPrice() + "|" + 
+                Integer.toString(getTotalQuantity());
     }
 
 }

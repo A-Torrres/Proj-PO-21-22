@@ -65,10 +65,10 @@ public class Warehouse implements Serializable {
    * @throws NegativeDaysException
    */
   Collection<String> getProducts() {
-    List<String> strProd = new ArrayList<>();
+    List<String> productsToStrings = new ArrayList<>();
     for(Product p: _products)
-      strProd.add(p.toString());
-    return strProd;
+      productsToStrings.add(p.toString());
+    return productsToStrings;
   }
 
 }

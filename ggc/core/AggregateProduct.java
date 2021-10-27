@@ -19,8 +19,7 @@ public class AggregateProduct extends Product{
    */
     @Override
     public String toString() {
-        return getID() + "|" + getMaxPrice() + "|" +
-                getTotalQuantity() + "|" + _recipe.toString();
+        return this.toString() + "|" + _recipe.toString();
     }
     
 }

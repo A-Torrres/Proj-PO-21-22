@@ -1,5 +1,6 @@
 package ggc.core;
 
+import java.util.List;
 import java.util.Set;
 
 public class Partner {
@@ -11,7 +12,9 @@ public class Partner {
     private double _points;
     private Set<Acquisition> _acquisition;
     private Set<Sale> _sale;
-    private Set<Notification> _notification;
+    private List<Notification> _notification; // ficam por ordem de criaçao
+    // como é que representamos se um Partner tem interesse num produto? 
+    // R: Vai ser um padrao de desenho q ainda n demos
 
     /**
    * @return the partners's id.

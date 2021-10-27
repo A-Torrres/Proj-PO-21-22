@@ -16,6 +16,10 @@ public class Recipe {
         _recipeList = recipeList;
     }
 
+    AggregateProduct getAggregateProduct() {
+        return _aggregateProduct;
+    }
+
     /**
    * @return agravamento|componente-1:quantidade-1#...#componente-n:quantidade-n
    */
@@ -24,13 +28,10 @@ public class Recipe {
         String components = "";
         Iterator<Component> it = _recipeList.iterator();
         
-        while(true) {
-            // nao estamos a verificar se existe o primeiro componente
+        while(it.hasNext()) {
             components += (it.next()).toString(); 
-            if(it.hasNext()) {
+            if(it.hasNext())
                 components += "#";
-            }
-            else break;
         }
 
         return Double.toString(_alpha) + "|" + components;

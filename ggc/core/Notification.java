@@ -1,14 +1,14 @@
 package ggc.core;
 
-import java.util.List;
-
 public class Notification {
 
     private String _type; // fazer Enum
-    private List<Product> _products;
+    private Product _product;
+    //private boolean _notify;
 
-    Notification(){
-
+    Notification(String type, Product prod) {
+        _type = type;
+        _product = prod;
     }
     
     /**
@@ -16,7 +16,7 @@ public class Notification {
    */
     @Override
     public String toString() {
-          return _type + "";
+          return _type + "|" + _product.getID() + "|" /*+ _product.getPrice()?? */;
     }
     
 }

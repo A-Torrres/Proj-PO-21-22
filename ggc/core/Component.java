@@ -15,7 +15,7 @@ public class Component {
    */
   @Override
   public String toString() {
-      return _product.getID() + "|" + Integer.toString(_quantity);
+      return _product.getID() + ":" + Integer.toString(_quantity);
   }
 
 }
