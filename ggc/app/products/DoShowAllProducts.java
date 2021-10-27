@@ -4,8 +4,10 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import ggc.core.Product;
 import ggc.core.WarehouseManager;
 //FIXME import classes
 
@@ -21,12 +23,11 @@ class DoShowAllProducts extends Command<WarehouseManager> {
   @Override
   public final void execute() throws CommandException {
 
-    //criar e organizar lista
-    List<String> lst = new ArrayList<>();
-    List<String> products = new ArrayList<>();
+    //List<Product> products = new ArrayList<>(_receiver.getProducts());
+    List<String> products = new ArrayList<>(_receiver.getProducts());
+    Collections.sort(products, String.CASE_INSENSITIVE_ORDER);
 
-
-    _display.popup(lst);
+    _display.popup(products);
   }
 
 }

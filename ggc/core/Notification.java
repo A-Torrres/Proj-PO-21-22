@@ -7,12 +7,16 @@ public class Notification {
     private String _type; // fazer Enum
     private List<Product> _products;
 
+    Notification(){
+
+    }
+    
     /**
    * @return tipo-de-notificaçao|idProduto|preço-do-produto
    */
     @Override
     public String toString() {
-          return "";
+          return _type + "";
     }
     
 }

@@ -1,5 +1,7 @@
 package ggc.core;
 
+import java.util.Set;
+
 public class Partner {
     
     private String _name;
@@ -7,8 +9,9 @@ public class Partner {
     private String _id;
     private String _status;
     private double _points;
-    // falta compras e vendas q sao transacoes
-    // falta notificacao
+    private Set<Acquisition> _acquisition;
+    private Set<Sale> _sale;
+    private Set<Notification> _notification;
 
     /**
    * @return the partners's id.

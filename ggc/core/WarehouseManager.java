@@ -3,6 +3,7 @@ package ggc.core;
 //FIXME import classes (cannot import from pt.tecnico or ggc.app)
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -66,18 +67,24 @@ public class WarehouseManager {
   }
 
   /**
-  * 
+   * 
    */
   public int getCurrentDate() {
     return _warehouse.getCurrentDate();
   }
   
   /**
-  * 
+   * 
    */
   public void advanceDate(int days) throws NegativeDaysException {
     _warehouse.advanceDate(days);
   }
 
+  /**
+   * 
+   */
+  public Collection<String> getProducts(){
+      return _warehouse.getProducts();
+  }
 
 }

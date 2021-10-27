@@ -11,6 +11,7 @@ public abstract class Product implements Serializable {
     private double _maxPrice;
     private List<Batch> _batch;
     
+    // temos de ter uma maneira de atualizar o maxPrice
     Product(String id){
         this(id, 0);
     }
@@ -36,8 +37,11 @@ public abstract class Product implements Serializable {
 
     int getTotalQuantity() {
         int total = 0;
-        for(Batch b: _batch)
-            total += b.getQuantity();
+        // se o batch for null quer dizer que atualmente 
+        // nao existem quantidades no warehouse
+        if(_batch != null)      
+            for(Batch b: _batch)
+                total += b.getQuantity();
         return total;
     }
 
