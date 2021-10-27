@@ -3,6 +3,8 @@ package ggc.core;
 // FIXME import classes (cannot import from pt.tecnico or ggc.app)
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.IOException;
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.NegativeDaysException;
@@ -15,13 +17,19 @@ public class Warehouse implements Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 202109192006L;
   
-  // FIXME define attributes
-  private Date _date = new Date();
+  private Date _date;
+  private Set<Product> _products;
+  private Set<Partner> _partners;
+  //private Set<Transaction> _transaction;
 
   
-  // FIXME define contructor(s)
-  
-  // FIXME define methods
+  // faco as atribuicoes quando declaro as variaveis ou aqui no construtor?
+  Warehouse() {
+    _date = new Date();
+    _products = new HashSet<>();
+    _partners = new HashSet<>();
+    //_transaction = new HashSet<>();
+  }
 
   /**
    * @param txtfile filename to be loaded.
@@ -33,16 +41,18 @@ public class Warehouse implements Serializable {
   }
 
   /**
-   * 
+   * @return current Date.
    */
   int getCurrentDate() {
     return _date.getDay();
   }
 
   /**
-   * 
+   * @param days number of days to advance current Date.
+   * @throws NegativeDaysException
    */
   void advanceDate(int days) throws NegativeDaysException{
     _date.add(days);
   }
+
 }
