@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.io.IOException;
 
+import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
+import ggc.core.exception.ProductDoesNotExistException;
 
 /**
  * Class Warehouse implements a warehouse.
@@ -88,7 +90,7 @@ public class Warehouse implements Serializable {
     Partner p = _partners.get(id);
     
     if(p == null)
-      throw new PartnerDoesNotExistException();
+      throw new PartnerDoesNotExistException(id);
 
     return p;
   }
@@ -109,4 +111,25 @@ public class Warehouse implements Serializable {
     _partners.put(id, new Partner(id, name, address));
   }
 
+  boolean existsProduct(String id) {
+    return _products.containsKey(id);
+  }
+
+  void addSimpleProduct(String id, double price) {
+    _products.put(id, new SimpleProduct(id)); //add price to constructor
+  }
+
+  void addSimpleProduct(String id) {
+    this.addSimpleProduct(id, 0.0);
+  }
+
+  Product getProduct(String id) throws ProductDoesNotExistException {
+    if(_products.containsKey(id))
+      return _products.get(id);
+    else throw new ProductDoesNotExistException();
+  }
+
+  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
+    _products.put(id, aggregateProduct);
+  }
 }

@@ -44,13 +44,12 @@ public class Partner {
    */
     @Override
     public String toString() {
-        return  _id + "|" + 
-                _name + "|" + 
+        return  _id + "|" + _name + "|" + 
                 _address + "|" + 
                 _status + "|" +
-                Double.toString(_points) + "|" + 
-                Double.toString(_valorCompras) + "|" +
-                Double.toString(_valorVendasEfetuadas) + "|" + 
-                Double.toString(_valorVendasPagas);
+                _points + "|" + 
+                _valorCompras + "|" +
+                _valorVendasEfetuadas + "|" + 
+                _valorVendasPagas;
     }
 }

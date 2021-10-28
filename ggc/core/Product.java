@@ -63,4 +63,8 @@ public abstract class Product implements Serializable {
     public String toString() {
         return getID() + "|" + getMaxPrice() + "|" + getTotalQuantity();
     }
+
+    void addBatch(double price, int quantity, Product product, Partner partner) {
+        _batches.add(new Batch(price, quantity, product, partner));
+    }
 }

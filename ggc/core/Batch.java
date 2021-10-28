@@ -7,6 +7,12 @@ public class Batch {
     private Product _product;
     private Partner _partner;
 
+    Batch(double price, int quantity, Product product, Partner partner) {
+        double _price = price;
+        int _quantity = quantity;
+        Product _product = product;
+        Partner _partner = partner;
+    }
 
     public double getPrice() {
         return _price;
@@ -30,7 +36,7 @@ public class Batch {
     @Override
     public String toString() {
         return _product.getID() + "|" + _partner.getID() + "|" +
-                Double.toString(_price) + "|" + Integer.toString(_quantity);
+                _price + "|" + _quantity;
     }
 
 }
