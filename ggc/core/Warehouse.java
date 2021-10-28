@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.io.IOException;
+
+import ggc.app.exception.DuplicatePartnerKeyException;
+import ggc.app.exception.UnknownPartnerKeyException;
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.NegativeDaysException;
 
@@ -31,9 +34,9 @@ public class Warehouse implements Serializable {
   // faco as atribuicoes quando declaro as variaveis ou aqui no construtor?
   Warehouse() {
     _date = new Date();
-    _products = new HashSet<>();
-    _partners = new HashSet<>();
-    //_transaction = new HashSet<>();
+    _products = new HashSet<Product>();
+    _partners = new HashSet<Partner>();
+    //_transactions = new HashSet<>();
   }
 
   /**
@@ -71,4 +74,25 @@ public class Warehouse implements Serializable {
     return productsToStrings;
   }
 
+  Collection<String> getPartners() {
+    List<String> partnersToStrings = new ArrayList<>();
+    for(Partner p: _partners)
+      partnersToStrings.add(p.toString());
+    return partnersToStrings;
+  }
+  
+  Partner getPartner(String iD) throws UnknownPartnerKeyException{
+    for(Partner p: _partners) {
+      if(p.getID() == iD) return p;
+    }
+    throw new UnknownPartnerKeyException(iD);
+  }
+
+  void registerPartner(String name, String add) throws DuplicatePartnerKeyException {
+    if(_partners.contains()) { //criar PartnerHashSet para override equals() method do HashSet (probably same for product)
+      throw new DuplicatePartnerKeyException(name);
+    } else {
+      _partners.add(new Partner(name, add));
+    }
+  }
 }

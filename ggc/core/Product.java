@@ -9,7 +9,7 @@ public abstract class Product implements Serializable {
 
     private String _id;
     private double _maxPrice;
-    private List<Batch> _batch;
+    private List<Batch> _batches;
     
     Product(String id){
         this(id, 0);
@@ -40,8 +40,8 @@ public abstract class Product implements Serializable {
         int total = 0;
         // se o batch for null quer dizer que atualmente 
         // nao existem quantidades no warehouse
-        if(_batch != null)      
-            for(Batch b: _batch)
+        if(_batches.isEmpty())      
+            for(Batch b: _batches)
                 total += b.getQuantity();
         return total;
     }
@@ -56,8 +56,6 @@ public abstract class Product implements Serializable {
      */
     @Override
     public String toString() {
-        return getID() + "|" + getMaxPrice() + "|" + 
-                Integer.toString(getTotalQuantity());
+        return getID() + "|" + getMaxPrice() + "|" + getTotalQuantity();
     }
-
 }
