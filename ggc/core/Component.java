@@ -11,11 +11,15 @@ public class Component {
     }
 
     /**
-   * @return componente:quantidade
-   */
-  @Override
-  public String toString() {
-      return _product.getID() + ":" + Integer.toString(_quantity);
-  }
+    * @return componente:quantidade
+    */
+    public int getQuantity() {
+        return _quantity;
+    }
+
+    @Override
+    public String toString() {
+        return _product.getID() + ":" + _quantity;
+    }
 
 }

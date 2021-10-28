@@ -53,5 +53,4 @@ public class Partner {
                 Double.toString(_valorVendasEfetuadas) + "|" + 
                 Double.toString(_valorVendasPagas);
     }
-
 }
