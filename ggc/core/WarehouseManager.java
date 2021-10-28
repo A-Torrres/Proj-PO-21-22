@@ -4,7 +4,7 @@ package ggc.core;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Map;
+import java.util.Collections;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -86,22 +86,22 @@ public class WarehouseManager {
    * 
    */
   public Collection<Product> getProducts() {
-    return _warehouse.getProducts();
+    return Collections.unmodifiableCollection(_warehouse.getProducts());
   }
 
   /**
    * 
    */
   public Collection<Batch> getBatches() {
-    return _warehouse.getBatches();
+    return Collections.unmodifiableCollection(_warehouse.getBatches());
   }
 
   public Partner getPartner(String id) throws PartnerDoesNotExistException {
     return _warehouse.getPartner(id);
   }
 
-  public Map<String, Partner> getPartners() {
-    return _warehouse.getPartners();
+  public Collection<Partner> getPartners() {
+    return Collections.unmodifiableCollection(_warehouse.getPartners());
   }
 
   public void addPartner(String id, String name, String address) 

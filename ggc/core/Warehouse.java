@@ -6,10 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.io.IOException;
 
 import ggc.core.exception.BadEntryException;
@@ -28,17 +26,15 @@ public class Warehouse implements Serializable {
   private static final String List = null;
   
   private Date _date;
-  private Set<Product> _products;
+  private Map<String, Product> _products;
   private Map<String, Partner> _partners;
-  //private Set<Transaction> _transaction;
 
   
   // faco as atribuicoes quando declaro as variaveis ou aqui no construtor?
   Warehouse() {
     _date = new Date();
-    _products = new HashSet<>();
+    _products = new HashMap<String, Product>();
     _partners = new HashMap<String, Partner>();
-    //_transaction = new HashSet<>();
   }
 
   /**
@@ -69,7 +65,7 @@ public class Warehouse implements Serializable {
    * @return warehouse's products.
    */
   Collection<Product> getProducts() {
-    return _products;
+    return _products.values();
   }
 
   /**
@@ -78,8 +74,8 @@ public class Warehouse implements Serializable {
   Collection<Batch> getBatches() {
     List<Batch> batches = new ArrayList<>();
     
-    for(Product p: _products)
-      batches.addAll(p.getBatches());
+    _products.forEach(
+      (id, product) -> batches.addAll(product.getBatches()));
     
     return batches;
   }
@@ -100,8 +96,8 @@ public class Warehouse implements Serializable {
   /**
    * @return warehouse's partners.
    */
-  Map<String, Partner> getPartners() {
-    return _partners;
+  Collection<Partner> getPartners() {
+    return _partners.values();
   }
 
   void addPartner(String id, String name, String address) 
