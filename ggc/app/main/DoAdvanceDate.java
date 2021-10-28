@@ -21,9 +21,9 @@ class DoAdvanceDate extends Command<WarehouseManager> {
     Integer days = integerField("days");
     try {
       _receiver.advanceDate(days);
-
-    } catch (NegativeDaysException nde) {
-        throw new InvalidDateException(days);
+    } 
+    catch (NegativeDaysException nde) {
+      throw new InvalidDateException(days);
     }
   }
 

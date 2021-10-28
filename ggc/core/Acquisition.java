@@ -1,3 +1,4 @@
+/*
 package ggc.core;
 
 public class Acquisition extends Transaction {
@@ -11,9 +12,10 @@ public class Acquisition extends Transaction {
 
     /**
    * @return ?
-   */
+   *
     @Override
     public String toString() {
         return "";
     }
 }
+*/

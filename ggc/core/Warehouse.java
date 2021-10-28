@@ -5,12 +5,16 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.io.IOException;
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.NegativeDaysException;
+import ggc.core.exception.PartnerDoesNotExistException;
+import ggc.core.exception.PartnerKeyAlreadyExistException;
 
 /**
  * Class Warehouse implements a warehouse.
@@ -24,7 +28,7 @@ public class Warehouse implements Serializable {
   
   private Date _date;
   private Set<Product> _products;
-  private Set<Partner> _partners;
+  private Map<String, Partner> _partners;
   //private Set<Transaction> _transaction;
 
   
@@ -32,7 +36,7 @@ public class Warehouse implements Serializable {
   Warehouse() {
     _date = new Date();
     _products = new HashSet<>();
-    _partners = new HashSet<>();
+    _partners = new HashMap<String, Partner>();
     //_transaction = new HashSet<>();
   }
 
@@ -61,14 +65,51 @@ public class Warehouse implements Serializable {
   }
 
   /**
-   * @param days number of days to advance current Date.
-   * @throws NegativeDaysException
+   * @return warehouse's products.
    */
-  Collection<String> getProducts() {
-    List<String> productsToStrings = new ArrayList<>();
+  Collection<Product> getProducts() {
+    return _products;
+  }
+
+  /**
+   * @return warehouse's current batches.
+   */
+  Collection<Batch> getBatches() {
+    List<Batch> batches = new ArrayList<>();
+    
     for(Product p: _products)
-      productsToStrings.add(p.toString());
-    return productsToStrings;
+      batches.addAll(p.getBatches());
+    
+    return batches;
+  }
+
+  /**
+   * @param id a partner id.
+   * @throws PartnerDoesNotExistException
+   */
+  Partner getPartner(String id) throws PartnerDoesNotExistException {
+    Partner p = _partners.get(id);
+    
+    if(p == null)
+      throw new PartnerDoesNotExistException();
+
+    return p;
+  }
+
+  /**
+   * @return warehouse's partners.
+   */
+  Map<String, Partner> getPartners() {
+    return _partners;
+  }
+
+  void addPartner(String id, String name, String address) 
+      throws PartnerKeyAlreadyExistException {
+    
+    if(_partners.containsKey(id))
+        throw new PartnerKeyAlreadyExistException();
+
+    _partners.put(id, new Partner(id, name, address));
   }
 
 }

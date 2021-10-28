@@ -1,3 +1,4 @@
+/*
 package ggc.core;
 
 public abstract class Transaction {
@@ -18,24 +19,25 @@ public abstract class Transaction {
 
     /**
    * @return the transaction's paymentDate.
-   */
+   *
     Date getPaymentDate() {
         return _paymentDate;
     }
   
     /**
    * @return true if paid, false otherwise.
-   */
+   *
     boolean isPaid() {
         return true;
     }
 
     /**
    * @return ?
-   */
+   *
     @Override
     public String toString() {
         return  "" + "|" ;
     }
 
 }
+*/

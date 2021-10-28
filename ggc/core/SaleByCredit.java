@@ -1,3 +1,4 @@
+/*
 package ggc.core;
 
 public class SaleByCredit extends Sale {
@@ -11,9 +12,10 @@ public class SaleByCredit extends Sale {
 
     /**
    * @return ?
-   */
+   *
   @Override
   public String toString() {
       return "";
   }    
 }
+*/

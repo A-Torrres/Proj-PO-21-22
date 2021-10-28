@@ -1,3 +1,4 @@
+/*
 package ggc.core;
 
 public abstract class Sale {
@@ -9,3 +10,4 @@ public abstract class Sale {
     }
 
 }
+*/

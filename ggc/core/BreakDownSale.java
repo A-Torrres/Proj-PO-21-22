@@ -1,3 +1,4 @@
+/*
 package ggc.core;
 
 import java.util.List;
@@ -12,9 +13,10 @@ public class BreakDownSale extends Sale {
 
     /**
    * @return ?
-   */
+   *
     @Override
     public String toString() {
         return "";
     }
 }
+*/

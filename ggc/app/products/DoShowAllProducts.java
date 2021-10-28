@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ggc.core.WarehouseManager;
-//FIXME import classes
+import ggc.core.Product;
 
 /**
  * Show all products.
@@ -22,11 +22,13 @@ class DoShowAllProducts extends Command<WarehouseManager> {
   @Override
   public final void execute() throws CommandException {
 
-    //List<Product> products = new ArrayList<>(_receiver.getProducts());
-    List<String> products = new ArrayList<>(_receiver.getProducts());
-    Collections.sort(products, String.CASE_INSENSITIVE_ORDER);
+    List<String> productsToString = new ArrayList<>();
 
-    _display.popup(products);
+    for(Product p: _receiver.getProducts())
+      productsToString.add(p.toString());
+
+    Collections.sort(productsToString, String.CASE_INSENSITIVE_ORDER);
+    _display.popup(productsToString);
   }
 
 }

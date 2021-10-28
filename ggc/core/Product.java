@@ -36,6 +36,9 @@ public abstract class Product implements Serializable {
         return _maxPrice;
     }
 
+    /**
+     * @return int with quantity of product in the warehouse.
+     */
     int getTotalQuantity() {
         int total = 0;
         // se o batch for null quer dizer que atualmente 
@@ -46,10 +49,12 @@ public abstract class Product implements Serializable {
         return total;
     }
 
-    /*
-    boolean abstract checkQuantity(int quant, Partner part) {
+    /**
+     * @return the List of batches.
+     */
+    List<Batch> getBatches() {
+        return _batch;
     }
-    */
     
     /**
      * @return idProduto|preço-máximo|stock-actual-total

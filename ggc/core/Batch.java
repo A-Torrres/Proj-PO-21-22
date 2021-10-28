@@ -8,8 +8,20 @@ public class Batch {
     private Partner _partner;
 
 
-    int getQuantity() {
+    public double getPrice() {
+        return _price;
+    }
+
+    public int getQuantity() {
         return _quantity;
+    }
+    
+    public String getProductID() {
+        return _product.getID();
+    }
+
+    public String getPartnerID() {
+        return _partner.getID();
     }
 
     /**

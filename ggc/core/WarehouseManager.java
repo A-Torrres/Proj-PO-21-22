@@ -4,6 +4,7 @@ package ggc.core;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -12,6 +13,8 @@ import ggc.core.exception.ImportFileException;
 import ggc.core.exception.UnavailableFileException;
 import ggc.core.exception.MissingFileAssociationException;
 import ggc.core.exception.NegativeDaysException;
+import ggc.core.exception.PartnerDoesNotExistException;
+import ggc.core.exception.PartnerKeyAlreadyExistException;
 
 /** Façade for access. */
 public class WarehouseManager {
@@ -24,7 +27,6 @@ public class WarehouseManager {
 
   //FIXME define other attributes
   //FIXME define constructor(s)
-  //FIXME define other methods
 
   /**
    * @@throws IOException
@@ -83,8 +85,29 @@ public class WarehouseManager {
   /**
    * 
    */
-  public Collection<String> getProducts(){
-      return _warehouse.getProducts();
+  public Collection<Product> getProducts() {
+    return _warehouse.getProducts();
+  }
+
+  /**
+   * 
+   */
+  public Collection<Batch> getBatches() {
+    return _warehouse.getBatches();
+  }
+
+  public Partner getPartner(String id) throws PartnerDoesNotExistException {
+    return _warehouse.getPartner(id);
+  }
+
+  public Map<String, Partner> getPartners() {
+    return _warehouse.getPartners();
+  }
+
+  public void addPartner(String id, String name, String address) 
+      throws PartnerKeyAlreadyExistException {
+    
+    _warehouse.addPartner(id, name, address);
   }
 
 }
