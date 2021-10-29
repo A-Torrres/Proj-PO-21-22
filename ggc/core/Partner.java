@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class Partner {
 
+    private static final long serialVersionUID = 23761274981643L;
+
     private String _id;
     private String _name;
     private String _address;

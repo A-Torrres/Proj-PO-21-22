@@ -1,6 +1,10 @@
 package ggc.core;
 
-public class Notification {
+import java.io.Serializable;
+
+public class Notification implements Serializable{
+
+    private static final long serialVersionUID = 1298312739089L;
 
     private String _type; // fazer Enum
     private Product _product;

@@ -7,7 +7,11 @@ import java.text.Normalizer.Form;
 import java.util.Collection;
 import java.util.Collections;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.ImportFileException;
@@ -36,7 +40,11 @@ public class WarehouseManager {
    * @@throws MissingFileAssociationException
    */
   public void save() throws IOException, FileNotFoundException, MissingFileAssociationException {
-    //FIXME implement serialization method
+    /*
+    ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(_filename + ".bin"));
+
+    objectOutputStream.writeObject(_warehouse);
+    */
   }
 
   /**
@@ -53,9 +61,15 @@ public class WarehouseManager {
   /**
    * @@param filename
    * @@throws UnavailableFileException
+   * @throws IOException
    */
-  public void load(String filename) throws UnavailableFileException, ClassNotFoundException  {
-    //FIXME implement serialization method
+  public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
+    /*
+    ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(_filename + ".bin"));
+
+    _warehouse = (Warehouse) objectInputStream.readObject();
+    objectInputStream.close();
+    */
   }
 
   /**
