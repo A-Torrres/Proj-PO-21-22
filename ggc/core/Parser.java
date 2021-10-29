@@ -10,6 +10,7 @@ import java.io.Reader;
 
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.PartnerDoesNotExistException;
+import ggc.core.exception.PartnerKeyAlreadyExistException;
 import ggc.core.exception.ProductDoesNotExistException;
 
 public class Parser {
@@ -21,7 +22,7 @@ public class Parser {
     _store = w;
   }
 
-  void parseFile(String filename) throws IOException, BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException {
+  void parseFile(String filename) throws IOException, BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException, PartnerKeyAlreadyExistException {
     try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
       String line;
 
@@ -30,7 +31,7 @@ public class Parser {
     }
   }
 
-  private void parseLine(String line) throws BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException {
+  private void parseLine(String line) throws BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException, PartnerKeyAlreadyExistException {
     String[] components = line.split("\\|");
 
     switch (components[0]) {
@@ -51,7 +52,7 @@ public class Parser {
   }
 
   //PARTNER|id|nome|endereço
-  private void parsePartner(String[] components, String line) throws BadEntryException {
+  private void parsePartner(String[] components, String line) throws BadEntryException, PartnerKeyAlreadyExistException {
     if (components.length != 4)
       throw new BadEntryException("Invalid partner with wrong number of fields (4): " + line);
     
@@ -59,8 +60,7 @@ public class Parser {
     String name = components[2];
     String address = components[3];
     
-    // add code here to
-    // register partner with id, name, address in _store;
+    _store.addPartner(id, name, address);
   }
 
   //BATCH_S|idProduto|idParceiro|preco|stock-actual

@@ -3,6 +3,7 @@ package ggc.core;
 //FIXME import classes (cannot import from pt.tecnico or ggc.app)
 
 import java.io.Serializable;
+import java.text.Normalizer.Form;
 import java.util.Collection;
 import java.util.Collections;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import ggc.core.exception.MissingFileAssociationException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
+import ggc.core.exception.ProductDoesNotExistException;
 
 /** Façade for access. */
 public class WarehouseManager {
@@ -63,9 +65,13 @@ public class WarehouseManager {
   public void importFile(String textfile) throws ImportFileException {
     try {
       _warehouse.importFile(textfile);
-    } catch (IOException | BadEntryException /* FIXME maybe other exceptions */ e) {
+    } catch (IOException | BadEntryException | ProductDoesNotExistException | PartnerDoesNotExistException | PartnerKeyAlreadyExistException  e) {
       throw new ImportFileException(textfile, e);
     }
+  }
+
+  public String getFileName() {
+    return _filename;
   }
 
   /**

@@ -43,9 +43,13 @@ public class Warehouse implements Serializable {
    * @param txtfile filename to be loaded.
    * @throws IOException
    * @throws BadEntryException
+   * @throws PartnerKeyAlreadyExistException
+   * @throws PartnerDoesNotExistException
+   * @throws ProductDoesNotExistException
    */
-  void importFile(String txtfile) throws IOException, BadEntryException /* FIXME maybe other exceptions */ {
-    //FIXME implement method
+  void importFile(String txtfile) throws IOException, BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException, PartnerKeyAlreadyExistException {
+    Parser parser = new Parser(this);
+    parser.parseFile(txtfile);
   }
 
   /**

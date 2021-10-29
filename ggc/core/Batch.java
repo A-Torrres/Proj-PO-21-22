@@ -8,10 +8,10 @@ public class Batch {
     private Partner _partner;
 
     Batch(double price, int quantity, Product product, Partner partner) {
-        double _price = price;
-        int _quantity = quantity;
-        Product _product = product;
-        Partner _partner = partner;
+        _price = price;
+        _quantity = quantity;
+        _product = product;
+        _partner = partner;
     }
 
     public double getPrice() {
