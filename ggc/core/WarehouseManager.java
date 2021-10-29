@@ -20,7 +20,6 @@ import ggc.core.exception.MissingFileAssociationException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
-import ggc.core.exception.ProductDoesNotExistException;
 
 /** Façade for access. */
 public class WarehouseManager {
@@ -31,7 +30,6 @@ public class WarehouseManager {
   /** The wharehouse itself. */
   private Warehouse _warehouse = new Warehouse();
 
-  //FIXME define other attributes
   //FIXME define constructor(s)
 
   /**
@@ -40,11 +38,14 @@ public class WarehouseManager {
    * @@throws MissingFileAssociationException
    */
   public void save() throws IOException, FileNotFoundException, MissingFileAssociationException {
-    /*
-    ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(_filename + ".bin"));
+    if(_filename.equals("")) {
+      throw new MissingFileAssociationException();
+    }
+    
+    try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(_filename))) {
+      objectOutputStream.writeObject(_warehouse);
+    }
 
-    objectOutputStream.writeObject(_warehouse);
-    */
   }
 
   /**
@@ -64,12 +65,12 @@ public class WarehouseManager {
    * @throws IOException
    */
   public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
-    /*
-    ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(_filename + ".bin"));
+    try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filename))) {
 
-    _warehouse = (Warehouse) objectInputStream.readObject();
-    objectInputStream.close();
-    */
+      _warehouse = (Warehouse) objectInputStream.readObject();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -79,7 +80,7 @@ public class WarehouseManager {
   public void importFile(String textfile) throws ImportFileException {
     try {
       _warehouse.importFile(textfile);
-    } catch (IOException | BadEntryException | ProductDoesNotExistException | PartnerDoesNotExistException | PartnerKeyAlreadyExistException  e) {
+    } catch (ImportFileException  e) {
       throw new ImportFileException(textfile, e);
     }
   }

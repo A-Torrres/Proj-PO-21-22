@@ -4,9 +4,6 @@ import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import ggc.core.WarehouseManager;
 import ggc.core.exception.MissingFileAssociationException;
 
@@ -22,38 +19,21 @@ class DoSaveFile extends Command<WarehouseManager> {
 
   @Override
   public final void execute() throws CommandException {
-    //FIXME implement command and create a local Form
-
-    if(_receiver.getFileName() != "") {
-      try {
-      _receiver.save();
-      }
-      catch (MissingFileAssociationException mfae) {
-        //??? file does not exist?
-      }
-      catch (FileNotFoundException fnfe) {
-        //???
-      }
-      catch (IOException ioe) {
-        //???
-      }
-    }
-  
-    Form form = new Form();
-    form.addStringField("file", Message.saveAs());
-    String filename = form.stringField("file");
 
     try {
-      _receiver.saveAs(filename);
+    _receiver.save();
     }
     catch (MissingFileAssociationException mfae) {
-      //??? file does not exist?
+      String filename = Form.requestString(Message.newSaveAs());
+      
+      try {
+        _receiver.saveAs(filename);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
-    catch (FileNotFoundException fnfe) {
-      //???
-    }
-    catch (IOException ioe) {
-      //???
+    catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

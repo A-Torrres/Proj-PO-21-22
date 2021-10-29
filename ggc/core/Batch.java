@@ -40,7 +40,7 @@ public class Batch implements Serializable{
     @Override
     public String toString() {
         return _product.getID() + "|" + _partner.getID() + "|" +
-                _price + "|" + _quantity;
+                Math.round(_price) + "|" + _quantity;
     }
 
 }

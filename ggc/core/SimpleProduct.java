@@ -11,7 +11,7 @@ public class SimpleProduct extends Product {
    */
     @Override
     public String toString() {
-        return this.toString();
+        return getID() + "|" + Math.round(getMaxPrice()) + "|" + getTotalQuantity();
     }
 
 }
