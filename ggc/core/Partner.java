@@ -1,11 +1,13 @@
 package ggc.core;
 
+import java.io.Serializable;
+
 /*
 import java.util.List;
 import java.util.Set;
 */
 
-public class Partner {
+public class Partner implements Serializable {
 
     private static final long serialVersionUID = 23761274981643L;
 
@@ -49,9 +51,9 @@ public class Partner {
         return  _id + "|" + _name + "|" + 
                 _address + "|" + 
                 _status + "|" +
-                _points + "|" + 
-                _valorCompras + "|" +
-                _valorVendasEfetuadas + "|" + 
-                _valorVendasPagas;
+                Math.round(_points) + "|" + 
+                Math.round(_valorCompras) + "|" +
+                Math.round(_valorVendasEfetuadas) + "|" + 
+                Math.round(_valorVendasPagas);
     }
 }

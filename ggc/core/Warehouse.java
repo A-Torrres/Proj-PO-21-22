@@ -5,13 +5,14 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
 
-import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.exception.BadEntryException;
+import ggc.core.exception.ImportFileException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
@@ -46,10 +47,16 @@ public class Warehouse implements Serializable {
    * @throws PartnerKeyAlreadyExistException
    * @throws PartnerDoesNotExistException
    * @throws ProductDoesNotExistException
+   * @throws ImportFileException
    */
-  void importFile(String txtfile) throws IOException, BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException, PartnerKeyAlreadyExistException {
+  void importFile(String txtfile) throws ImportFileException {
     Parser parser = new Parser(this);
-    parser.parseFile(txtfile);
+    try {
+      parser.parseFile(txtfile);
+    }
+    catch (Exception e) {
+      throw new ImportFileException();
+    }
   }
 
   /**
@@ -83,7 +90,7 @@ public class Warehouse implements Serializable {
     _products.forEach(
       (id, product) -> batches.addAll(product.getBatches()));
     
-    return batches;
+    return Collections.unmodifiableCollection(batches);
   }
 
   /**

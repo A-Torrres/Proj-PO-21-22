@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-public class Recipe implements Serializable{
+public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 20938189723908L;
 
@@ -37,7 +37,7 @@ public class Recipe implements Serializable{
                 components += "#";
         }
 
-        return Double.toString(_alpha) + "|" + components;
+        return "" + Math.round(_alpha) + "|" + components;
     }
 
 }

@@ -1,6 +1,7 @@
 package ggc.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Product implements Serializable {
@@ -18,14 +19,14 @@ public abstract class Product implements Serializable {
     // temos de ter uma maneira de atualizar o maxPrice
     Product(String id, double price) {
         _id = id;
-        if(_maxPrice < price)
-            _maxPrice = price;
+        _maxPrice = price;
+        _batches = new ArrayList<>();
     }
 
     /**
      * @return the product's id.
      */
-    String getID() {
+    public String getID() {
         return _id;
     }
     
@@ -55,16 +56,15 @@ public abstract class Product implements Serializable {
     List<Batch> getBatches() {
         return _batches;
     }
-    
-    /**
-     * @return idProduto|preço-máximo|stock-actual-total
-     */
-    @Override
-    public String toString() {
-        return getID() + "|" + getMaxPrice() + "|" + getTotalQuantity();
-    }
 
     void addBatch(double price, int quantity, Product product, Partner partner) {
         _batches.add(new Batch(price, quantity, product, partner));
     }
+
+    /**
+     * @return idProduto|preço-máximo|stock-actual-total
+     */
+    @Override
+    public abstract String toString();
+    
 }
