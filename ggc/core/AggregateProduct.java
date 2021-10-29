@@ -13,6 +13,9 @@ public class AggregateProduct extends Product{
         _recipe = recipe;
     }
 
+    /**
+     * AggregateProduct's recipe is immutable once declared
+     */
     void addRecipe(Recipe recipe) {
         if(_recipe == null) {
             _recipe = recipe;

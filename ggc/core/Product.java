@@ -16,7 +16,6 @@ public abstract class Product implements Serializable {
         this(id, 0);
     }
 
-    // temos de ter uma maneira de atualizar o maxPrice
     Product(String id, double price) {
         _id = id;
         _maxPrice = price;
@@ -55,13 +54,13 @@ public abstract class Product implements Serializable {
         return _batches;
     }
 
+    /**
+     * adds a new batch to the batches list
+     */
     void addBatch(double price, int quantity, Product product, Partner partner) {
         _batches.add(new Batch(price, quantity, product, partner));
     }
 
-    /**
-     * @return idProduto|preço-máximo|stock-actual-total
-     */
     @Override
     public abstract String toString();
     

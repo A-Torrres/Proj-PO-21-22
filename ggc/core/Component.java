@@ -14,13 +14,13 @@ public class Component implements Serializable {
         _product = prod;
     }
 
-    /**
-    * @return componente:quantidade
-    */
     public int getQuantity() {
         return _quantity;
     }
 
+    /**
+    * @return componente:quantidade
+    */
     @Override
     public String toString() {
         return _product.getID() + ":" + _quantity;
