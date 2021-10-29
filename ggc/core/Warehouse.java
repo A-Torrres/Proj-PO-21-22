@@ -5,6 +5,7 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,7 +70,7 @@ public class Warehouse implements Serializable {
    * @return warehouse's products.
    */
   Collection<Product> getProducts() {
-    return _products;
+    return Collections.unmodifiableCollection(_products);
   }
 
   /**
@@ -81,7 +82,7 @@ public class Warehouse implements Serializable {
     for(Product p: _products)
       batches.addAll(p.getBatches());
     
-    return batches;
+    return Collections.unmodifiableCollection(batches);
   }
 
   /**
