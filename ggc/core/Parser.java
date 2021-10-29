@@ -74,7 +74,7 @@ public class Parser {
     int stock = Integer.parseInt(components[4]);
 
     if(!_store.existsProduct(idProduct)) {
-      _store.addSimpleProduct(idProduct);
+      _store.addSimpleProduct(idProduct, price);
     }
 
     Product product = _store.getProduct(idProduct);

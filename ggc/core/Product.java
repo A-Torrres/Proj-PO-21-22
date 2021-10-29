@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Product implements Serializable {
 
-    private static final long serialVersionUID = 2198371982732L; //?!?!
+    private static final long serialVersionUID = 2198371982732L;
 
     private String _id;
     private double _maxPrice;
@@ -42,9 +42,7 @@ public abstract class Product implements Serializable {
      */
     int getTotalQuantity() {
         int total = 0;
-        // se o batch for null quer dizer que atualmente 
-        // nao existem quantidades no warehouse
-        if(_batches.isEmpty())      
+        if(!_batches.isEmpty())      
             for(Batch b: _batches)
                 total += b.getQuantity();
         return total;

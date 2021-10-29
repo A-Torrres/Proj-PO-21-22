@@ -2,8 +2,8 @@ package ggc.core;
 
 public class SimpleProduct extends Product {
     
-    SimpleProduct(String id){
-        super(id);
+    SimpleProduct(String id, double price){
+        super(id, price);
     }
 
     /**
@@ -11,7 +11,9 @@ public class SimpleProduct extends Product {
    */
     @Override
     public String toString() {
-        return getID() + "|" + Math.round(getMaxPrice()) + "|" + getTotalQuantity();
+        return  getID() + "|" + 
+                Math.round(getMaxPrice()) + "|" + 
+                getTotalQuantity();
     }
 
 }

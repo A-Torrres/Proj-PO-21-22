@@ -87,10 +87,8 @@ public class Warehouse implements Serializable {
   Collection<Batch> getBatches() {
     List<Batch> batches = new ArrayList<>();
     
-    _products.forEach(
-      (id, product) -> batches.addAll(product.getBatches()));
-    
-    return Collections.unmodifiableCollection(batches);
+    _products.forEach( (id, product)-> batches.addAll(product.getBatches()));
+    return batches;
   }
 
   /**
@@ -98,11 +96,10 @@ public class Warehouse implements Serializable {
    * @throws PartnerDoesNotExistException
    */
   Partner getPartner(String id) throws PartnerDoesNotExistException {
-    Partner p = _partners.get(id);
-    
+    Partner p = _partners.get(id.toUpperCase());
+
     if(p == null)
       throw new PartnerDoesNotExistException(id);
-
     return p;
   }
 
@@ -115,32 +112,30 @@ public class Warehouse implements Serializable {
 
   void addPartner(String id, String name, String address) 
       throws PartnerKeyAlreadyExistException {
-    
-    if(_partners.containsKey(id))
-        throw new PartnerKeyAlreadyExistException();
+    String ID = id.toUpperCase();
 
-    _partners.put(id, new Partner(id, name, address));
+    if(_partners.containsKey(ID))
+        throw new PartnerKeyAlreadyExistException();
+    _partners.put(ID, new Partner(id, name, address));
   }
 
   boolean existsProduct(String id) {
-    return _products.containsKey(id);
+    return _products.containsKey(id.toUpperCase());
   }
 
   void addSimpleProduct(String id, double price) {
-    _products.put(id, new SimpleProduct(id)); //add price to constructor
-  }
-
-  void addSimpleProduct(String id) {
-    this.addSimpleProduct(id, 0.0);
-  }
-
-  Product getProduct(String id) throws ProductDoesNotExistException {
-    if(_products.containsKey(id))
-      return _products.get(id);
-    else throw new ProductDoesNotExistException();
+    _products.put(id.toUpperCase(), new SimpleProduct(id, price));
   }
 
   void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
-    _products.put(id, aggregateProduct);
+    _products.put(id.toUpperCase(), aggregateProduct);
   }
+
+  Product getProduct(String id) throws ProductDoesNotExistException {
+    Product p = _products.get(id.toUpperCase());
+    if(p == null)
+      throw new ProductDoesNotExistException();
+    return p;
+  }
+
 }

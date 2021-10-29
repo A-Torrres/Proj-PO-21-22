@@ -30,18 +30,15 @@ public class WarehouseManager {
   /** The wharehouse itself. */
   private Warehouse _warehouse = new Warehouse();
 
-  //FIXME define constructor(s)
-
   /**
    * @@throws IOException
    * @@throws FileNotFoundException
    * @@throws MissingFileAssociationException
    */
   public void save() throws IOException, FileNotFoundException, MissingFileAssociationException {
-    if(_filename.equals("")) {
+    if(_filename.equals("")) 
       throw new MissingFileAssociationException();
-    }
-    
+
     try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(_filename))) {
       objectOutputStream.writeObject(_warehouse);
     }
@@ -64,13 +61,14 @@ public class WarehouseManager {
    * @@throws UnavailableFileException
    * @throws IOException
    */
-  public void load(String filename) throws UnavailableFileException, ClassNotFoundException {
+  public void load(String filename) throws UnavailableFileException, ClassNotFoundException, IOException {
     try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(filename))) {
-
       _warehouse = (Warehouse) objectInputStream.readObject();
-    } catch (IOException e) {
-      e.printStackTrace();
     }
+    catch (FileNotFoundException fnfe) {
+      throw new UnavailableFileException(filename);
+    }
+    _filename = filename;
   }
 
   /**

@@ -2,11 +2,6 @@ package ggc.core;
 
 import java.io.Serializable;
 
-/*
-import java.util.List;
-import java.util.Set;
-*/
-
 public class Partner implements Serializable {
 
     private static final long serialVersionUID = 23761274981643L;
