@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.io.IOException;
 
+import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.exception.BadEntryException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
+import ggc.core.exception.ProductDoesNotExistException;
 
 /**
  * Class Warehouse implements a warehouse.
@@ -29,26 +29,28 @@ public class Warehouse implements Serializable {
   private static final String List = null;
   
   private Date _date;
-  private Set<Product> _products;
+  private Map<String, Product> _products;
   private Map<String, Partner> _partners;
-  //private Set<Transaction> _transaction;
 
   
   // faco as atribuicoes quando declaro as variaveis ou aqui no construtor?
   Warehouse() {
     _date = new Date();
-    _products = new HashSet<>();
+    _products = new HashMap<String, Product>();
     _partners = new HashMap<String, Partner>();
-    //_transaction = new HashSet<>();
   }
 
   /**
    * @param txtfile filename to be loaded.
    * @throws IOException
    * @throws BadEntryException
+   * @throws PartnerKeyAlreadyExistException
+   * @throws PartnerDoesNotExistException
+   * @throws ProductDoesNotExistException
    */
-  void importFile(String txtfile) throws IOException, BadEntryException /* FIXME maybe other exceptions */ {
-    //FIXME implement method
+  void importFile(String txtfile) throws IOException, BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException, PartnerKeyAlreadyExistException {
+    Parser parser = new Parser(this);
+    parser.parseFile(txtfile);
   }
 
   /**
@@ -70,7 +72,7 @@ public class Warehouse implements Serializable {
    * @return warehouse's products.
    */
   Collection<Product> getProducts() {
-    return Collections.unmodifiableCollection(_products);
+    return _products.values();
   }
 
   /**
@@ -79,8 +81,8 @@ public class Warehouse implements Serializable {
   Collection<Batch> getBatches() {
     List<Batch> batches = new ArrayList<>();
     
-    for(Product p: _products)
-      batches.addAll(p.getBatches());
+    _products.forEach(
+      (id, product) -> batches.addAll(product.getBatches()));
     
     return Collections.unmodifiableCollection(batches);
   }
@@ -93,7 +95,7 @@ public class Warehouse implements Serializable {
     Partner p = _partners.get(id);
     
     if(p == null)
-      throw new PartnerDoesNotExistException();
+      throw new PartnerDoesNotExistException(id);
 
     return p;
   }
@@ -101,8 +103,8 @@ public class Warehouse implements Serializable {
   /**
    * @return warehouse's partners.
    */
-  Map<String, Partner> getPartners() {
-    return _partners;
+  Collection<Partner> getPartners() {
+    return _partners.values();
   }
 
   void addPartner(String id, String name, String address) 
@@ -114,4 +116,25 @@ public class Warehouse implements Serializable {
     _partners.put(id, new Partner(id, name, address));
   }
 
+  boolean existsProduct(String id) {
+    return _products.containsKey(id);
+  }
+
+  void addSimpleProduct(String id, double price) {
+    _products.put(id, new SimpleProduct(id)); //add price to constructor
+  }
+
+  void addSimpleProduct(String id) {
+    this.addSimpleProduct(id, 0.0);
+  }
+
+  Product getProduct(String id) throws ProductDoesNotExistException {
+    if(_products.containsKey(id))
+      return _products.get(id);
+    else throw new ProductDoesNotExistException();
+  }
+
+  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
+    _products.put(id, aggregateProduct);
+  }
 }

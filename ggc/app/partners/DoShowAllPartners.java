@@ -6,7 +6,6 @@ import pt.tecnico.uilib.menus.CommandException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import ggc.core.Partner;
 import ggc.core.WarehouseManager;
@@ -23,10 +22,9 @@ class DoShowAllPartners extends Command<WarehouseManager> {
   @Override
   public void execute() throws CommandException {
     List<String> partnersToString = new ArrayList<>();
-    Map<String, Partner> partners = _receiver.getPartners();
     
-    partners.forEach(
-      (id, partner) -> partnersToString.add(partner.toString()));
+    for(Partner p: _receiver.getPartners())
+      partnersToString.add(p.toString());
 
     Collections.sort(partnersToString, String.CASE_INSENSITIVE_ORDER);
     _display.popup(partnersToString);

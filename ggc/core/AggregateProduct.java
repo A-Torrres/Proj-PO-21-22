@@ -13,6 +13,12 @@ public class AggregateProduct extends Product{
         _recipe = recipe;
     }
 
+    void addRecipe(Recipe recipe) {
+        if(_recipe == null) {
+            _recipe = recipe;
+        }
+    }
+
     /**
    * @return idProduto|preço-máximo|stock-actual-total|agravamento|
    *        componente-1:quantidade-1#...#componente-n:quantidade-n
