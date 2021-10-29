@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Product implements Serializable {
 
-    private static final long serialVersionUID = 201589886410L; //?!?!
+    private static final long serialVersionUID = 2198371982732L; //?!?!
 
     private String _id;
     private double _maxPrice;
