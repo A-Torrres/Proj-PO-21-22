@@ -102,7 +102,7 @@ public class Parser {
       }
     }
     
-    AggregateProduct aggregatedProduct = new AggregateProduct(idProduct);
+    AggregateProduct aggregatedProduct = new AggregateProduct(idProduct, Double.parseDouble(components[3]));
     Recipe recipe = new Recipe(Double.parseDouble(components[5]), aggregatedProduct, recipeComponents);
     aggregatedProduct.addRecipe(recipe);
     

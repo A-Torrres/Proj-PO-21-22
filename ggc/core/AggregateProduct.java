@@ -4,13 +4,15 @@ public class AggregateProduct extends Product{
     
     private Recipe _recipe;
 
-    AggregateProduct(String id){
-        super(id);
-    }
-    
-    AggregateProduct(String id, Recipe recipe){
-        super(id);
-        _recipe = recipe;
+
+    AggregateProduct(String id, double price, Recipe recipe){
+            super(id, price);
+            _recipe = recipe;
+        }
+
+
+    AggregateProduct(String id, double price){
+        super(id, price);
     }
 
     /**

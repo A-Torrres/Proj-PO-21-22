@@ -12,9 +12,6 @@ public abstract class Product implements Serializable {
     private double _maxPrice;
     private List<Batch> _batches;
     
-    Product(String id){
-        this(id, 0);
-    }
 
     Product(String id, double price) {
         _id = id;
@@ -59,6 +56,8 @@ public abstract class Product implements Serializable {
      */
     void addBatch(double price, int quantity, Product product, Partner partner) {
         _batches.add(new Batch(price, quantity, product, partner));
+        if(_maxPrice < price)
+            _maxPrice = price;
     }
 
     @Override
