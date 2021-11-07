@@ -74,16 +74,17 @@ public class Parser {
     int stock = Integer.parseInt(components[4]);
 
     if(!_store.existsProduct(idProduct)) {
-      _store.addSimpleProduct(idProduct, price);
+      _store.addSimpleProduct(idProduct, new SimpleProduct(idProduct, price));
     }
 
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);
 
-    product.addBatch(price, stock, product, partner);
+    //product.addBatch(price, stock, product, partner);
+    product.addBatch(new Batch(price, stock, product, partner), price);
   }
- 
-    
+  
+  
   //BATCH_M|idProduto|idParceiro|prec ̧o|stock-actual|agravamento|componente-1:quantidade-1#...#componente-n:quantidade-n
   private void parseAggregateProduct(String[] components, String line) throws BadEntryException, NumberFormatException, ProductDoesNotExistException, PartnerDoesNotExistException {
     if (components.length != 7)
@@ -113,7 +114,8 @@ public class Parser {
     double price = Double.parseDouble(components[3]);
     int stock = Integer.parseInt(components[4]);
 
-    product.addBatch(price, stock, product, partner);
+    //product.addBatch(price, stock, product, partner);
+    product.addBatch(new Batch(price, stock, product, partner), price);
   }
 
 }

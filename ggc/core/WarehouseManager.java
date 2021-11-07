@@ -20,6 +20,7 @@ import ggc.core.exception.MissingFileAssociationException;
 import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
+import ggc.core.exception.ProductDoesNotExistException;
 
 /** Façade for access. */
 public class WarehouseManager {
@@ -42,7 +43,6 @@ public class WarehouseManager {
     try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(_filename))) {
       objectOutputStream.writeObject(_warehouse);
     }
-
   }
 
   /**
@@ -78,7 +78,7 @@ public class WarehouseManager {
   public void importFile(String textfile) throws ImportFileException {
     try {
       _warehouse.importFile(textfile);
-    } catch (ImportFileException  e) {
+    } catch (ImportFileException e) {
       throw new ImportFileException(textfile, e);
     }
   }
@@ -113,6 +113,14 @@ public class WarehouseManager {
    */
   public Collection<Batch> getBatches() {
     return Collections.unmodifiableCollection(_warehouse.getBatches());
+  }
+  
+  public Collection<Batch> getBatchesByPartner(String id) throws PartnerDoesNotExistException {
+    return Collections.unmodifiableCollection(_warehouse.getBatchesByPartner(id));
+  }
+  
+  public Collection<Batch> getBatchesByProduct(String id) throws ProductDoesNotExistException {
+    return Collections.unmodifiableCollection(_warehouse.getBatchesByProduct(id));
   }
 
   public Partner getPartner(String id) throws PartnerDoesNotExistException {

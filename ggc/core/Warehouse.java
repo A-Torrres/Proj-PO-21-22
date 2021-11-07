@@ -5,7 +5,6 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,12 +81,73 @@ public class Warehouse implements Serializable {
   }
 
   /**
+   * @param id a product id.
+   * @return true if product exists, false otherwise.
+   */
+  boolean existsProduct(String id) {
+    return _products.containsKey(id.toUpperCase());
+  }
+
+  /**
+   * @param id a product id.
+   * @param simpleProduct the new simple product.
+   */
+  void addSimpleProduct(String id, SimpleProduct simpleProduct) {
+    _products.put(id.toUpperCase(), simpleProduct);
+  }
+
+  /**
+   * @param id a product id.
+   * @param aggregateProduct the new aggregate product.
+   */
+  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
+    _products.put(id.toUpperCase(), aggregateProduct);
+  }
+
+  /**
+   * @param id a product id.
+   * @throws ProductDoesNotExistException
+   * @return product with id id.
+   */
+  Product getProduct(String id) throws ProductDoesNotExistException {
+    Product p = _products.get(id.toUpperCase());
+    
+    if(p == null)
+      throw new ProductDoesNotExistException();
+    return p;
+  }
+
+  /**
    * @return warehouse's current batches.
    */
   Collection<Batch> getBatches() {
     List<Batch> batches = new ArrayList<>();
     
     _products.forEach( (id, product)-> batches.addAll(product.getBatches()));
+    return batches;
+  }
+  
+  /**
+   * @param id a partner id.
+   * @throws PartnerDoesNotExistException
+   * @return partner's batches.
+   */
+  Collection<Batch> getBatchesByPartner(String id) throws PartnerDoesNotExistException {
+    List<Batch> batches = new ArrayList<>();
+    
+    batches.addAll(getPartner(id).getBatches());
+    return batches;
+  }
+  
+  /**
+   * @param id a product id.
+   * @throws ProductDoesNotExistException
+   * @return product's batches.
+   */
+  Collection<Batch> getBatchesByProduct(String id) throws ProductDoesNotExistException {
+    List<Batch> batches = new ArrayList<>();
+    
+    batches.addAll(getProduct(id).getBatches());
     return batches;
   }
 
@@ -110,6 +170,12 @@ public class Warehouse implements Serializable {
     return _partners.values();
   }
 
+  /**
+   * @param id a partner id.
+   * @param name the partner name.
+   * @param adress the partner address.
+   * @throws PartnerKeyAlreadyExistException
+   */
   void addPartner(String id, String name, String address) 
       throws PartnerKeyAlreadyExistException {
     String ID = id.toUpperCase();
@@ -117,25 +183,6 @@ public class Warehouse implements Serializable {
     if(_partners.containsKey(ID))
         throw new PartnerKeyAlreadyExistException();
     _partners.put(ID, new Partner(id, name, address));
-  }
-
-  boolean existsProduct(String id) {
-    return _products.containsKey(id.toUpperCase());
-  }
-
-  void addSimpleProduct(String id, double price) {
-    _products.put(id.toUpperCase(), new SimpleProduct(id, price));
-  }
-
-  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
-    _products.put(id.toUpperCase(), aggregateProduct);
-  }
-
-  Product getProduct(String id) throws ProductDoesNotExistException {
-    Product p = _products.get(id.toUpperCase());
-    if(p == null)
-      throw new ProductDoesNotExistException();
-    return p;
   }
 
 }

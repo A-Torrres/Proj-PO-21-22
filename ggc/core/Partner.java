@@ -1,6 +1,8 @@
 package ggc.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Partner implements Serializable {
 
@@ -11,6 +13,7 @@ public class Partner implements Serializable {
     private String _address;
     private String _status; //Enum
     private double _points;
+    private List<Batch> _batches;
     private double _valorCompras;   //por simplicidade
     private double _valorVendasEfetuadas;   //por simplicidade
     private double _valorVendasPagas;   //por simplicidade
@@ -27,6 +30,7 @@ public class Partner implements Serializable {
         _name = name;
         _address = address;
         _status = "NORMAL";
+        _batches = new ArrayList<>();
     }
 
     /**
@@ -37,13 +41,28 @@ public class Partner implements Serializable {
     }
 
     /**
+     * @return the List of batches.
+     */
+    List<Batch> getBatches() {
+        return _batches;
+    }
+
+    /**
+     * adds a new batch to the batches list
+     */
+    void addBatch(Batch batch) {
+        _batches.add(batch);
+    }
+
+    /**
    * @return id|nome|endereço|estatuto|pontos|valor-compras|
    *        valor-vendas-efectuadas|valor-vendas-pagas
    *        + notificacoes
    */
     @Override
     public String toString() {
-        return  _id + "|" + _name + "|" + 
+        return  _id + "|" + 
+                _name + "|" + 
                 _address + "|" + 
                 _status + "|" +
                 Math.round(_points) + "|" + 

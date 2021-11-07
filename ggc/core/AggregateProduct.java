@@ -5,10 +5,10 @@ public class AggregateProduct extends Product{
     private Recipe _recipe;
 
 
-    AggregateProduct(String id, double price, Recipe recipe){
+    AggregateProduct(String id, double price, Recipe recipe) {
             super(id, price);
             _recipe = recipe;
-        }
+    }
 
 
     AggregateProduct(String id, double price){
@@ -30,9 +30,7 @@ public class AggregateProduct extends Product{
    */
     @Override
     public String toString() {
-        return  getID() + "|" + 
-                Math.round(getMaxPrice()) + "|" + 
-                getTotalQuantity() + "|" + 
+        return  super.toString() + "|" + 
                 _recipe.toString();
     }
     

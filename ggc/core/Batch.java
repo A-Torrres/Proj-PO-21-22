@@ -2,7 +2,7 @@ package ggc.core;
 
 import java.io.Serializable;
 
-public class Batch implements Serializable{
+public class Batch implements Serializable {
 
     private static final long serialVersionUID = 301486876482L;
 
