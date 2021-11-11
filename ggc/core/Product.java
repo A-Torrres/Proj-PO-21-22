@@ -32,6 +32,8 @@ public abstract class Product implements Serializable {
         return _maxPrice;
     }
 
+    abstract int getDeadLine();
+
     /**
      * @return int with quantity of product in the warehouse.
      */
@@ -79,5 +81,5 @@ public abstract class Product implements Serializable {
         Math.round(getMaxPrice()) + "|" + 
         getTotalQuantity();
     }
-    
+
 }

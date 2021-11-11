@@ -1,21 +1,18 @@
-/*
+
 package ggc.core;
 
 public class Acquisition extends Transaction {
-    
-    private Partner _partner;
 
-    Acquisition(Product prod, int quant, Partner part) {
-        //super();
-        _partner = part;
+    Acquisition(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(id, paymentD, baseValue, quant, prod, part);
     }
 
     /**
    * @return ?
-   *
+   */
     @Override
     public String toString() {
         return "";
     }
+
 }
-*/

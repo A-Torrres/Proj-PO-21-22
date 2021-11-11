@@ -1,4 +1,4 @@
-/*
+
 package ggc.core;
 
 import java.util.List;
@@ -7,16 +7,17 @@ public class BreakDownSale extends Sale {
 
     private List<Batch> _batch;
 
-    void BreakDownSale(Product prod, int quant, Partner part) {
-        //super();
+    BreakDownSale(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(id, paymentD, baseValue, quant, prod, part);
     }
 
     /**
    * @return ?
-   *
+   */
     @Override
     public String toString() {
         return "";
     }
+
 }
-*/
+

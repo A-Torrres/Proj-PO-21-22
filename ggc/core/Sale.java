@@ -1,13 +1,10 @@
-/*
+
 package ggc.core;
 
-public abstract class Sale {
-    
-    private Partner _partner;
+public abstract class Sale extends Transaction {
 
-    Sale(Product prod, int quant, Partner part) {
-
+    Sale(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(id, paymentD, baseValue, quant, prod, part);
     }
 
 }
-*/

@@ -2,8 +2,9 @@ package ggc.core;
 
 public class AggregateProduct extends Product{
     
+    private static final int DEADLINE = 3;
     private Recipe _recipe;
-
+    
 
     AggregateProduct(String id, double price, Recipe recipe) {
             super(id, price);
@@ -13,6 +14,11 @@ public class AggregateProduct extends Product{
 
     AggregateProduct(String id, double price){
         super(id, price);
+    }
+
+    @Override
+    int getDeadLine() {
+        return DEADLINE;
     }
 
     /**

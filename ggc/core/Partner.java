@@ -3,6 +3,7 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Partner implements Serializable {
 
@@ -12,20 +13,17 @@ public class Partner implements Serializable {
     private String _name;
     private String _address;
     private double _points;
-    private PartnerState _status = new Normal();
+    private PartnerState _status = Normal.getStatus();
     private Collection<Batch> _batches = new ArrayList<>();
     //private List<Notification> _notification;
+
+    private Collection<Acquisition> _acquisition = new HashSet<>();
+    private Collection<Sale> _sale = new HashSet<>();
 
     private double _valorCompras;           //por simplicidade
     private double _valorVendasEfetuadas;   //por simplicidade
     private double _valorVendasPagas;       //por simplicidade
-    /*
-    private Set<Acquisition> _acquisition;
-    private Set<Sale> _sale;
-     // ficam por ordem de criaçao
-    // como é que representamos se um Partner tem interesse num produto? 
-    // R: Vai ser um padrao de desenho q ainda n demos
-    */
+
 
     Partner (String id, String name, String address) {
         _id = id;

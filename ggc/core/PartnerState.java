@@ -19,6 +19,7 @@ class Normal implements PartnerState, Serializable {
     private static final int POINTS_THRESHOLD = 0;
 
     private Normal(){}
+    
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -52,6 +53,7 @@ class Selection implements PartnerState, Serializable {
     private static final int POINTS_THRESHOLD = 2000;
 
     private Selection(){}
+
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -85,6 +87,7 @@ class Elite implements PartnerState, Serializable {
     private static final int POINTS_THRESHOLD = 25000;
 
     private Elite(){}
+
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -108,4 +111,5 @@ class Elite implements PartnerState, Serializable {
     public double getPointsLost() {
         return 0.75;
     }
+    
 }
