@@ -54,6 +54,10 @@ public class Partner implements Serializable {
         _batches.add(batch);
     }
 
+    void updateStatus(Date date) {
+        //TODO: Update status/points
+    }
+
     /**
    * @return id|nome|endereço|estatuto|pontos|valor-compras|
    *        valor-vendas-efectuadas|valor-vendas-pagas

@@ -70,7 +70,7 @@ public class Warehouse implements Serializable {
    * @throws NegativeDaysException
    */
   void advanceDate(int days) throws NegativeDaysException {
-    _date.add(days);
+    _date.add(days, this);
   }
 
   /**
