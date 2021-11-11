@@ -2,7 +2,7 @@ package ggc.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public abstract class Product implements Serializable {
 
@@ -10,13 +10,12 @@ public abstract class Product implements Serializable {
 
     private String _id;
     private double _maxPrice;
-    private List<Batch> _batches;
+    private Collection<Batch> _batches = new ArrayList<>();
 
 
     Product(String id, double price) {
         _id = id;
         _maxPrice = price;
-        _batches = new ArrayList<>();
     }
 
     /**
@@ -47,7 +46,7 @@ public abstract class Product implements Serializable {
     /**
      * @return the List of batches.
      */
-    List<Batch> getBatches() {
+    Collection<Batch> getBatches() {
         return _batches;
     }
 
@@ -80,4 +79,5 @@ public abstract class Product implements Serializable {
         Math.round(getMaxPrice()) + "|" + 
         getTotalQuantity();
     }
+    
 }

@@ -23,20 +23,19 @@ class DoShowAvailableBatches extends Command<WarehouseManager> {
   @Override
   public final void execute() throws CommandException {
     List<Batch> batches = new ArrayList<>(_receiver.getBatches());
-    Collections.sort(batches, new Comp());
+    Collections.sort(batches, new BatchStringComp());
 
     _display.popup(batches);
   }
 
 }
 
-class Comp implements Comparator<Batch> {
+class BatchStringComp implements Comparator<Batch> {
 
   @Override
   public int compare(Batch b1, Batch b2) {
-      int res;
-      
-      res = b1.getProductID().compareTo(b2.getProductID());
+
+      int res = b1.getProductID().compareTo(b2.getProductID());
       if(res == 0) {
           res = b1.getPartnerID().compareTo(b2.getPartnerID());
           if(res == 0) {

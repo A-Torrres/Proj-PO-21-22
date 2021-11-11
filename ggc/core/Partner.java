@@ -2,7 +2,7 @@ package ggc.core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 public class Partner implements Serializable {
 
@@ -11,16 +11,18 @@ public class Partner implements Serializable {
     private String _id;
     private String _name;
     private String _address;
-    private String _status; //Enum
     private double _points;
-    private List<Batch> _batches;
-    private double _valorCompras;   //por simplicidade
+    private PartnerState _status = new Normal();
+    private Collection<Batch> _batches = new ArrayList<>();
+    //private List<Notification> _notification;
+
+    private double _valorCompras;           //por simplicidade
     private double _valorVendasEfetuadas;   //por simplicidade
-    private double _valorVendasPagas;   //por simplicidade
+    private double _valorVendasPagas;       //por simplicidade
     /*
     private Set<Acquisition> _acquisition;
     private Set<Sale> _sale;
-    private List<Notification> _notification; // ficam por ordem de criaçao
+     // ficam por ordem de criaçao
     // como é que representamos se um Partner tem interesse num produto? 
     // R: Vai ser um padrao de desenho q ainda n demos
     */
@@ -29,21 +31,19 @@ public class Partner implements Serializable {
         _id = id;
         _name = name;
         _address = address;
-        _status = "NORMAL";
-        _batches = new ArrayList<>();
     }
 
     /**
    * @return the partners's id.
    */
-    String getID(){
+    String getID() {
         return _id;
     }
 
     /**
      * @return the List of batches.
      */
-    List<Batch> getBatches() {
+    Collection<Batch> getBatches() {
         return _batches;
     }
 
@@ -64,7 +64,7 @@ public class Partner implements Serializable {
         return  _id + "|" + 
                 _name + "|" + 
                 _address + "|" + 
-                _status + "|" +
+                _status.toString() + "|" +
                 Math.round(_points) + "|" + 
                 Math.round(_valorCompras) + "|" +
                 Math.round(_valorVendasEfetuadas) + "|" + 

@@ -34,7 +34,7 @@ class DoShowBatchesByProduct extends Command<WarehouseManager> {
       throw new UnknownProductKeyException(id);
     }
 
-    Collections.sort(batches, new Comp());
+    Collections.sort(batches, new BatchStringComp());
     _display.popup(batches);
   }
 

@@ -34,7 +34,7 @@ class DoShowBatchesByPartner extends Command<WarehouseManager> {
       throw new UnknownPartnerKeyException(id);
     }
 
-    Collections.sort(batches, new Comp());
+    Collections.sort(batches, new BatchStringComp());
     _display.popup(batches);
   }
 
