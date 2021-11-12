@@ -2,8 +2,14 @@ package ggc.app.partners;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ggc.app.exception.UnknownPartnerKeyException;
+import ggc.core.Sale;
 import ggc.core.WarehouseManager;
-//FIXME import classes
+import ggc.core.exception.PartnerDoesNotExistException;
 
 /**
  * Show all transactions for a specific partner.
@@ -12,12 +18,24 @@ class DoShowPartnerSales extends Command<WarehouseManager> {
 
   DoShowPartnerSales(WarehouseManager receiver) {
     super(Label.SHOW_PARTNER_SALES, receiver);
-    //FIXME add command fields
+    addStringField("id", Message.requestPartnerKey());
   }
 
   @Override
   public void execute() throws CommandException {
-    //FIXME implement command
+    String id = stringField("id");
+    List<String> salesToString = new ArrayList<>();
+
+    try {
+      for(Sale sale : _receiver.getPartner(id).getSales()) {
+        salesToString.add(sale.toString());
+      }
+    } 
+    catch (PartnerDoesNotExistException pdnee) {
+      throw new UnknownPartnerKeyException(id);
+    }
+
+    _display.popup(salesToString);
   }
 
 }

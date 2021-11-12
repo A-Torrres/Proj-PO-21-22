@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 public class Partner implements Serializable {
 
@@ -61,6 +62,14 @@ public class Partner implements Serializable {
                 }
             }
         }
+    }
+
+    public ArrayList<Sale> getSales() {
+        return (ArrayList<Sale>) _sales;
+    }
+
+    public ArrayList<Acquisition> getAcquisitions() {
+        return (ArrayList<Acquisition>) _acquisitions;
     }
 
     /**
