@@ -41,8 +41,6 @@ public class SaleByCredit extends Sale {
         return 0;
     }
 
-
-
 }
 
 enum PaymentPeriod {
