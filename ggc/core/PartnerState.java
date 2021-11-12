@@ -155,4 +155,5 @@ class Elite implements PartnerState, Serializable {
     public int getPointThreshold() {
         return POINTS_THRESHOLD;
     }
+    
 }

@@ -2,13 +2,13 @@ package ggc.core;
 
 import java.io.Serializable;
 
-public class Notification implements Serializable{
+// notificacao por omissao
+public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1298312739089L;
 
     private String _type; // fazer Enum
     private Product _product;
-    //private boolean _notify;
 
     Notification(String type, Product prod) {
         _type = type;
@@ -23,4 +23,9 @@ public class Notification implements Serializable{
           return _type + "|" + _product.getID() + "|" /*+ _product.getPrice()?? */;
     }
     
+}
+
+enum NotificationType {
+    NEW{ public String toString(){ return "NEW";}},
+    BARGAIN{ public String toString(){ return "BARGAIN";}}
 }

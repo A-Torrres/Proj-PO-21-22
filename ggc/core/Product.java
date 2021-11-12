@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public abstract class Product implements Serializable {
+public abstract class Product implements Serializable, Observable {
 
     private static final long serialVersionUID = 2198371982732L;
 
     private String _id;
     private double _maxPrice;
     private Collection<Batch> _batches = new ArrayList<>();
+    private Collection<Observer> _observers = new ArrayList<>();
 
 
     Product(String id, double price) {
@@ -28,8 +29,25 @@ public abstract class Product implements Serializable {
     /**
      * @return the product's maxPrice.
      */
-    double getMaxPrice() {
+    public double getMaxPrice() {
         return _maxPrice;
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        _observers.add(obs);
+    }
+    
+    @Override
+    public void removeObserver(Observer obs) {
+        _observers.remove(obs);
+    }
+    
+    @Override
+    public void notifyObservers() {
+        for(Observer obs: _observers)
+            obs.update();
+            //obs.update(NotificationType.NEW);
     }
 
     abstract int getDeadLine();
@@ -52,16 +70,6 @@ public abstract class Product implements Serializable {
         return _batches;
     }
 
-/*
-    /**
-     * adds a new batch to the batches list
-     *
-    void addBatch(double price, int quantity, Product product, Partner partner) {
-        _batches.add(new Batch(price, quantity, product, partner));
-        if(_maxPrice < price)
-            _maxPrice = price;
-    }
-*/
     /**
      * adds a new batch to the batches list
      */

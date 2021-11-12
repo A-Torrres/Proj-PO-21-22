@@ -29,7 +29,9 @@ public abstract class Transaction {
     Product getProduct() {
         return _product;
     }
-  
+    
+    //abstract void pay();
+
     /**
    * @return true if paid, false otherwise.
    *

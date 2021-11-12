@@ -73,15 +73,15 @@ public class Parser {
     double price = Double.parseDouble(components[3]);
     int stock = Integer.parseInt(components[4]);
 
-    if(!_store.existsProduct(idProduct)) {
+    if(!_store.existsProduct(idProduct))
       _store.addSimpleProduct(idProduct, new SimpleProduct(idProduct, price));
-    }
 
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);
+    Batch batch = new Batch(price, stock, product, partner);
 
-    //product.addBatch(price, stock, product, partner);
-    product.addBatch(new Batch(price, stock, product, partner), price);
+    product.addBatch(batch, price);
+    partner.addBatch(batch);
   }
   
   
@@ -95,13 +95,11 @@ public class Parser {
 
     ArrayList<Component> recipeComponents = new ArrayList<>();
 
-    if(!_store.existsProduct(idProduct)) {
+    if(!_store.existsProduct(idProduct))
       for (String component : components[6].split("#")) {
         String[] recipeComponent = component.split(":");
         recipeComponents.add(new Component(Integer.parseInt(recipeComponent[0]), _store.getProduct(components[1])));
-
       }
-    }
     
     AggregateProduct aggregatedProduct = new AggregateProduct(idProduct, Double.parseDouble(components[3]));
     Recipe recipe = new Recipe(Double.parseDouble(components[5]), aggregatedProduct, recipeComponents);
@@ -114,8 +112,9 @@ public class Parser {
     double price = Double.parseDouble(components[3]);
     int stock = Integer.parseInt(components[4]);
 
-    //product.addBatch(price, stock, product, partner);
-    product.addBatch(new Batch(price, stock, product, partner), price);
+    Batch batch = new Batch(price, stock, product, partner);
+    product.addBatch(batch, price);
+    partner.addBatch(batch);
   }
 
 }

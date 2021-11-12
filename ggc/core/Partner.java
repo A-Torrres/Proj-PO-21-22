@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class Partner implements Serializable {
+public class Partner implements Observer, Serializable {
 
     private static final long serialVersionUID = 23761274981643L;
 
@@ -15,7 +15,7 @@ public class Partner implements Serializable {
     private double _points;
     private PartnerState _status = Normal.getStatus();
     private Collection<Batch> _batches = new ArrayList<>();
-    //private List<Notification> _notification;
+    private Collection<Notification> _notifications = new ArrayList<>();
 
     private Collection<Acquisition> _acquisitions = new HashSet<>();
     private Collection<Sale> _sales = new HashSet<>();
@@ -45,6 +45,10 @@ public class Partner implements Serializable {
         return _batches;
     }
 
+    public void update() {
+        // TO DO
+    }
+
     /**
      * adds a new batch to the batches list
      */
@@ -53,14 +57,12 @@ public class Partner implements Serializable {
     }
 
     void verifyPaymentPeriod(Date date) {
-        for(Sale sale : _sales) {
-            if(sale instanceof SaleByCredit) {
+        for(Sale sale : _sales)
+            if(sale instanceof SaleByCredit)
                 if(-_status.getGracePeriod() > sale.updatePeriod(date)) {
                     _points *= _status.getPointsRemaining();
                     _status = _status.getPrevious();
                 }
-            }
-        }
     }
 
     /**

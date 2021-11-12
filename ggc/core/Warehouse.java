@@ -27,17 +27,12 @@ public class Warehouse implements Serializable {
 
   private static final String List = null;
   
-  private Date _date;
-  private Map<String, Product> _products;
-  private Map<String, Partner> _partners;
-
-  
-  // faco as atribuicoes quando declaro as variaveis ou aqui no construtor?
-  Warehouse() {
-    _date = new Date();
-    _products = new HashMap<String, Product>();
-    _partners = new HashMap<String, Partner>();
-  }
+  private double _balance;
+  private Date _date = new Date();
+  private Map<String, Product> _products = new HashMap<String, Product>();
+  private Map<String, Partner> _partners = new HashMap<String, Partner>();
+  private static int _nextTransactionId = 0;
+  private Collection _transactions = new ArrayList<>();
 
   /**
    * @param txtfile filename to be loaded.
