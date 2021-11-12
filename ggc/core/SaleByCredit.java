@@ -41,6 +41,29 @@ public class SaleByCredit extends Sale {
         return 0;
     }
 
+    double getActualTotalPrice(Date currentDate) {
+        double modifier = 1.0;
+        PartnerState status = this.getPartner().getStatus();
+
+        switch(_paymentPeriod) {
+            case P1: modifier = status.getModifier(PaymentPeriod.P1, _deadLine.difference(currentDate));
+            case P2: modifier = status.getModifier(PaymentPeriod.P2, _deadLine.difference(currentDate));
+            case P3: modifier = status.getModifier(PaymentPeriod.P3, _deadLine.difference(currentDate));
+            case P4: modifier = status.getModifier(PaymentPeriod.P4, _deadLine.difference(currentDate));
+        }
+
+        return this.getBaseValue() * this.getQuantity() * modifier;
+    }
+
+    @Override
+    boolean isPaid() {
+        return _amountPaid != 0;
+    }
+
+    void pay(Date date) {
+        _amountPaid = getActualTotalPrice(date);
+    }
+
 }
 
 enum PaymentPeriod {

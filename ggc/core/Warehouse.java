@@ -66,12 +66,23 @@ public class Warehouse implements Serializable {
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
     for (Partner p : this.getPartners()) {
-      p.verifyPaymentPeriod(_date);
+      p.verifyLatePayments(_date);
     }
   }
 
-  public void addTransaction(Transaction t) {
+  Transaction getTransaction(int id) {
+    return _transactions.get("" + id);
+  }
+
+  void addTransaction(Transaction t) {
     _transactions.put("" + t.getID(), t);
+  }
+
+  void pay(int id) {
+    Transaction transaction = _transactions.get("" + id);
+    if(transaction instanceof SaleByCredit && !transaction.isPaid()) {
+      transaction.pay(getCurrentDate());
+    }
   }
 
   /**

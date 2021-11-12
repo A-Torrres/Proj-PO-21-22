@@ -38,15 +38,29 @@ public abstract class Transaction implements Serializable {
     int getID() {
         return _id;
     }
+
+    double getBaseValue() {
+        return _baseValue;
+    }
+
+    int getQuantity() {
+        return _quantity;
+    }
+
+    Partner getPartner() {
+        return _partner;
+    }
     
     //abstract void pay();
 
     /**
    * @return true if paid, false otherwise.
-   *
+   **/
     boolean isPaid() {
         return true;
     }
+
+    void pay(Date date) {}
 
     /**
    * @return ?
