@@ -9,7 +9,7 @@ import ggc.core.exception.NegativeDaysException;
  */
 public class Date implements Serializable {
 
-    private static final long serialVersionUID = 201589871010L; //?!?!
+    private static final long serialVersionUID = 201589871010L;
     private int _day;
 
     Date() {}

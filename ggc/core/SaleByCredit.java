@@ -13,7 +13,7 @@ public class SaleByCredit extends Sale {
     }
 
     /**
-    * @return ?
+    * @return 
     */
     @Override
     public String toString() {
