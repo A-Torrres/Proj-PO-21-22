@@ -34,20 +34,23 @@ public abstract class Product implements Serializable, Observable {
     }
 
     @Override
-    public void addObserver(Observer obs) {
-        _observers.add(obs);
+    public boolean addObserver(Observer obs) {
+        return _observers.add(obs);
     }
     
     @Override
-    public void removeObserver(Observer obs) {
-        _observers.remove(obs);
+    public boolean removeObserver(Observer obs) {
+        return _observers.remove(obs);
     }
     
+    boolean hasObserver(Observer obs) {
+        return _observers.contains(obs);
+    }
+
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(NotificationType type, double price) {
         for(Observer obs: _observers)
-            obs.update();
-            //obs.update(NotificationType.NEW);
+            obs.update(type, this, price);
     }
 
     abstract int getDeadLine();
@@ -57,10 +60,19 @@ public abstract class Product implements Serializable, Observable {
      */
     int getTotalQuantity() {
         int total = 0;
-        if(!_batches.isEmpty())      
-            for(Batch b: _batches)
-                total += b.getQuantity();
+        //if(!_batches.isEmpty())      
+        for(Batch b: _batches)
+            total += b.getQuantity();
         return total;
+    }
+
+    double findMinPrice() {
+        double min = _maxPrice;
+
+        for(Batch b: _batches)
+            if(min > b.getPrice())
+                min = b.getPrice();
+        return min;
     }
 
     /**
@@ -74,9 +86,18 @@ public abstract class Product implements Serializable, Observable {
      * adds a new batch to the batches list
      */
     void addBatch(Batch batch, double price) {
-        _batches.add(batch);
+        double minPrice = findMinPrice();
+
+        _batches.add(batch); 
+        
         if(_maxPrice < price)
             _maxPrice = price;
+        
+        if(minPrice > price)
+            notifyObservers(NotificationType.BARGAIN, price);
+
+        if(_batches.size() == 1)
+            notifyObservers(NotificationType.NEW, price);
     }
 
 /*

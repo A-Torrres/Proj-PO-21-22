@@ -1,5 +1,5 @@
 *** tests/A-10-01-M-ok.out	2021-11-07 16:04:59.092897000 +0000
---- tests/A-10-01-M-ok.outhyp	2021-11-12 02:58:40.205548689 +0000
+--- tests/A-10-01-M-ok.outhyp	2021-11-12 18:36:06.434498094 +0000
 ***************
 *** 33,46 ****
   4 - Registar compra
@@ -68,6 +68,19 @@
   2 - Registar desagregação
   3 - Registar venda
 ***************
+*** 67,72 ****
+--- 103,112 ----
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+  Escolha uma opção: Identificador do parceiro: S1|Toshiba|Tokyo, Japan|NORMAL|0|0|0|0
++ NEW|ROLHA|2000
++ NEW|HIDROGENIO|200
++ NEW|VIDRO|1000
++ NEW|SAL|1000
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+***************
 *** 75,81 ****
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
@@ -76,11 +89,15 @@
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 111,117 ----
+--- 115,125 ----
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
 ! Escolha uma opção: Identificador do parceiro: M1|Rohit Figueiredo|New Delhi, India|NORMAL|0|0|0|0
+! NEW|ROLHA|2000
+! NEW|HIDROGENIO|200
+! NEW|VIDRO|1000
+! NEW|SAL|1000
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros

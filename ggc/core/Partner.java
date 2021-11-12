@@ -3,6 +3,7 @@ package ggc.core;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class Partner implements Observer, Serializable {
@@ -45,8 +46,16 @@ public class Partner implements Observer, Serializable {
         return _batches;
     }
 
-    public void update() {
-        // TO DO
+    public Collection<Notification> getPartnerNotifications() {
+        return Collections.unmodifiableCollection(_notifications);
+    }
+
+    void clearNotifications() {
+        _notifications.clear();
+    }
+
+    public void update(NotificationType type, Product product, double price) {
+        _notifications.add(new Notification(type, product, price));
     }
 
     /**

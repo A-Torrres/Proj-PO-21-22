@@ -36,8 +36,7 @@ public class AggregateProduct extends Product{
    */
     @Override
     public String toString() {
-        return  super.toString() + "|" + 
-                _recipe.toString();
+        return  super.toString() + "|" + _recipe.toString();
     }
     
 }

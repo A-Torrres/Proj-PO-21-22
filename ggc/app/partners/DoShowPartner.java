@@ -2,7 +2,12 @@ package ggc.app.partners;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ggc.app.exception.UnknownPartnerKeyException;
+import ggc.core.Notification;
 import ggc.core.Partner;
 import ggc.core.WarehouseManager;
 import ggc.core.exception.PartnerDoesNotExistException;
@@ -21,6 +26,7 @@ class DoShowPartner extends Command<WarehouseManager> {
   public void execute() throws CommandException {
     String id = stringField("id");
     Partner partner;
+    List<String> notifications = new ArrayList<>();
 
     try {
       partner = _receiver.getPartner(id);
@@ -29,8 +35,12 @@ class DoShowPartner extends Command<WarehouseManager> {
       throw new UnknownPartnerKeyException(id);
     }
 
+    for(Notification n: partner.getPartnerNotifications())
+      notifications.add(n.toString());
+
     _display.popup(partner.toString());
-    //fica a faltar as notificacoes
+    _display.popup(notifications);
+    _receiver.clearNotifications(partner);
   }
 
 }

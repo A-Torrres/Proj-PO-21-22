@@ -133,8 +133,16 @@ public class WarehouseManager {
 
   public void addPartner(String id, String name, String address) 
       throws PartnerKeyAlreadyExistException {
-    
     _warehouse.addPartner(id, name, address);
+  }
+
+  public void toggleNotifications(String idPartner, String idProduct) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException {
+    _warehouse.toggleNotifications(idPartner, idProduct);
+  }
+  
+  public void clearNotifications(Partner partner) {
+    _warehouse.clearNotifications(partner);
   }
 
 }

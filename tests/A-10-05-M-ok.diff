@@ -1,5 +1,5 @@
 *** tests/A-10-05-M-ok.out	2021-11-07 16:04:59.123531000 +0000
---- tests/A-10-05-M-ok.outhyp	2021-11-12 02:58:40.533552169 +0000
+--- tests/A-10-05-M-ok.outhyp	2021-11-12 18:36:06.806498610 +0000
 ***************
 *** 16,22 ****
   4 - Registar compra
@@ -40,21 +40,41 @@
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
   Escolha uma opção: Identificador do parceiro: S1|Toshiba|Tokyo, Japan|NORMAL|0|0|0|0
-- BARGAIN|SAL|50
+! BARGAIN|SAL|50
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 61,66 ----
+--- 61,70 ----
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+  Escolha uma opção: Identificador do parceiro: S1|Toshiba|Tokyo, Japan|NORMAL|0|0|0|0
+! NEW|ROLHA|2000
+! NEW|HIDROGENIO|200
+! NEW|VIDRO|1000
+! NEW|SAL|100
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
 ***************
 *** 53,59 ****
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
   Escolha uma opção: Identificador do parceiro: M2|Toshiba|Tokyo, Japan|NORMAL|0|0|0|0
-- BARGAIN|SAL|50
+! BARGAIN|SAL|50
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 70,75 ----
+--- 74,83 ----
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+  Escolha uma opção: Identificador do parceiro: M2|Toshiba|Tokyo, Japan|NORMAL|0|0|0|0
+! NEW|ROLHA|2000
+! NEW|HIDROGENIO|200
+! NEW|VIDRO|1000
+! NEW|SAL|100
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
 ***************
 *** 80,86 ****
   4 - Registar compra
@@ -64,7 +84,7 @@
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
---- 96,118 ----
+--- 104,126 ----
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
@@ -97,7 +117,7 @@
   VIDRO|1000|500
   Gestão de Produtos
   1 - Visualizar todos os produtos
---- 138,144 ----
+--- 146,152 ----
   0 - Sair
   Escolha uma opção: HIDROGENIO|200|5000
   ROLHA|2000|500
@@ -114,7 +134,7 @@
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 166,171 ----
+--- 174,179 ----
 ***************
 *** 144,150 ****
   6 - Mostrar vendas (e desagregações) com parceiro
@@ -124,4 +144,4 @@
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 175,180 ----
+--- 183,188 ----

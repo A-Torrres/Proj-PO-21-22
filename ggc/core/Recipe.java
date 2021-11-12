@@ -37,7 +37,7 @@ public class Recipe implements Serializable {
                 components += "#";
         }
 
-        return "" + Math.round(_alpha) + "|" + components;
+        return components;
     }
 
 }

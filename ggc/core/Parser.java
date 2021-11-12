@@ -74,7 +74,7 @@ public class Parser {
     int stock = Integer.parseInt(components[4]);
 
     if(!_store.existsProduct(idProduct))
-      _store.addSimpleProduct(idProduct, new SimpleProduct(idProduct, price));
+      _store.addProduct(idProduct, new SimpleProduct(idProduct, price));
 
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);
@@ -105,7 +105,7 @@ public class Parser {
     Recipe recipe = new Recipe(Double.parseDouble(components[5]), aggregatedProduct, recipeComponents);
     aggregatedProduct.addRecipe(recipe);
     
-    _store.addAggregateProduct(idProduct, aggregatedProduct);
+    _store.addProduct(idProduct, aggregatedProduct);
 
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);

@@ -7,12 +7,14 @@ public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1298312739089L;
 
-    private String _type; // fazer Enum
+    private NotificationType _type;
     private Product _product;
+    private double _price;
 
-    Notification(String type, Product prod) {
+    Notification(NotificationType type, Product product, double price) {
         _type = type;
-        _product = prod;
+        _product = product;
+        _price = price;
     }
     
     /**
@@ -20,7 +22,7 @@ public class Notification implements Serializable {
    */
     @Override
     public String toString() {
-          return _type + "|" + _product.getID() + "|" /*+ _product.getPrice()?? */;
+          return _type + "|" + _product.getID() + "|" + Math.round(_price);
     }
     
 }

@@ -1,5 +1,5 @@
 *** tests/A-11-04-M-ok.out	2021-11-07 16:04:59.147572000 +0000
---- tests/A-11-04-M-ok.outhyp	2021-11-12 02:58:40.841555436 +0000
+--- tests/A-11-04-M-ok.outhyp	2021-11-12 18:36:07.110499032 +0000
 ***************
 *** 16,22 ****
   4 - Registar compra
@@ -72,11 +72,13 @@
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
---- 88,94 ----
+--- 88,96 ----
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
 ! Escolha uma opção: Identificador do parceiro: M1|Rohit Figueiredo|New Delhi, India|NORMAL|0|0|0|0
+! NEW|ROLHA|20
+! NEW|VIDRO|30
   Gestão de Parceiros
   1 - Mostrar parceiro
   2 - Mostrar parceiros
@@ -92,7 +94,7 @@
   VIDRO|M1|30|500
   Gestão de Produtos
   1 - Visualizar todos os produtos
---- 114,120 ----
+--- 116,122 ----
   3 - Visualizar lotes fornecidos por parceiro
   4 - Visualizar lotes de um dado produto
   0 - Sair

@@ -66,9 +66,8 @@ public class Warehouse implements Serializable {
    */
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
-    for (Partner p : this.getPartners()) {
-      p.verifyPaymentPeriod(_date);
-    }
+    for (Partner partner : this.getPartners()) 
+      partner.verifyPaymentPeriod(_date);
   }
 
   /**
@@ -88,18 +87,11 @@ public class Warehouse implements Serializable {
 
   /**
    * @param id a product id.
-   * @param simpleProduct the new simple product.
+   * @param product the new product.
    */
-  void addSimpleProduct(String id, SimpleProduct simpleProduct) {
-    _products.put(id.toUpperCase(), simpleProduct);
-  }
-
-  /**
-   * @param id a product id.
-   * @param aggregateProduct the new aggregate product.
-   */
-  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
-    _products.put(id.toUpperCase(), aggregateProduct);
+  void addProduct(String id, Product product) {
+    _products.put(id.toUpperCase(), product);
+    _partners.forEach( (key, partner)-> product.addObserver(partner));
   }
 
   /**
@@ -174,13 +166,29 @@ public class Warehouse implements Serializable {
    * @param adress the partner address.
    * @throws PartnerKeyAlreadyExistException
    */
-  void addPartner(String id, String name, String address) 
-      throws PartnerKeyAlreadyExistException {
+  void addPartner(String id, String name, String address) throws PartnerKeyAlreadyExistException {
     String ID = id.toUpperCase();
 
     if(_partners.containsKey(ID))
-        throw new PartnerKeyAlreadyExistException();
-    _partners.put(ID, new Partner(id, name, address));
+      throw new PartnerKeyAlreadyExistException();
+    
+    Partner partner = new Partner(id, name, address);
+    _partners.put(ID, partner);
+    _products.forEach( (key, product)-> product.addObserver(partner));
+  }
+
+  void toggleNotifications(String idPartner, String idProduct) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException {
+    Partner partner = getPartner(idPartner);
+    Product product = getProduct(idProduct);
+    
+    if(product.hasObserver(partner))
+        product.removeObserver(partner);
+    else product.addObserver(partner);
+  }
+
+  void clearNotifications(Partner partner) {
+    partner.clearNotifications();
   }
 
 }

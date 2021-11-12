@@ -2,6 +2,5 @@ package ggc.core;
 
 interface Observer {
 
-    void update();
-    //void update(NotificationType type);
+    void update(NotificationType type, Product product, double price);
 }

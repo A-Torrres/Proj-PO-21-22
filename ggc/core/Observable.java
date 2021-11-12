@@ -2,7 +2,7 @@ package ggc.core;
 
 interface Observable {
 
-    void addObserver(Observer obs);
-    void removeObserver(Observer obs);
-    void notifyObservers();
+    boolean addObserver(Observer obs);
+    boolean removeObserver(Observer obs);
+    void notifyObservers(NotificationType type, double price);
 }
