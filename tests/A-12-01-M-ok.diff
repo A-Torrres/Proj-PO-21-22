@@ -1,21 +1,20 @@
 *** tests/A-12-01-M-ok.out	2021-11-07 16:04:59.218638000 +0000
---- tests/A-12-01-M-ok.outhyp	2021-11-12 20:51:06.188525030 +0000
+--- tests/A-12-01-M-ok.outhyp	2021-11-12 21:20:15.773532402 +0000
 ***************
-*** 9,17 ****
+*** 9,16 ****
   8 - Menu de Consultas
   9 - Ver Saldo Global
   0 - Sair
 ! Escolha uma opção: Saldo disponível: 0
 ! Saldo contabilístico: 0
-! Menu Principal
+  Menu Principal
   1 - Abrir
   2 - Guardar
-  3 - Mostrar Data
 --- 9,15 ----
   8 - Menu de Consultas
   9 - Ver Saldo Global
   0 - Sair
-! Escolha uma opção: Menu Principal
+! Escolha uma opção: 0.0
+  Menu Principal
   1 - Abrir
   2 - Guardar
-  3 - Mostrar Data

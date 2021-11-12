@@ -2,8 +2,6 @@ package ggc.core;
 
 //FIXME import classes (cannot import from pt.tecnico or ggc.app)
 
-import java.io.Serializable;
-import java.text.Normalizer.Form;
 import java.util.Collection;
 import java.util.Collections;
 import java.io.IOException;
@@ -13,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import ggc.core.exception.BadEntryException;
 import ggc.core.exception.ImportFileException;
 import ggc.core.exception.UnavailableFileException;
 import ggc.core.exception.MissingFileAssociationException;
@@ -158,7 +155,7 @@ public class WarehouseManager {
     _warehouse.addTransaction(t);
   }
 
-  public void addAcquisition(double baseValue, int quant, Product prod, Partner part) {
+  public void addAcquisition(double baseValue, int quant, Product prod, Partner part) throws ProductDoesNotExistException {
     addTransaction(new Acquisition(_warehouse, _warehouse.getCurrentDate(), baseValue, quant, prod, part));
   }
 
@@ -166,4 +163,19 @@ public class WarehouseManager {
     _warehouse.addProduct(id, product);
   }
 
+  public void addSaleByCredit(double baseValue, int quant, Product prod, Partner part) {
+    addTransaction(new SaleByCredit(_warehouse.getCurrentDate(), baseValue, quant, prod, part));
+  }
+
+  public Transaction getTransaction(int id) {
+    return _warehouse.getTransaction(id);
+  }
+
+  public void pay(int id) {
+    _warehouse.pay(id);
+  }
+
+  public double getBalance() {
+    return _warehouse.getBalance();
+  }
 }

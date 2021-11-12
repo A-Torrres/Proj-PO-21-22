@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 public class Partner implements Observer, Serializable {
 
@@ -63,6 +62,10 @@ public class Partner implements Observer, Serializable {
         _valorCompras += value;
     }
 
+    PartnerState getStatus() {
+        return _status;
+    }
+
     /**
      * adds a new batch to the batches list
      */
@@ -70,7 +73,22 @@ public class Partner implements Observer, Serializable {
         _batches.add(batch);
     }
 
-    void verifyPaymentPeriod(Date date) {
+    void addPoints(double points) {
+        _points += points;
+        updateStatus();
+    }
+
+    void updateStatus() {
+        if(_status.getPointThreshold() > _points) {
+            _status.getPrevious();
+            updateStatus();
+        } else if(_status.getNext().getPointThreshold() < _points) {
+            _status.getNext();
+            updateStatus();
+        }
+    }
+
+    void verifyLatePayments(Date date) {
         for(Sale sale : _sales) {
             if(sale instanceof SaleByCredit) {
                 if(-_status.getGracePeriod() > sale.updatePeriod(date)) {

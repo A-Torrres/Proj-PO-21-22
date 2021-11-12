@@ -10,7 +10,6 @@ import ggc.app.exception.UnknownPartnerKeyException;
 import ggc.core.Acquisition;
 import ggc.core.WarehouseManager;
 import ggc.core.exception.PartnerDoesNotExistException;
-import ggc.core.Partner;
 //FIXME import classes
 
 /**

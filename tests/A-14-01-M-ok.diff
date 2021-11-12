@@ -1,36 +1,30 @@
 *** tests/A-14-01-M-ok.out	2021-11-07 16:04:59.245316000 +0000
---- tests/A-14-01-M-ok.outhyp	2021-11-12 20:51:06.628525994 +0000
+--- tests/A-14-01-M-ok.outhyp	2021-11-12 21:20:16.333534392 +0000
 ***************
-*** 13,27 ****
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-! Escolha uma opção: Identificador do parceiro: Facturas pagas por parceiro: Operação inválida: O parceiro 'nãoexiste' não existe.
-! Consultas
+*** 18,36 ****
   1 - Produtos com Preço Abaixo de Limite
   2 - Facturas pagas por parceiro
   0 - Sair
 ! Escolha uma opção: Identificador do parceiro: Consultas
+! 1 - Produtos com Preço Abaixo de Limite
+! 2 - Facturas pagas por parceiro
+! 0 - Sair
+! Escolha uma opção: Menu Principal
+! 1 - Abrir
+! 2 - Guardar
+! 3 - Mostrar Data
+! 4 - Avançar Data
+! 5 - Gestão de Produtos
+! 6 - Gestão de Parceiros
+! 7 - Gestão de Transacções
+! 8 - Menu de Consultas
+! 9 - Ver Saldo Global
+! 0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 18,21 ----
   1 - Produtos com Preço Abaixo de Limite
   2 - Facturas pagas por parceiro
   0 - Sair
-  Escolha uma opção: Menu Principal
-  1 - Abrir
-  2 - Guardar
---- 13,28 ----
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-! Escolha uma opção: Consultas
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Consultas
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-+ Escolha uma opção: Número inválido!
-  Escolha uma opção: Menu Principal
-  1 - Abrir
-  2 - Guardar
+! Escolha uma opção: Identificador do parceiro: 
+\ No newline at end of file

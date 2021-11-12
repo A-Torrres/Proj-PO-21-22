@@ -3,7 +3,7 @@ package ggc.app.transactions;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import ggc.app.exception.UnknownPartnerKeyException;
-import ggc.core.Acquisition;
+import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.WarehouseManager;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.ProductDoesNotExistException;
@@ -44,5 +44,4 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
       //TODO criar produto
     } */
   }
-
 }

@@ -1,12 +1,11 @@
 
 package ggc.core;
 
-import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.ProductDoesNotExistException;
 
 public class Acquisition extends Transaction {
 
-    Acquisition(Warehouse warehouse, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+    Acquisition(Warehouse warehouse, Date paymentD, double baseValue, int quant, Product prod, Partner part) throws ProductDoesNotExistException {
         super(paymentD, baseValue, quant, prod, part);
         this.pay(warehouse, baseValue, quant, prod, part);
     }
@@ -16,10 +15,16 @@ public class Acquisition extends Transaction {
    */
     @Override
     public String toString() {
-        return "";
+        return "COMPRA" +
+                getID() + 
+                getPartner().getID() + 
+                getProduct().getID() +
+                getQuantity() + 
+                getBaseValue() + 
+                getPaymentDate().getDay();
     }
 
-    public void pay(Warehouse warehouse, double pricePerUnit, int quantity, Product product, Partner partner) {
+    void pay(Warehouse warehouse, double pricePerUnit, int quantity, Product product, Partner partner) throws ProductDoesNotExistException {
         Batch batch = new Batch(pricePerUnit, quantity, product, partner);
         try {
             warehouse.addBatch(product.getID(), batch);
@@ -29,5 +34,5 @@ public class Acquisition extends Transaction {
             this.pay(warehouse, pricePerUnit, quantity, product, partner);
         }
     }
-
+    
 }

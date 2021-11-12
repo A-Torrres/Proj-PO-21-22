@@ -12,14 +12,6 @@ public class SaleByCredit extends Sale {
         _deadLine = new Date(paymentD.getDay() + prod.getDeadLine());
     }
 
-    /**
-    * @return 
-    */
-    @Override
-    public String toString() {
-        return "";
-    }  
-
     int updatePeriod(Date currentDate) {
         if(_amountPaid == 0) {
             int diff = _deadLine.difference(currentDate);
@@ -39,6 +31,42 @@ public class SaleByCredit extends Sale {
             return diff;
         }
         return 0;
+    }
+
+    double getActualTotalPrice(Date currentDate) {
+        double modifier = 1.0;
+        PartnerState status = getPartner().getStatus();
+
+        switch(_paymentPeriod) {
+            case P1: modifier = status.getModifier(PaymentPeriod.P1, _deadLine.difference(currentDate));
+            case P2: modifier = status.getModifier(PaymentPeriod.P2, _deadLine.difference(currentDate));
+            case P3: modifier = status.getModifier(PaymentPeriod.P3, _deadLine.difference(currentDate));
+            case P4: modifier = status.getModifier(PaymentPeriod.P4, _deadLine.difference(currentDate));
+        }
+
+        return getBaseValue() * getQuantity() * modifier;
+    }
+
+    @Override
+    boolean isPaid() {
+        return _amountPaid != 0;
+    }
+
+    void pay(Date date) {
+        _amountPaid = getActualTotalPrice(date);
+    }
+
+    @Override
+    public String toString() {
+        return "VENDA" + 
+                getID() + 
+                getPartner().getID() + 
+                getProduct().getID() +
+                getQuantity() + 
+                getBaseValue() + 
+                _amountPaid + 
+                _deadLine.toString() + 
+                getPaymentDate().getDay();
     }
 
 }

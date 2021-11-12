@@ -1,5 +1,5 @@
 *** tests/A-11-01-M-ok.out	2021-11-07 16:04:59.127560000 +0000
---- tests/A-11-01-M-ok.outhyp	2021-11-12 20:51:05.836524258 +0000
+--- tests/A-11-01-M-ok.outhyp	2021-11-12 21:20:15.353530905 +0000
 ***************
 *** 9,15 ****
   8 - Menu de Consultas
@@ -42,7 +42,7 @@
   1 - Visualizar todos os produtos
   2 - Visualizar todos os lotes
 ***************
-*** 61,76 ****
+*** 61,125 ****
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
@@ -56,22 +56,23 @@
 ! 0 - Sair
 ! Escolha uma opção: Identificador da transacção: COMPRA|1|M1|SAL|10|1000|0
 ! Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
---- 62,68 ----
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
-***************
-*** 88,117 ****
-  8 - Menu de Consultas
-  9 - Ver Saldo Global
-  0 - Sair
+! 1 - Visualizar
+! 2 - Registar desagregação
+! 3 - Registar venda
+! 4 - Registar compra
+! 5 - Receber pagamento de venda
+! 0 - Sair
+! Escolha uma opção: Menu Principal
+! 1 - Abrir
+! 2 - Guardar
+! 3 - Mostrar Data
+! 4 - Avançar Data
+! 5 - Gestão de Produtos
+! 6 - Gestão de Parceiros
+! 7 - Gestão de Transacções
+! 8 - Menu de Consultas
+! 9 - Ver Saldo Global
+! 0 - Sair
 ! Escolha uma opção: Gestão de Produtos
 ! 1 - Visualizar todos os produtos
 ! 2 - Visualizar todos os lotes
@@ -96,15 +97,21 @@
 ! 4 - Visualizar lotes de um dado produto
 ! 0 - Sair
 ! Escolha uma opção: Menu Principal
-  1 - Abrir
-  2 - Guardar
-  3 - Mostrar Data
---- 80,87 ----
-  8 - Menu de Consultas
-  9 - Ver Saldo Global
+! 1 - Abrir
+! 2 - Guardar
+! 3 - Mostrar Data
+! 4 - Avançar Data
+! 5 - Gestão de Produtos
+! 6 - Gestão de Parceiros
+! 7 - Gestão de Transacções
+! 8 - Menu de Consultas
+! 9 - Ver Saldo Global
+! 0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 62,65 ----
+  4 - Registar compra
+  5 - Receber pagamento de venda
   0 - Sair
-! Escolha uma opção: Ficheiro a abrir: Abrir: Operação inválida: Problema ao abrir '1'.
-! Menu Principal
-  1 - Abrir
-  2 - Guardar
-  3 - Mostrar Data
+! Escolha uma opção: Quantidade: 
+\ No newline at end of file

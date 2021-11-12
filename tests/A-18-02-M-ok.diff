@@ -1,7 +1,7 @@
 *** tests/A-18-02-M-ok.out	2021-11-10 23:23:51.359926000 +0000
---- tests/A-18-02-M-ok.outhyp	2021-11-12 20:51:07.308527482 +0000
+--- tests/A-18-02-M-ok.outhyp	2021-11-12 21:20:17.113537162 +0000
 ***************
-*** 27,33 ****
+*** 27,51 ****
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
@@ -9,27 +9,36 @@
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
---- 27,51 ----
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
+! Escolha uma opção: Menu Principal
+! 1 - Abrir
+! 2 - Guardar
+! 3 - Mostrar Data
+! 4 - Avançar Data
+! 5 - Gestão de Produtos
+! 6 - Gestão de Parceiros
+! 7 - Gestão de Transacções
+! 8 - Menu de Consultas
+! 9 - Ver Saldo Global
+! 0 - Sair
 ! Escolha uma opção: Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
+  1 - Visualizar
+  2 - Registar desagregação
+  3 - Registar venda
+--- 27,42 ----
+  4 - Registar compra
+  5 - Receber pagamento de venda
+  0 - Sair
+! Escolha uma opção: Identificador do produto: Preço: Quantidade: Quantidade: Identificador do parceiro: Registar venda: Operação inválida: O produto 'S1' não existe.
 ! Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Número inválido!
+  1 - Visualizar
+  2 - Registar desagregação
+  3 - Registar venda
+  4 - Registar compra
+  5 - Receber pagamento de venda
+  0 - Sair
 ! Escolha uma opção: Opção inválida!
 ! Gestão de Transacções
   1 - Visualizar
@@ -70,7 +79,7 @@
 ! 0 - Sair
 ! Escolha uma opção: 
 \ No newline at end of file
---- 89,92 ----
+--- 62,65 ----
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair

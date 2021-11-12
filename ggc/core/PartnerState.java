@@ -6,7 +6,7 @@ import java.io.Serializable;
 interface PartnerState {
     @Override
     String toString();
-    double getModifier(PaymentPeriod p, int diff); //Solução temporária, P2 para ja. Juntar períodos qndo Transaction feito + passar daysPassed como args para multar
+    double getModifier(PaymentPeriod p, int diff);
     PartnerState getNext();
     PartnerState getPrevious();
     double getPointsRemaining();
@@ -81,8 +81,8 @@ class Selection implements PartnerState, Serializable {
     public double getModifier(PaymentPeriod p, int diff) {
         switch(p){
             case P1: return 0.9;
-            case P2: if(diff <= -2) return 0.95; else return 1.0;
-            case P3: if(diff > 1) return 1.0 + diff*0.02; else return 1.0;
+            case P2: if(diff >= 2) return 0.95; else return 1.0;
+            case P3: if(diff < -1) return 1.0 + diff*0.02; else return 1.0;
             case P4: return 1.0 + diff*0.05;
         }
         return 1.0;

@@ -1,5 +1,5 @@
 *** tests/A-14-03-M-ok.out	2021-11-07 16:04:59.256980000 +0000
---- tests/A-14-03-M-ok.outhyp	2021-11-12 20:51:06.744526248 +0000
+--- tests/A-14-03-M-ok.outhyp	2021-11-12 21:20:16.457534832 +0000
 ***************
 *** 16,29 ****
   4 - Registar compra
@@ -16,11 +16,12 @@
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
---- 16,64 ----
+--- 16,31 ----
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
-! Escolha uma opção: Gestão de Transacções
+! Escolha uma opção: Identificador do produto: Preço: Quantidade: Quantidade: Identificador do parceiro: Registar venda: Operação inválida: O produto 'M1' não existe.
+! Gestão de Transacções
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
@@ -28,65 +29,35 @@
   5 - Receber pagamento de venda
   0 - Sair
 ! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
+! Escolha uma opção: Quantidade: Quantidade: Gestão de Transacções
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
 ***************
-*** 45,54 ****
+*** 45,63 ****
   1 - Produtos com Preço Abaixo de Limite
   2 - Facturas pagas por parceiro
   0 - Sair
 ! Escolha uma opção: Identificador do parceiro: Consultas
+! 1 - Produtos com Preço Abaixo de Limite
+! 2 - Facturas pagas por parceiro
+! 0 - Sair
+! Escolha uma opção: Menu Principal
+! 1 - Abrir
+! 2 - Guardar
+! 3 - Mostrar Data
+! 4 - Avançar Data
+! 5 - Gestão de Produtos
+! 6 - Gestão de Parceiros
+! 7 - Gestão de Transacções
+! 8 - Menu de Consultas
+! 9 - Ver Saldo Global
+! 0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 47,50 ----
   1 - Produtos com Preço Abaixo de Limite
   2 - Facturas pagas por parceiro
   0 - Sair
-  Escolha uma opção: Menu Principal
-  1 - Abrir
-  2 - Guardar
---- 80,90 ----
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-! Escolha uma opção: Consultas
-  1 - Produtos com Preço Abaixo de Limite
-  2 - Facturas pagas por parceiro
-  0 - Sair
-+ Escolha uma opção: Número inválido!
-  Escolha uma opção: Menu Principal
-  1 - Abrir
-  2 - Guardar
+! Escolha uma opção: Identificador do parceiro: 
+\ No newline at end of file
