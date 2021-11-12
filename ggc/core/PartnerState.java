@@ -6,10 +6,12 @@ import java.io.Serializable;
 interface PartnerState {
     @Override
     String toString();
-    double getModifier(); //Solução temporária, P2 para ja. Juntar períodos qndo Transaction feito + passar daysPassed como args para multar
+    double getModifier(PaymentPeriod p, int diff); //Solução temporária, P2 para ja. Juntar períodos qndo Transaction feito + passar daysPassed como args para multar
     PartnerState getNext();
     PartnerState getPrevious();
-    double getPointsLost();
+    double getPointsRemaining();
+    int getGracePeriod();
+    int getPointThreshold();
 }
 
 class Normal implements PartnerState, Serializable {
@@ -17,9 +19,9 @@ class Normal implements PartnerState, Serializable {
 
     private static final PartnerState SINGLETON = new Normal();
     private static final int POINTS_THRESHOLD = 0;
+    private static final int GRACE_PERIOD = 0;
 
     private Normal(){}
-    
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -28,7 +30,13 @@ class Normal implements PartnerState, Serializable {
         return "NORMAL";
     }
 
-    public double getModifier() {
+    public double getModifier(PaymentPeriod p, int diff) {
+        switch(p){
+            case P1: return 0.9;
+            case P2: return 1.0;
+            case P3: return 1.0 + diff*0.05;
+            case P4: return 1.0 + diff*0.1;
+        }
         return 1.0;
     }
 
@@ -40,8 +48,16 @@ class Normal implements PartnerState, Serializable {
         return SINGLETON;
     }
 
-    public double getPointsLost() {
-        return 1.0;
+    public double getPointsRemaining() {
+        return .0;
+    }
+
+    public int getGracePeriod() {
+        return GRACE_PERIOD;
+    }
+
+    public int getPointThreshold() {
+        return POINTS_THRESHOLD;
     }
 }
 
@@ -51,9 +67,9 @@ class Selection implements PartnerState, Serializable {
 
     private static final PartnerState SINGLETON = new Selection();
     private static final int POINTS_THRESHOLD = 2000;
+    private static final int GRACE_PERIOD = 2;
 
     private Selection(){}
-
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -62,8 +78,14 @@ class Selection implements PartnerState, Serializable {
         return "SELECTION";
     }
 
-    public double getModifier() {
-        return .95;
+    public double getModifier(PaymentPeriod p, int diff) {
+        switch(p){
+            case P1: return 0.9;
+            case P2: if(diff <= -2) return 0.95; else return 1.0;
+            case P3: if(diff > 1) return 1.0 + diff*0.02; else return 1.0;
+            case P4: return 1.0 + diff*0.05;
+        }
+        return 1.0;
     }
 
     public PartnerState getNext() {
@@ -74,8 +96,16 @@ class Selection implements PartnerState, Serializable {
         return Normal.getStatus();
     }
 
-    public double getPointsLost() {
-        return 0.9;
+    public double getPointsRemaining() {
+        return .1;
+    }
+
+    public int getGracePeriod() {
+        return GRACE_PERIOD;
+    }
+
+    public int getPointThreshold() {
+        return POINTS_THRESHOLD;
     }
 }
 
@@ -85,9 +115,9 @@ class Elite implements PartnerState, Serializable {
 
     private static final PartnerState SINGLETON = new Elite();
     private static final int POINTS_THRESHOLD = 25000;
+    private static final int GRACE_PERIOD = 15;
 
     private Elite(){}
-
     public static PartnerState getStatus() {
         return SINGLETON;
     }
@@ -96,8 +126,14 @@ class Elite implements PartnerState, Serializable {
         return "ELITE";
     }
 
-    public double getModifier() {
-        return .9;
+    public double getModifier(PaymentPeriod p, int diff) {
+        switch(p){
+            case P1: return 0.9;
+            case P2: return 0.9;
+            case P3: return 0.95;
+            case P4: return 1.0;
+        }
+        return 1.0;
     }
 
     public PartnerState getNext() {
@@ -108,8 +144,15 @@ class Elite implements PartnerState, Serializable {
         return Selection.getStatus();
     }
 
-    public double getPointsLost() {
-        return 0.75;
+    public double getPointsRemaining() {
+        return .25;
     }
-    
+
+    public int getGracePeriod() {
+        return GRACE_PERIOD;
+    }
+
+    public int getPointThreshold() {
+        return POINTS_THRESHOLD;
+    }
 }

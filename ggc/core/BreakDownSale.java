@@ -19,5 +19,7 @@ public class BreakDownSale extends Sale {
         return "";
     }
 
+    int updatePeriod(Date date){ return 0; }
+
 }
 
