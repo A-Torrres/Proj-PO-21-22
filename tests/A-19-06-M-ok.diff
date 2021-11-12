@@ -1,5 +1,5 @@
 *** tests/A-19-06-M-ok.out	2021-11-10 23:24:42.966932000 +0000
---- tests/A-19-06-M-ok.outhyp	2021-11-12 18:36:08.818501396 +0000
+--- tests/A-19-06-M-ok.outhyp	2021-11-12 20:51:07.604528128 +0000
 ***************
 *** 16,62 ****
   4 - Registar compra
@@ -69,7 +69,7 @@
   5 - Receber pagamento de venda
   0 - Sair
 ! Escolha uma opção: Número inválido!
-! Escolha uma opção: Gestão de Transacções
+! Escolha uma opção: Identificador do parceiro: Identificador do produto: Preço: Quantidade: Gestão de Transacções
 ! 1 - Visualizar
 ! 2 - Registar desagregação
 ! 3 - Registar venda

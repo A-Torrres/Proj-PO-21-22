@@ -31,8 +31,7 @@ public class Warehouse implements Serializable {
   private Date _date = new Date();
   private Map<String, Product> _products = new HashMap<String, Product>();
   private Map<String, Partner> _partners = new HashMap<String, Partner>();
-  private static int _nextTransactionId = 0;
-  private Collection _transactions = new ArrayList<>();
+  private Map<String, Transaction> _transactions = new HashMap<String, Transaction>();
 
   /**
    * @param txtfile filename to be loaded.
@@ -51,13 +50,14 @@ public class Warehouse implements Serializable {
     catch (Exception e) {
       throw new ImportFileException();
     }
+    _partners.forEach( (key, partner)-> partner.clearNotifications());
   }
 
   /**
    * @return current Date.
    */
-  int getCurrentDate() {
-    return _date.getDay();
+  Date getCurrentDate() {
+    return _date;
   }
 
   /**
@@ -68,6 +68,10 @@ public class Warehouse implements Serializable {
     _date.add(days);
     for (Partner partner : this.getPartners()) 
       partner.verifyPaymentPeriod(_date);
+  }
+
+  public void addTransaction(Transaction t) {
+    _transactions.put("" + t.getID(), t);
   }
 
   /**
@@ -92,6 +96,18 @@ public class Warehouse implements Serializable {
   void addProduct(String id, Product product) {
     _products.put(id.toUpperCase(), product);
     _partners.forEach( (key, partner)-> product.addObserver(partner));
+  }
+
+  void addBatch(String productID, Batch batch) throws ProductDoesNotExistException {
+    try {
+      this.getProduct(productID).addBatch(batch, batch.getPrice());
+    } catch(ProductDoesNotExistException pdne) {
+      throw pdne;
+    }
+  }
+
+  void changeBalance(double money) {
+    _balance += money;
   }
 
   /**
@@ -189,6 +205,16 @@ public class Warehouse implements Serializable {
 
   void clearNotifications(Partner partner) {
     partner.clearNotifications();
+  }
+
+  void registerAcquisition(String idPartner, String idProduct, double price, int quantity) 
+    throws PartnerDoesNotExistException, ProductDoesNotExistException {
+    Partner partner = getPartner(idPartner);
+    Product product = getProduct(idProduct);
+
+    product.addBatch(new Batch(price, quantity, product, partner), price);
+    partner.addValueAcquisitions(quantity * price);
+    
   }
 
 }

@@ -6,20 +6,20 @@ public class Batch implements Serializable {
 
     private static final long serialVersionUID = 301486876482L;
 
-    private double _price;
+    private double _pricePerUnit;
     private int _quantity;
     private Product _product;
     private Partner _partner;
 
     Batch(double price, int quantity, Product product, Partner partner) {
-        _price = price;
+        _pricePerUnit = price;
         _quantity = quantity;
         _product = product;
         _partner = partner;
     }
 
     public double getPrice() {
-        return _price;
+        return _pricePerUnit;
     }
 
     public int getQuantity() {
@@ -41,7 +41,7 @@ public class Batch implements Serializable {
     public String toString() {
         return  _product.getID() + "|" + 
                 _partner.getID() + "|" +
-                Math.round(_price) + "|" + 
+                Math.round(_pricePerUnit) + "|" + 
                 _quantity;
     }
 

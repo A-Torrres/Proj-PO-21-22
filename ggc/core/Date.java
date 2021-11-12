@@ -18,7 +18,7 @@ public class Date implements Serializable {
         _day = day;
     }
 
-    int getDay() {
+    public int getDay() {
         return this._day;
     }
 

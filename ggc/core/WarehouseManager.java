@@ -90,7 +90,7 @@ public class WarehouseManager {
   /**
    * 
    */
-  public int getCurrentDate() {
+  public Date getCurrentDate() {
     return _warehouse.getCurrentDate();
   }
   
@@ -99,6 +99,10 @@ public class WarehouseManager {
    */
   public void advanceDate(int days) throws NegativeDaysException {
     _warehouse.advanceDate(days);
+  }
+
+  public Product getProduct(String id) throws ProductDoesNotExistException{
+    return _warehouse.getProduct(id);
   }
 
   /**
@@ -143,6 +147,23 @@ public class WarehouseManager {
   
   public void clearNotifications(Partner partner) {
     _warehouse.clearNotifications(partner);
+  }
+
+  public void registerAcquisition(String idPartner, String idProduct, double price, int quantity) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException {
+    _warehouse.registerAcquisition(idPartner, idProduct, price, quantity);
+  }
+
+  public void addTransaction(Transaction t) {
+    _warehouse.addTransaction(t);
+  }
+
+  public void addAcquisition(double baseValue, int quant, Product prod, Partner part) {
+    addTransaction(new Acquisition(_warehouse, _warehouse.getCurrentDate(), baseValue, quant, prod, part));
+  }
+
+  public void addProduct(String id, Product product) {
+    _warehouse.addProduct(id, product);
   }
 
 }
