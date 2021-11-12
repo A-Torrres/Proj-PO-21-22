@@ -162,4 +162,7 @@ public class WarehouseManager {
     _warehouse.pay(id);
   }
 
+  public double getBalance() {
+    return _warehouse.getBalance();
+  }
 }

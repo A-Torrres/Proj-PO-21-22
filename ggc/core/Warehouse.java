@@ -70,6 +70,10 @@ public class Warehouse implements Serializable {
     }
   }
 
+  double getBalance() {
+    return _balance;
+  }
+
   Transaction getTransaction(int id) {
     return _transactions.get("" + id);
   }

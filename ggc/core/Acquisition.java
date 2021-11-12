@@ -15,7 +15,13 @@ public class Acquisition extends Transaction {
    */
     @Override
     public String toString() {
-        return "";
+        return "COMPRA" +
+                getID() + 
+                getPartner().getID() + 
+                getProduct().getID() +
+                getQuantity() + 
+                getBaseValue() + 
+                getPaymentDate().getDay();
     }
 
     void pay(Warehouse warehouse, double pricePerUnit, int quantity, Product product, Partner partner) throws ProductDoesNotExistException {

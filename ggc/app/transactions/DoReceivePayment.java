@@ -2,8 +2,6 @@ package ggc.app.transactions;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-import ggc.core.SaleByCredit;
-import ggc.core.Transaction;
 import ggc.core.WarehouseManager;
 //FIXME import classes
 
