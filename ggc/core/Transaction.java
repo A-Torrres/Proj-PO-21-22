@@ -25,6 +25,10 @@ public abstract class Transaction {
     Date getPaymentDate() {
         return _paymentDate;
     }
+    
+    Product getProduct() {
+        return _product;
+    }
   
     /**
    * @return true if paid, false otherwise.

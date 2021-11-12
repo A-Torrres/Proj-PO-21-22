@@ -17,8 +17,8 @@ public class Partner implements Serializable {
     private Collection<Batch> _batches = new ArrayList<>();
     //private List<Notification> _notification;
 
-    private Collection<Acquisition> _acquisition = new HashSet<>();
-    private Collection<Sale> _sale = new HashSet<>();
+    private Collection<Acquisition> _acquisitions = new HashSet<>();
+    private Collection<Sale> _sales = new HashSet<>();
 
     private double _valorCompras;           //por simplicidade
     private double _valorVendasEfetuadas;   //por simplicidade
@@ -52,8 +52,15 @@ public class Partner implements Serializable {
         _batches.add(batch);
     }
 
-    void updateStatus(Date date) {
-        //TODO: Update status/points
+    void verifyPaymentPeriod(Date date) {
+        for(Sale sale : _sales) {
+            if(sale instanceof SaleByCredit) {
+                if(-_status.getGracePeriod() > sale.updatePeriod(date)) {
+                    _points *= _status.getPointsRemaining();
+                    _status = _status.getPrevious();
+                }
+            }
+        }
     }
 
     /**

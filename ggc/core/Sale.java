@@ -7,4 +7,10 @@ public abstract class Sale extends Transaction {
         super(id, paymentD, baseValue, quant, prod, part);
     }
 
+    Product getProduct() {
+        return super.getProduct();
+    }
+
+    abstract int updatePeriod(Date date);
+
 }

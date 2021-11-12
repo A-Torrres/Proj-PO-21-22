@@ -27,13 +27,10 @@ public class Date implements Serializable {
    * @throws NegativeDaysException
    * @return updated Date.
    */
-    Date add(int days, Warehouse warehouse) throws NegativeDaysException {
+    Date add(int days) throws NegativeDaysException {
         if (days < 0)
             throw new NegativeDaysException();
         this._day += days;
-        for (Partner p : warehouse.getPartners()) {
-            p.updateStatus(this);
-        }
         return this;
     }
 
