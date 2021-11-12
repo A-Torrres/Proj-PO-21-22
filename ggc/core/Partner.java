@@ -58,12 +58,14 @@ public class Partner implements Observer, Serializable {
     }
 
     void verifyPaymentPeriod(Date date) {
-        for(Sale sale : _sales)
-            if(sale instanceof SaleByCredit)
+        for(Sale sale : _sales) {
+            if(sale instanceof SaleByCredit) {
                 if(-_status.getGracePeriod() > sale.updatePeriod(date)) {
                     _points *= _status.getPointsRemaining();
                     _status = _status.getPrevious();
                 }
+            }
+        }
     }
 
     public ArrayList<Sale> getSales() {

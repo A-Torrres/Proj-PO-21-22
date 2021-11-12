@@ -1,7 +1,12 @@
 
 package ggc.core;
 
-public abstract class Transaction {
+import java.io.Serializable;
+
+public abstract class Transaction implements Serializable {
+
+    private static final long serialVersionUID = 2193671278631L;
+    private static int NEXT_ID = 0;
     
     private int _id;
     private Date _paymentDate;
@@ -10,8 +15,8 @@ public abstract class Transaction {
     private Product _product;
     private Partner _partner;
 
-    Transaction(int id, Date paymentD, double baseValue, int quant, Product prod, Partner partner) {
-        _id = id;
+    Transaction(Date paymentD, double baseValue, int quant, Product prod, Partner partner) {
+        _id = NEXT_ID++;
         _paymentDate = paymentD;
         _baseValue = baseValue;
         _quantity = quant;
@@ -29,6 +34,10 @@ public abstract class Transaction {
     Product getProduct() {
         return _product;
     }
+
+    int getID() {
+        return _id;
+    }
     
     //abstract void pay();
 
@@ -45,6 +54,10 @@ public abstract class Transaction {
     @Override
     public String toString() {
         return  "" + "|" ;
+    }
+
+    public int getNextID() {
+        return NEXT_ID;
     }
 
 }

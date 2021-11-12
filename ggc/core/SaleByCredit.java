@@ -7,8 +7,8 @@ public class SaleByCredit extends Sale {
     private double _amountPaid;
     private PaymentPeriod _paymentPeriod = PaymentPeriod.P1;
 
-    SaleByCredit(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
-        super(id, paymentD, baseValue, quant, prod, part);
+    SaleByCredit(Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(paymentD, baseValue, quant, prod, part);
         _deadLine = new Date(paymentD.getDay() + prod.getDeadLine());
     }
 

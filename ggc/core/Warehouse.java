@@ -31,8 +31,7 @@ public class Warehouse implements Serializable {
   private Date _date = new Date();
   private Map<String, Product> _products = new HashMap<String, Product>();
   private Map<String, Partner> _partners = new HashMap<String, Partner>();
-  private static int _nextTransactionId = 0;
-  private Collection _transactions = new ArrayList<>();
+  private Map<String, Transaction> _transactions = new HashMap<String, Transaction>();
 
   /**
    * @param txtfile filename to be loaded.
@@ -56,8 +55,8 @@ public class Warehouse implements Serializable {
   /**
    * @return current Date.
    */
-  int getCurrentDate() {
-    return _date.getDay();
+  Date getCurrentDate() {
+    return _date;
   }
 
   /**
@@ -69,6 +68,10 @@ public class Warehouse implements Serializable {
     for (Partner p : this.getPartners()) {
       p.verifyPaymentPeriod(_date);
     }
+  }
+
+  public void addTransaction(Transaction t) {
+    _transactions.put("" + t.getID(), t);
   }
 
   /**
@@ -90,16 +93,20 @@ public class Warehouse implements Serializable {
    * @param id a product id.
    * @param simpleProduct the new simple product.
    */
-  void addSimpleProduct(String id, SimpleProduct simpleProduct) {
-    _products.put(id.toUpperCase(), simpleProduct);
+  void addProduct(Product product) {
+    _products.put(product.getID().toUpperCase(), product);
   }
 
-  /**
-   * @param id a product id.
-   * @param aggregateProduct the new aggregate product.
-   */
-  void addAggregateProduct(String id, AggregateProduct aggregateProduct) {
-    _products.put(id.toUpperCase(), aggregateProduct);
+  void addBatch(String productID, Batch batch) throws ProductDoesNotExistException {
+    try {
+      this.getProduct(productID).addBatch(batch, batch.getPrice());
+    } catch(ProductDoesNotExistException pdne) {
+      throw pdne;
+    }
+  }
+
+  void changeBalance(double money) {
+    _balance += money;
   }
 
   /**

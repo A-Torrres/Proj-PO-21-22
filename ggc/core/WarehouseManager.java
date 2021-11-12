@@ -90,7 +90,7 @@ public class WarehouseManager {
   /**
    * 
    */
-  public int getCurrentDate() {
+  public Date getCurrentDate() {
     return _warehouse.getCurrentDate();
   }
   
@@ -99,6 +99,10 @@ public class WarehouseManager {
    */
   public void advanceDate(int days) throws NegativeDaysException {
     _warehouse.advanceDate(days);
+  }
+
+  public Product getProduct(String id) throws ProductDoesNotExistException{
+    return _warehouse.getProduct(id);
   }
 
   /**
@@ -135,6 +139,18 @@ public class WarehouseManager {
       throws PartnerKeyAlreadyExistException {
     
     _warehouse.addPartner(id, name, address);
+  }
+
+  public void addTransaction(Transaction t) {
+    _warehouse.addTransaction(t);
+  }
+
+  public void addAcquisition(double baseValue, int quant, Product prod, Partner part) {
+    addTransaction(new Acquisition(_warehouse, _warehouse.getCurrentDate(), baseValue, quant, prod, part));
+  }
+
+  public void addProduct(Product product) {
+    _warehouse.addProduct(product);
   }
 
 }

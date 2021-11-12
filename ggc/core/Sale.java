@@ -3,8 +3,8 @@ package ggc.core;
 
 public abstract class Sale extends Transaction {
 
-    Sale(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
-        super(id, paymentD, baseValue, quant, prod, part);
+    Sale(Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(paymentD, baseValue, quant, prod, part);
     }
 
     Product getProduct() {

@@ -7,8 +7,8 @@ public class BreakDownSale extends Sale {
 
     private List<Batch> _batch;
 
-    BreakDownSale(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
-        super(id, paymentD, baseValue, quant, prod, part);
+    BreakDownSale(Date paymentD, double baseValue, int quant, Product prod, Partner part) {
+        super(paymentD, baseValue, quant, prod, part);
     }
 
     /**
