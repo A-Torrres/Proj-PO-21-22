@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
 import ggc.core.exception.ProductDoesNotExistException;
+import ggc.core.exception.TransactionDoesNotExistException;
 
 /**
  * Class Warehouse implements a warehouse.
@@ -31,7 +33,7 @@ public class Warehouse implements Serializable {
   private Date _date = new Date();
   private Map<String, Product> _products = new HashMap<String, Product>();
   private Map<String, Partner> _partners = new HashMap<String, Partner>();
-  private Map<String, Transaction> _transactions = new HashMap<String, Transaction>();
+  private Map<Integer, Transaction> _transactions = new HashMap<Integer, Transaction>();
 
   /**
    * @param txtfile filename to be loaded.
@@ -66,21 +68,24 @@ public class Warehouse implements Serializable {
    */
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
-    for (Partner p : this.getPartners()) {
-      p.verifyLatePayments(_date);
-    }
+    for (Partner partner : this.getPartners())
+      partner.verifyLatePayments(_date);
   }
 
   double getBalance() {
     return _balance;
   }
 
-  Transaction getTransaction(int id) {
-    return _transactions.get("" + id);
+  Transaction getTransaction(int id) throws TransactionDoesNotExistException {
+    Transaction t = _transactions.get(id);
+    
+    if(t == null)
+      throw new TransactionDoesNotExistException();
+    return t;
   }
 
   void addTransaction(Transaction t) {
-    _transactions.put("" + t.getID(), t);
+    _transactions.put(t.getID(), t);
   }
 
   void pay(int id) {
@@ -227,10 +232,12 @@ public class Warehouse implements Serializable {
     throws PartnerDoesNotExistException, ProductDoesNotExistException {
     Partner partner = getPartner(idPartner);
     Product product = getProduct(idProduct);
+    Acquisition acq = new Acquisition(getCurrentDate(), price, quantity, product, partner);
 
+    _balance -= price * quantity;
     product.addBatch(new Batch(price, quantity, product, partner), price);
-    partner.addValueAcquisitions(quantity * price);
-    
+    _transactions.put(acq.getID(), acq);
+    partner.addAcquisition(acq);
   }
 
 }

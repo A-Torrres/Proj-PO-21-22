@@ -59,8 +59,7 @@ public abstract class Product implements Serializable, Observable {
      * @return int with quantity of product in the warehouse.
      */
     int getTotalQuantity() {
-        int total = 0;
-        //if(!_batches.isEmpty())      
+        int total = 0;     
         for(Batch b: _batches)
             total += b.getQuantity();
         return total;

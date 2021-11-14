@@ -1,55 +1,42 @@
 *** tests/A-17-03-M-ok.out	2021-11-10 23:23:36.519207000 +0000
---- tests/A-17-03-M-ok.outhyp	2021-11-12 21:20:17.049536934 +0000
+--- tests/A-17-03-M-ok.outhyp	2021-11-13 00:52:53.658984142 +0000
 ***************
-*** 151,194 ****
+*** 159,167 ****
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
-! Escolha uma opção: Identificador do parceiro: Gestão de Parceiros
-! 1 - Mostrar parceiro
-! 2 - Mostrar parceiros
-! 3 - Registar parceiro
-! 4 - Activa/desactivar notificações de um produto
-! 5 - Mostrar compras com parceiro
-! 6 - Mostrar vendas (e desagregações) com parceiro
-! 0 - Sair
 ! Escolha uma opção: Identificador do parceiro: COMPRA|0|M1|SAL|10|100|1
 ! COMPRA|1|M1|SAL|20|200|1
 ! COMPRA|3|M1|SAL|30|300|5
-! Gestão de Parceiros
-! 1 - Mostrar parceiro
-! 2 - Mostrar parceiros
-! 3 - Registar parceiro
-! 4 - Activa/desactivar notificações de um produto
-! 5 - Mostrar compras com parceiro
-! 6 - Mostrar vendas (e desagregações) com parceiro
-! 0 - Sair
-! Escolha uma opção: Identificador do parceiro: COMPRA|2|M2|VIDRO|10|100|2
-! COMPRA|4|M2|VIDRO|40|400|5
-! Gestão de Parceiros
-! 1 - Mostrar parceiro
-! 2 - Mostrar parceiros
-! 3 - Registar parceiro
-! 4 - Activa/desactivar notificações de um produto
-! 5 - Mostrar compras com parceiro
-! 6 - Mostrar vendas (e desagregações) com parceiro
-! 0 - Sair
-! Escolha uma opção: Menu Principal
-! 1 - Abrir
-! 2 - Guardar
-! 3 - Mostrar Data
-! 4 - Avançar Data
-! 5 - Gestão de Produtos
-! 6 - Gestão de Parceiros
-! 7 - Gestão de Transacções
-! 8 - Menu de Consultas
-! 9 - Ver Saldo Global
-! 0 - Sair
-! Escolha uma opção: 
-\ No newline at end of file
---- 151,154 ----
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+--- 159,167 ----
   5 - Mostrar compras com parceiro
   6 - Mostrar vendas (e desagregações) com parceiro
   0 - Sair
-! Escolha uma opção: Identificador do parceiro: 
-\ No newline at end of file
+! Escolha uma opção: Identificador do parceiro: COMPRA|0|M1|SAL|10|10.0|5
+! COMPRA|1|M1|SAL|20|10.0|5
+! COMPRA|3|M1|SAL|30|10.0|5
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+***************
+*** 170,177 ****
+  5 - Mostrar compras com parceiro
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+! Escolha uma opção: Identificador do parceiro: COMPRA|2|M2|VIDRO|10|100|2
+! COMPRA|4|M2|VIDRO|40|400|5
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+--- 170,177 ----
+  5 - Mostrar compras com parceiro
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+! Escolha uma opção: Identificador do parceiro: COMPRA|2|M2|VIDRO|10|10.0|5
+! COMPRA|4|M2|VIDRO|40|10.0|5
+  Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros

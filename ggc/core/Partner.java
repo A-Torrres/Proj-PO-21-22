@@ -17,11 +17,10 @@ public class Partner implements Observer, Serializable {
     private PartnerState _status = Normal.getStatus();
     private Collection<Batch> _batches = new ArrayList<>();
     private Collection<Notification> _notifications = new ArrayList<>();
+    private Collection<Acquisition> _acquisitions = new ArrayList<>();
 
-    private Collection<Acquisition> _acquisitions = new HashSet<>();
     private Collection<Sale> _sales = new HashSet<>();
 
-    private double _valorCompras;           //por simplicidade
     private double _valorVendasEfetuadas;   //por simplicidade
     private double _valorVendasPagas;       //por simplicidade
 
@@ -56,10 +55,6 @@ public class Partner implements Observer, Serializable {
 
     public void update(NotificationType type, Product product, double price) {
         _notifications.add(new Notification(type, product, price));
-    }
-
-    void addValueAcquisitions(double value) {
-        _valorCompras += value;
     }
 
     PartnerState getStatus() {
@@ -107,10 +102,20 @@ public class Partner implements Observer, Serializable {
         return (ArrayList<Acquisition>) _acquisitions;
     }
 
+    void addAcquisition(Acquisition acquisition) {
+        _acquisitions.add(acquisition);
+    }
+
+    double getTotalAmountPayed() {
+        double total = 0;
+        for(Acquisition a: _acquisitions)
+            total += a.getBaseValue() * a.getQuantity();
+        return total;
+    }
+
     /**
    * @return id|nome|endereço|estatuto|pontos|valor-compras|
    *        valor-vendas-efectuadas|valor-vendas-pagas
-   *        + notificacoes
    */
     @Override
     public String toString() {
@@ -119,8 +124,9 @@ public class Partner implements Observer, Serializable {
                 _address + "|" + 
                 _status.toString() + "|" +
                 Math.round(_points) + "|" + 
-                Math.round(_valorCompras) + "|" +
+                Math.round(getTotalAmountPayed()) + "|" +
                 Math.round(_valorVendasEfetuadas) + "|" + 
                 Math.round(_valorVendasPagas);
     }
+
 }

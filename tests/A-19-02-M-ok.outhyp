@@ -16,7 +16,21 @@ Escolha uma opção: Gestão de Transacções
 4 - Registar compra
 5 - Receber pagamento de venda
 0 - Sair
-Escolha uma opção: Identificador do produto: Preço: Quantidade: Quantidade: Identificador do parceiro: Registar venda: Operação inválida: O produto 'M1' não existe.
+Escolha uma opção: Identificador do parceiro: Data limite de pagamento: Identificador do produto: Quantidade: Gestão de Transacções
+1 - Visualizar
+2 - Registar desagregação
+3 - Registar venda
+4 - Registar compra
+5 - Receber pagamento de venda
+0 - Sair
+Escolha uma opção: Identificador do parceiro: Data limite de pagamento: Identificador do produto: Quantidade: Gestão de Transacções
+1 - Visualizar
+2 - Registar desagregação
+3 - Registar venda
+4 - Registar compra
+5 - Receber pagamento de venda
+0 - Sair
+Escolha uma opção: Identificador da transacção: VENDA0M1VIDRO302.00.0ggc.core.Date@452b3a410
 Gestão de Transacções
 1 - Visualizar
 2 - Registar desagregação
@@ -24,16 +38,7 @@ Gestão de Transacções
 4 - Registar compra
 5 - Receber pagamento de venda
 0 - Sair
-Escolha uma opção: Número inválido!
-Escolha uma opção: Gestão de Transacções
-1 - Visualizar
-2 - Registar desagregação
-3 - Registar venda
-4 - Registar compra
-5 - Receber pagamento de venda
-0 - Sair
-Escolha uma opção: Número inválido!
-Escolha uma opção: Opção inválida!
+Escolha uma opção: Identificador da transacção: VENDA1M1VIDRO402.00.0ggc.core.Date@548c4f570
 Gestão de Transacções
 1 - Visualizar
 2 - Registar desagregação
@@ -41,4 +46,15 @@ Gestão de Transacções
 4 - Registar compra
 5 - Receber pagamento de venda
 0 - Sair
-Escolha uma opção: Quantidade: 
+Escolha uma opção: Menu Principal
+1 - Abrir
+2 - Guardar
+3 - Mostrar Data
+4 - Avançar Data
+5 - Gestão de Produtos
+6 - Gestão de Parceiros
+7 - Gestão de Transacções
+8 - Menu de Consultas
+9 - Ver Saldo Global
+0 - Sair
+Escolha uma opção: 

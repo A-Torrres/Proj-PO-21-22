@@ -1,39 +1,15 @@
 *** tests/A-16-01-M-ok.out	2021-11-07 16:04:59.279019000 +0000
---- tests/A-16-01-M-ok.outhyp	2021-11-12 21:20:16.745535855 +0000
+--- tests/A-16-01-M-ok.outhyp	2021-11-13 00:52:53.354832134 +0000
 ***************
-*** 16,29 ****
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Identificador do parceiro: Data limite de pagamento: Identificador do produto: Quantidade: Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
+*** 23,38 ****
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
 ! Escolha uma opção: Identificador da transacção: Receber pagamento de venda: Operação inválida: A transacção '-1' não existe.
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
---- 16,30 ----
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Identificador do produto: Preço: Quantidade: Quantidade: Identificador do parceiro: Registar venda: Operação inválida: O produto 'S1' não existe.
 ! Gestão de Transacções
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Opção inválida!
-  Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-***************
-*** 31,38 ****
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair
@@ -42,7 +18,14 @@
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
---- 32,38 ----
+--- 23,36 ----
+  4 - Registar compra
+  5 - Receber pagamento de venda
+  0 - Sair
+! Escolha uma opção: Quantidade: Gestão de Transacções
+  1 - Visualizar
+  2 - Registar desagregação
+  3 - Registar venda
   4 - Registar compra
   5 - Receber pagamento de venda
   0 - Sair

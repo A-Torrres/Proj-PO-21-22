@@ -16,25 +16,25 @@ public class DoRegisterSaleTransaction extends Command<WarehouseManager> {
 
   public DoRegisterSaleTransaction(WarehouseManager receiver) {
     super(Label.REGISTER_SALE_TRANSACTION, receiver);
-    addStringField("productID", Message.requestProductKey());
-    addStringField("pricePerUnit", Message.requestPrice());
-    addIntegerField("amount", Message.requestAmount());
-    addStringField("partnerID", Message.requestPartnerKey());
+    addStringField("idPartner", Message.requestPartnerKey());
+    addIntegerField("date", Message.requestPaymentDeadline());
+    addStringField("idProduct", Message.requestProductKey());
+    addIntegerField("quantity", Message.requestAmount());
   }
 
   @Override
   public final void execute() throws CommandException {
-    String productID = stringField("productID");
-    double pricePerUnit = Double.parseDouble(stringField("pricePerUnit"));
-    int amount = integerField("amount");
-    String partnerID = stringField("partnerID");
-
+    String idPartner = stringField("idPartner");
+    String idProduct = stringField("idProduct");
+    int date = integerField("date");
+    int quantity = integerField("quantity");
+    
     try {
-      _receiver.addSaleByCredit(pricePerUnit, amount, _receiver.getProduct(productID), _receiver.getPartner(partnerID));
+      _receiver.addSaleByCredit(date, quantity, _receiver.getProduct(idProduct), _receiver.getPartner(idPartner));
     } catch(ProductDoesNotExistException pdne) {
-      throw new UnknownProductKeyException(productID);
+      throw new UnknownProductKeyException(idProduct);
     } catch(PartnerDoesNotExistException pdne) {
-      throw new UnknownPartnerKeyException(partnerID);
+      throw new UnknownPartnerKeyException(idPartner);
     } 
   }
 

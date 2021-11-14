@@ -3,7 +3,6 @@ package ggc.app.transactions;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import ggc.app.exception.UnknownPartnerKeyException;
-import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.WarehouseManager;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.ProductDoesNotExistException;
@@ -31,17 +30,13 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
     try {
       _receiver.registerAcquisition(idPartner, idProduct, price, quantity);
     }
-    catch(Exception e){}
-    
-    /*
-    try {
-      _receiver.addAcquisition(price, quantity, _receiver.getProduct(idProduct), _receiver.getPartner(idPartner));
-    }
     catch(PartnerDoesNotExistException pdne) {
       throw new UnknownPartnerKeyException(idPartner);
     } 
     catch(ProductDoesNotExistException pdne) {
-      //TODO criar produto
-    } */
+      addStringField("key", Message.requestAddRecipe());
+
+    }
   }
+
 }
