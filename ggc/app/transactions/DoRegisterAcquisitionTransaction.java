@@ -35,20 +35,23 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
 
     try {
       _receiver.registerAcquisition(idPartner, idProduct, price, quantity);
-    } catch(PartnerDoesNotExistException pdne) {
+    } 
+    catch(PartnerDoesNotExistException pdne) {
       throw new UnknownPartnerKeyException(idPartner);
-    } catch(ProductDoesNotExistException pdne) {
+    } 
+    catch(ProductDoesNotExistException pdne) {
       // Simple Product
       if(Form.requestString(Message.requestAddRecipe()).equals("n")) {  
         try {
           _receiver.registerSimpleProduct(idProduct, idPartner, price, quantity);
-        } catch (Exception e) {
-          //!Should not happen
+        } 
+        catch(Exception e) {
+          e.printStackTrace();
         }
       }
       // Aggregate Product
       else {
-        int amount = Form.requestInteger(Message.requestAmount());
+        int amount = Form.requestInteger(Message.requestNumberOfComponents());
         double alpha = Form.requestReal(Message.requestAlpha());
         List<String> componentIDs = new ArrayList<>();
         List<Integer> componentAmounts = new ArrayList<>();
@@ -58,10 +61,12 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
         }
         try {
           _receiver.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
-        } catch (ProductDoesNotExistException pdnee) {
+        } 
+        catch (ProductDoesNotExistException pdnee) {
           throw new UnknownProductKeyException(idProduct); //Caso algum componente não exista
-        } catch (PartnerDoesNotExistException pdnee) {
-          //!Should not happen
+        } 
+        catch(Exception e) {
+          e.printStackTrace();
         }
       }
     }

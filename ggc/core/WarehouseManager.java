@@ -184,8 +184,9 @@ public class WarehouseManager {
     _warehouse.registerSimpleProduct(idProduct, idPartner, price, quantity);
   }
 
-  public void registerAggregateProduct(String idProduct, String idPartner, double price, int quantity, double alpha,
-      List<String> componentIDs, List<Integer> componentAmounts) throws ProductDoesNotExistException, PartnerDoesNotExistException {
+  public void registerAggregateProduct(String idProduct, String idPartner, double price, 
+      int quantity, double alpha, List<String> componentIDs, List<Integer> componentAmounts) 
+      throws ProductDoesNotExistException, PartnerDoesNotExistException {
     _warehouse.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
   }
   

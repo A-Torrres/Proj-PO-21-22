@@ -127,6 +127,19 @@ public class Warehouse implements Serializable {
     registerAcquisition(idPartner, idProduct, price, quantity);
   }
 
+  void registerAggregateProduct(String idProduct, String idPartner, double price, 
+      int quantity, double alpha, List<String> componentIDs, List<Integer> componentAmounts) 
+      throws ProductDoesNotExistException, PartnerDoesNotExistException {
+    AggregateProduct aggProd = new AggregateProduct(idProduct);
+    List<Component> components = new ArrayList<>();
+    for(int i = 0; i < componentIDs.size(); i++)
+      components.add(new Component(componentAmounts.get(i), getProduct(componentIDs.get(i))));
+    aggProd.addRecipe(new Recipe(alpha, aggProd, components));
+    
+    addProduct(idProduct, aggProd);
+    registerAcquisition(idPartner, idProduct, price, quantity);
+  }
+
   void addBatch(String productID, Batch batch) throws ProductDoesNotExistException {
     try {
       this.getProduct(productID).addBatch(batch, batch.getPrice());
@@ -287,19 +300,6 @@ public class Warehouse implements Serializable {
     sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, baseValue, quantity, product, partner);
     _transactions.put(sale.getID(), sale);
     // atualizar _balance
-  }
-
-  public void registerAggregateProduct(String idProduct, String idPartner, double price, int quantity, double alpha,
-      List<String> componentIDs, List<Integer> componentAmounts) throws ProductDoesNotExistException, PartnerDoesNotExistException {
-    AggregateProduct aggProd = new AggregateProduct(idProduct);
-    List<Component> components = new ArrayList<>();
-    for(int i = 0; i <= componentIDs.size() && i <= componentAmounts.size(); i++) {
-      components.add(new Component(componentAmounts.get(i), getProduct(componentIDs.get(i))));
-    }
-    aggProd.addRecipe(new Recipe(alpha, aggProd, components));
-    
-    addProduct(idProduct, aggProd);
-    registerAcquisition(idPartner, idProduct, price, quantity);
   }
 
 }
