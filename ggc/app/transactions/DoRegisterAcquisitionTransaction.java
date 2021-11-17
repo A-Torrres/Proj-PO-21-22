@@ -62,8 +62,9 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
         try {
           _receiver.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
         } 
+        // In case a component does not exists
         catch (ProductDoesNotExistException pdnee) {
-          throw new UnknownProductKeyException(idProduct); //Caso algum componente não exista
+          throw new UnknownProductKeyException(pdnee.getID());
         } 
         catch(Exception e) {
           e.printStackTrace();

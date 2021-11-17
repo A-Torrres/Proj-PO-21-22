@@ -22,6 +22,7 @@ class Normal implements PartnerState, Serializable {
     private static final int GRACE_PERIOD = 0;
 
     private Normal(){}
+    
     public static PartnerState getStatus() {
         return SINGLETON;
     }

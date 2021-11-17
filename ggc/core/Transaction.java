@@ -6,7 +6,6 @@ import java.io.Serializable;
 public abstract class Transaction implements Serializable {
     
     private static final long serialVersionUID = 30589876454L;
-    //private int NEXT_ID;
     
     private int _id;
     private Date _paymentDate;
@@ -52,16 +51,12 @@ public abstract class Transaction implements Serializable {
         return _partner;
     }
     
-    //abstract void pay();
+    abstract void pay(Date date);
 
     /**
    * @return true if paid, false otherwise.
    **/
-    boolean isPaid() {
-        return true;
-    }
-
-    void pay(Date date) {}
+    abstract boolean isPaid();
 
     @Override
     abstract public String toString();    

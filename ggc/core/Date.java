@@ -12,14 +12,16 @@ public class Date implements Serializable {
     private static final long serialVersionUID = 201589871010L;
     private int _day;
 
-    Date() {}
+    Date() {
+        // Do nothing
+    }
 
     Date(int day) {
         _day = day;
     }
 
     public int getDay() {
-        return this._day;
+        return _day;
     }
 
     /**
@@ -30,7 +32,7 @@ public class Date implements Serializable {
     Date add(int days) throws NegativeDaysException {
         if (days < 0)
             throw new NegativeDaysException();
-        this._day += days;
+        _day += days;
         return this;
     }
 
@@ -39,8 +41,7 @@ public class Date implements Serializable {
    * @return int with difference of days between current Date and other Date.
    */
     int difference(Date other) {
-        return this._day - other.getDay();
+        return _day - other.getDay();
     }
 
 }
-

@@ -7,6 +7,14 @@ public class Acquisition extends Transaction {
         super(id, paymentDate, price, quantity, product, partner);
     }
 
+    boolean isPaid() {
+        return true;
+    }
+
+    void pay(Date date) {
+        // Do nothing
+    }
+
     // COMPRA|id|idParceiro|idProduto|quantidade|valor-pago|data-pagamento
     @Override
     public String toString() {

@@ -9,6 +9,15 @@ public class BreakDownSale extends Sale {
 
     BreakDownSale(int id, Date paymentD, double baseValue, int quant, Product prod, Partner part) {
         super(id, paymentD, baseValue, quant, prod, part);
+        
+    }
+
+    boolean isPaid() {
+        return true;
+    }
+    
+    void pay(Date date) {
+        // Do nothing
     }
 
     /**

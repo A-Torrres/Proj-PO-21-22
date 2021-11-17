@@ -1,0 +1,21 @@
+*** tests/A-19-03-M-ok.out	2021-11-05 10:16:36.233758000 +0000
+--- tests/A-19-03-M-ok.outhyp	2021-11-17 21:20:01.341148321 +0000
+***************
+*** 90,98 ****
+  5 - Mostrar compras com parceiro
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+! Escolha uma opção: Identificador do parceiro: VENDA|0|M1|VIDRO|30|30|30|2
+! VENDA|1|M1|VIDRO|20|20|20|2
+! Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+  3 - Registar parceiro
+--- 90,96 ----
+  5 - Mostrar compras com parceiro
+  6 - Mostrar vendas (e desagregações) com parceiro
+  0 - Sair
+! Escolha uma opção: Identificador do parceiro: Gestão de Parceiros
+  1 - Mostrar parceiro
+  2 - Mostrar parceiros
+  3 - Registar parceiro

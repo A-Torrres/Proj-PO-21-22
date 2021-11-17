@@ -61,7 +61,7 @@ public class Warehouse implements Serializable {
    * @return current Date.
    */
   Date getCurrentDate() {
-    return _date;
+    return new Date(_date.getDay());
   }
 
   /**
@@ -74,7 +74,12 @@ public class Warehouse implements Serializable {
       partner.verifyLatePayments(_date);
   }
 
-  double getBalance() {
+  double getAvailableBalance() {
+    return _balance;
+  }
+  
+  double getAccountingBalance() {
+    //TODO
     return _balance;
   }
 
@@ -86,15 +91,20 @@ public class Warehouse implements Serializable {
     return t;
   }
 
+  Collection<Transaction> getPaidTransactionsByPartner(String id) throws PartnerDoesNotExistException {
+    Partner partner = getPartner(id);
+    return partner.getPaidTransactions();
+  }
+
   void addTransaction(Transaction t) {
     _transactions.put(t.getID(), t);
   }
 
-  void pay(int id) {
-    Transaction transaction = _transactions.get(id);
-    if(transaction instanceof SaleByCredit && !transaction.isPaid()) {
+  void pay(int id) throws TransactionDoesNotExistException {
+    Transaction transaction = getTransaction(id);
+
+    if(!transaction.isPaid())
       transaction.pay(getCurrentDate());
-    }
   }
 
   /**
@@ -129,11 +139,20 @@ public class Warehouse implements Serializable {
 
   void registerAggregateProduct(String idProduct, String idPartner, double price, 
       int quantity, double alpha, List<String> componentIDs, List<Integer> componentAmounts) 
-      throws ProductDoesNotExistException, PartnerDoesNotExistException {
+      throws PartnerDoesNotExistException, ProductDoesNotExistException {
     AggregateProduct aggProd = new AggregateProduct(idProduct);
     List<Component> components = new ArrayList<>();
-    for(int i = 0; i < componentIDs.size(); i++)
-      components.add(new Component(componentAmounts.get(i), getProduct(componentIDs.get(i))));
+    
+    
+    for(int i = 0; i < componentIDs.size(); i++) {
+      try {
+        components.add(new Component(componentAmounts.get(i), getProduct(componentIDs.get(i))));
+      }
+      catch(ProductDoesNotExistException pdnee) {
+        throw new ProductDoesNotExistException(componentIDs.get(i));
+      }
+    }
+    
     aggProd.addRecipe(new Recipe(alpha, aggProd, components));
     
     addProduct(idProduct, aggProd);
@@ -146,10 +165,6 @@ public class Warehouse implements Serializable {
     } catch(ProductDoesNotExistException pdne) {
       throw pdne;
     }
-  }
-
-  void changeBalance(double money) {
-    _balance += money;
   }
 
   /**
@@ -261,10 +276,13 @@ public class Warehouse implements Serializable {
     partner.addBatch(batch);
     partner.addAcquisition(acq);
     addTransaction(acq);
-    //_transactions.put(acq.getID(), acq);
   }
 
-  void addSaleByCredit(String idPartner, int date, String idProduct, int quantity) 
+  Collection<Acquisition> getAcquisitionsByPartner(String id) throws PartnerDoesNotExistException {
+    return getPartner(id).getAcquisitions();
+  }
+
+  void registerSaleByCredit(String idPartner, int date, String idProduct, int quantity)
       throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
     Partner partner = getPartner(idPartner);
     Product product = getProduct(idProduct);
@@ -273,33 +291,34 @@ public class Warehouse implements Serializable {
     double baseValue = 0;
     List<Batch> batches;
     int quantityToGet = quantity;
-
+    
     if(!product.checkQuantity(quantity))
-        throw new ProductInsuficientAmountException(quantity);
+      throw new ProductInsuficientAmountException(idProduct, quantity, product.getTotalQuantity());
     
     // retirar quantidade de produtos dos lotes e ir aumentando o baseValue
     batches = new ArrayList<>(product.getBatches());
     Collections.sort(batches, new BatchPriceComp());
 
     for(Batch b: batches) {
-        int amount = b.getQuantity();
-        int amountToConsum = quantityToGet;
-        // se o batch atual n tiver suficiente tiramos tudo o q tem
-        if((amount - quantityToGet) < 0)
-          amountToConsum = amount;
+      int amount = b.getQuantity();
+      int amountToConsum = quantityToGet;
+      // se o batch atual n tiver suficiente tiramos tudo o q tem
+      if((amount - quantityToGet) < 0)
+        amountToConsum = amount;
 
-        baseValue += b.getPrice() * amountToConsum;
-        b.removeQuantity(amountToConsum);
-        quantityToGet -= amountToConsum;
+      baseValue += b.getPrice() * amountToConsum;
+      b.removeQuantity(amountToConsum);
+      quantityToGet -= amountToConsum;
 
-        if(quantityToGet == 0)
-          break;
+      if(quantityToGet == 0)
+        break;
     }
 
+    _partners.forEach( (id, p)-> p.removeEmptyBatches());
     product.removeEmptyBatches();
+    
     sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, baseValue, quantity, product, partner);
-    _transactions.put(sale.getID(), sale);
-    // atualizar _balance
+    addTransaction(sale);
   }
 
 }

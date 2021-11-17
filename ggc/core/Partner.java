@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 
 public class Partner implements Observer, Serializable {
 
@@ -19,7 +19,7 @@ public class Partner implements Observer, Serializable {
     private Collection<Notification> _notifications = new ArrayList<>();
     private Collection<Acquisition> _acquisitions = new ArrayList<>();
 
-    private Collection<Sale> _sales = new HashSet<>();
+    private Collection<Sale> _sales = new ArrayList<>();
 
     private double _valorVendasEfetuadas;   //por simplicidade
     private double _valorVendasPagas;       //por simplicidade
@@ -68,6 +68,10 @@ public class Partner implements Observer, Serializable {
         _batches.add(batch);
     }
 
+    void removeEmptyBatches() {
+        _batches.removeIf(b -> b.getQuantity() == 0);
+    }
+
     void addPoints(double points) {
         _points += points;
         updateStatus();
@@ -98,8 +102,17 @@ public class Partner implements Observer, Serializable {
         return (ArrayList<Sale>) _sales;
     }
 
-    public ArrayList<Acquisition> getAcquisitions() {
-        return (ArrayList<Acquisition>) _acquisitions;
+    Collection<Acquisition> getAcquisitions() {
+        return _acquisitions;
+    }
+
+    Collection<Transaction> getPaidTransactions() {
+        List<Transaction> paidTransactions = new ArrayList<>();
+        for(Transaction sale: _sales)
+            if(sale.isPaid())
+                paidTransactions.add(sale);
+
+        return paidTransactions;
     }
 
     void addAcquisition(Acquisition acquisition) {

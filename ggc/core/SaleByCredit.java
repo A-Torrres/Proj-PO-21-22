@@ -3,14 +3,14 @@ package ggc.core;
 public class SaleByCredit extends Sale {
 
     private Date _deadLine;
-    private double _amountPaid;    // mudar nome. amountTOPay, isto n se paga as mijinhas
+    private double _amountPaid;
+    private double _amountToPay;
     private PaymentPeriod _paymentPeriod = PaymentPeriod.P1;
 
     SaleByCredit(int id, Date date, double baseValue, int quantity, Product product, Partner partner) {
         super(id, date, baseValue, quantity, product, partner);
         _deadLine = date;
-        _amountPaid = baseValue;
-        //_deadLine = new Date(paymentD.getDay() + prod.getDeadLine());
+        _amountToPay = baseValue;
     }
 
     int updatePeriod(Date currentDate) {
@@ -34,7 +34,7 @@ public class SaleByCredit extends Sale {
         return 0;
     }
 
-    double getActualTotalPrice(Date currentDate) {
+    double getAcountingPrice(Date currentDate) {
         double modifier = 1.0;
         PartnerState status = getPartner().getStatus();
 
@@ -45,25 +45,32 @@ public class SaleByCredit extends Sale {
             case P4: modifier = status.getModifier(PaymentPeriod.P4, _deadLine.difference(currentDate));
         }
 
-        return getBaseValue() * getQuantity() * modifier;
+        return getBaseValue() * modifier;
     }
 
     void pay(Date date) {
-        _amountPaid = getActualTotalPrice(date);
+        _amountPaid = getAcountingPrice(date);
+    }
+
+    boolean isPaid() {
+        return _amountPaid != 0;
     }
 
     // VENDA|id|idParceiro|idProduto|quantidade|valor-base|valor-a-pagamento|data-limite|data-pagamento
     @Override
     public String toString() {
-        return "VENDA" + '|' +
-                getID() + '|' +
-                getPartner().getID() + '|' +
-                getProduct().getID() + '|' +
-                getQuantity() + '|' +
-                Math.round(getBaseValue())  + '|' +
-                Math.round(_amountPaid) + '|' +
-                _deadLine.getDay();
-                //+ '|' +getPaymentDate().getDay();
+        String toReturn = "VENDA" + '|' +
+                            getID() + '|' +
+                            getPartner().getID() + '|' +
+                            getProduct().getID() + '|' +
+                            getQuantity() + '|' +
+                            Math.round(getBaseValue())  + '|' +
+                            Math.round(_amountToPay) + '|' +
+                            _deadLine.getDay();
+        if(isPaid())
+            toReturn += getPaymentDate().getDay();
+        
+        return toReturn;
     }
 
 }

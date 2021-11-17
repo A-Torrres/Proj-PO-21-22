@@ -24,9 +24,12 @@ public class DoLookupProductBatchesUnderGivenPrice extends Command<WarehouseMana
   @Override
   public void execute() throws CommandException {
     Double price = realField("price");
+    List<Batch> batches = new ArrayList<>();
 
-    List<Batch> batches = new ArrayList<>(_receiver.getBatches());
-    batches.stream().filter(b -> b.getPrice() < price);
+    for(Batch b: _receiver.getBatches())
+      if(b.getPrice() < price)
+        batches.add(b);
+
     Collections.sort(batches, new BatchStringComp());
 
     _display.popup(batches);

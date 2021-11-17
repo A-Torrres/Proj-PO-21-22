@@ -2,11 +2,13 @@ package ggc.app.lookups;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ggc.app.exception.UnknownPartnerKeyException;
-import ggc.core.Partner;
-import ggc.core.Sale;
+import ggc.core.Transaction;
 import ggc.core.WarehouseManager;
-//FIXME import classes
 import ggc.core.exception.PartnerDoesNotExistException;
 
 /**
@@ -16,20 +18,21 @@ public class DoLookupPaymentsByPartner extends Command<WarehouseManager> {
 
   public DoLookupPaymentsByPartner(WarehouseManager receiver) {
     super(Label.PAID_BY_PARTNER, receiver);
-    addStringField("partnerID", Message.requestPartnerKey());
+    addStringField("idPartner", Message.requestPartnerKey());
   }
 
   @Override
   public void execute() throws CommandException {
+    String id = stringField("idPartner");
+    List<Transaction> payments;
+    
     try {
-      Partner partner = _receiver.getPartner(stringField("partnerID"));
-      for(Sale sale : partner.getSales()) {
-        _display.addLine(sale.toString());
-      }
-      _display.display();
-    } catch (PartnerDoesNotExistException pdne) {
-      throw new UnknownPartnerKeyException(stringField("partnerID"));
+      payments = new ArrayList<>(_receiver.getPaidTransactionsByPartner(id));
+    } 
+    catch (PartnerDoesNotExistException pdne) {
+      throw new UnknownPartnerKeyException(id);
     }
+    _display.popup(payments);
   }
 
 }

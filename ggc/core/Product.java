@@ -95,11 +95,11 @@ public abstract class Product implements Serializable, Observable {
         if(_maxPrice != 0 && _batches.size() == 1)
             notifyObservers(NotificationType.NEW, price);
 
+        else if( minPrice > price)
+            notifyObservers(NotificationType.BARGAIN, price);
+
         if(_maxPrice < price)
             _maxPrice = price;
-        
-        if(minPrice > price)
-            notifyObservers(NotificationType.BARGAIN, price);
     }
 
     void removeBatch(Batch b) {

@@ -153,30 +153,34 @@ public class WarehouseManager {
       throws PartnerDoesNotExistException, ProductDoesNotExistException {
     _warehouse.registerAcquisition(idPartner, idProduct, price, quantity);
   }
-
-  public void addTransaction(Transaction t) {
-    _warehouse.addTransaction(t);
+  
+  public Collection<Acquisition> getAcquisitionsByPartner(String id) throws PartnerDoesNotExistException {
+    return Collections.unmodifiableCollection( _warehouse.getAcquisitionsByPartner(id));
   }
 
   public void addProduct(String id, Product product) {
     _warehouse.addProduct(id, product);
   }
 
-  public void addSaleByCredit(String idPartner, int date, String idProduct, int quantity) 
+  public void registerSaleByCredit(String idPartner, int date, String idProduct, int quantity) 
       throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
-    _warehouse.addSaleByCredit(idPartner, date, idProduct, quantity);
+    _warehouse.registerSaleByCredit(idPartner, date, idProduct, quantity);
   }
 
   public Transaction getTransaction(int id) throws TransactionDoesNotExistException {
     return _warehouse.getTransaction(id);
   }
 
-  public void pay(int id) {
+  public void pay(int id) throws TransactionDoesNotExistException {
     _warehouse.pay(id);
   }
 
-  public double getBalance() {
-    return _warehouse.getBalance();
+  public double getAvailableBalance() {
+    return _warehouse.getAvailableBalance();
+  }
+  
+  public double getAccountingBalance() {
+    return _warehouse.getAccountingBalance();
   }
 
   public void registerSimpleProduct(String idProduct, String idPartner, double price, int quantity) 
@@ -189,5 +193,9 @@ public class WarehouseManager {
       throws ProductDoesNotExistException, PartnerDoesNotExistException {
     _warehouse.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
   }
-  
+
+  public Collection<Transaction> getPaidTransactionsByPartner(String id) throws PartnerDoesNotExistException {
+    return Collections.unmodifiableCollection(_warehouse.getPaidTransactionsByPartner(id));
+  }
+
 }
