@@ -1,47 +1,5 @@
 *** tests/A-12-04-M-ok.out	2021-11-07 16:04:59.231834000 +0000
---- tests/A-12-04-M-ok.outhyp	2021-11-13 00:52:52.566438112 +0000
-***************
-*** 37,50 ****
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Identificador do parceiro: Identificador do produto: Preço: Quantidade: Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Identificador do parceiro: Identificador do produto: Preço: Quantidade: Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
---- 37,61 ----
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Identificador do parceiro: Identificador do produto: Preço: Quantidade: Registar receita? Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
-  4 - Registar compra
-  5 - Receber pagamento de venda
-  0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
-! 1 - Visualizar
-! 2 - Registar desagregação
-! 3 - Registar venda
-! 4 - Registar compra
-! 5 - Receber pagamento de venda
-! 0 - Sair
-! Escolha uma opção: Opção inválida!
-! Gestão de Transacções
-  1 - Visualizar
-  2 - Registar desagregação
-  3 - Registar venda
+--- tests/A-12-04-M-ok.outhyp	2021-11-17 00:50:18.902758044 +0000
 ***************
 *** 62,69 ****
   8 - Menu de Consultas
@@ -52,11 +10,11 @@
   Menu Principal
   1 - Abrir
   2 - Guardar
---- 73,79 ----
+--- 62,68 ----
   8 - Menu de Consultas
   9 - Ver Saldo Global
   0 - Sair
-! Escolha uma opção: -30000.0
+! Escolha uma opção: -60000.0
   Menu Principal
   1 - Abrir
   2 - Guardar

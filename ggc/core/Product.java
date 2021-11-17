@@ -14,9 +14,8 @@ public abstract class Product implements Serializable, Observable {
     private Collection<Observer> _observers = new ArrayList<>();
 
 
-    Product(String id, double price) {
+    Product(String id) {
         _id = id;
-        _maxPrice = price;
     }
 
     /**
@@ -65,6 +64,10 @@ public abstract class Product implements Serializable, Observable {
         return total;
     }
 
+    boolean checkQuantity(int quantity) {
+        return quantity <= getTotalQuantity();
+    }
+
     double findMinPrice() {
         double min = _maxPrice;
 
@@ -87,22 +90,26 @@ public abstract class Product implements Serializable, Observable {
     void addBatch(Batch batch, double price) {
         double minPrice = findMinPrice();
 
-        _batches.add(batch); 
-        
+        _batches.add(batch);
+
+        if(_maxPrice != 0 && _batches.size() == 1)
+            notifyObservers(NotificationType.NEW, price);
+
         if(_maxPrice < price)
             _maxPrice = price;
         
         if(minPrice > price)
             notifyObservers(NotificationType.BARGAIN, price);
-
-        if(_batches.size() == 1)
-            notifyObservers(NotificationType.NEW, price);
     }
 
-/*
-    @Override
-    public abstract String toString();
-*/
+    void removeBatch(Batch b) {
+        _batches.remove(b);
+    }
+
+    void removeEmptyBatches() {
+        _batches.removeIf(b -> b.getQuantity() == 0);
+    }
+
     @Override
     public String toString() {
         return getID() + "|" + 

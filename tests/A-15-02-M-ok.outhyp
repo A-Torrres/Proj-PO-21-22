@@ -58,7 +58,8 @@ Escolha uma opção: Gestão de Produtos
 3 - Visualizar lotes fornecidos por parceiro
 4 - Visualizar lotes de um dado produto
 0 - Sair
-Escolha uma opção: HIDROGENIO|S1|200|5000
+Escolha uma opção: GARRAFA|S1|1000|500
+HIDROGENIO|S1|200|5000
 ROLHA|M1|30|500
 ROLHA|R1|20|500
 SAL|S1|1000|500
@@ -89,10 +90,6 @@ Escolha uma opção: Gestão de Parceiros
 6 - Mostrar vendas (e desagregações) com parceiro
 0 - Sair
 Escolha uma opção: Identificador do parceiro: M1|Rohit Figueiredo|New Delhi, India|NORMAL|0|0|0|0
-NEW|ROLHA|20
-NEW|HIDROGENIO|200
-NEW|VIDRO|1000
-NEW|SAL|1000
 Gestão de Parceiros
 1 - Mostrar parceiro
 2 - Mostrar parceiros

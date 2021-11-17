@@ -4,8 +4,8 @@ public class SimpleProduct extends Product {
     
     private static final int DEADLINE = 5;
 
-    SimpleProduct(String id, double price){
-        super(id, price);
+    SimpleProduct(String id){
+        super(id);
     }
 
     @Override

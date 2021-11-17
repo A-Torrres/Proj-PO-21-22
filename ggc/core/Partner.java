@@ -106,10 +106,10 @@ public class Partner implements Observer, Serializable {
         _acquisitions.add(acquisition);
     }
 
-    double getTotalAmountPayed() {
+    double getTotalAquisitionsAmountPayed() {
         double total = 0;
         for(Acquisition a: _acquisitions)
-            total += a.getBaseValue() * a.getQuantity();
+            total += a.getBaseValue();
         return total;
     }
 
@@ -124,7 +124,7 @@ public class Partner implements Observer, Serializable {
                 _address + "|" + 
                 _status.toString() + "|" +
                 Math.round(_points) + "|" + 
-                Math.round(getTotalAmountPayed()) + "|" +
+                Math.round(getTotalAquisitionsAmountPayed()) + "|" +
                 Math.round(_valorVendasEfetuadas) + "|" + 
                 Math.round(_valorVendasPagas);
     }

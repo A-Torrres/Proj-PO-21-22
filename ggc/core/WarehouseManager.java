@@ -18,6 +18,7 @@ import ggc.core.exception.NegativeDaysException;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.PartnerKeyAlreadyExistException;
 import ggc.core.exception.ProductDoesNotExistException;
+import ggc.core.exception.ProductInsuficientAmountException;
 import ggc.core.exception.TransactionDoesNotExistException;
 
 /** Façade for access. */
@@ -160,13 +161,10 @@ public class WarehouseManager {
     _warehouse.addProduct(id, product);
   }
 
-  public void addSaleByCredit(double baseValue, int quant, Product prod, Partner part) {
-    addTransaction(new SaleByCredit(_warehouse.getCurrentDate(), baseValue, quant, prod, part));
+  public void addSaleByCredit(String idPartner, int date, String idProduct, int quantity) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
+    _warehouse.addSaleByCredit(idPartner, date, idProduct, quantity);
   }
-  
-  /*public void addSaleByCredit(int date, int quant, Product prod, Partner part) {
-    addTransaction(new SaleByCredit(_warehouse.getCurrentDate(), date, quant, prod, part));
-  }*/
 
   public Transaction getTransaction(int id) throws TransactionDoesNotExistException {
     return _warehouse.getTransaction(id);
@@ -178,6 +176,11 @@ public class WarehouseManager {
 
   public double getBalance() {
     return _warehouse.getBalance();
+  }
+
+  public void registerSimpleProduct(String idProduct, String idPartner, double price, int quantity) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException {
+    _warehouse.registerSimpleProduct(idProduct, idPartner, price, quantity);
   }
   
 }

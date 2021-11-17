@@ -1,5 +1,5 @@
 *** tests/A-15-06-M-ok.out	2021-11-07 16:04:59.274650000 +0000
---- tests/A-15-06-M-ok.outhyp	2021-11-13 00:52:53.298804132 +0000
+--- tests/A-15-06-M-ok.outhyp	2021-11-17 00:50:19.642767706 +0000
 ***************
 *** 16,22 ****
   4 - Registar compra
@@ -26,34 +26,3 @@
   Gestão de Transacções
   1 - Visualizar
   2 - Registar desagregação
-***************
-*** 41,48 ****
-  3 - Visualizar lotes fornecidos por parceiro
-  4 - Visualizar lotes de um dado produto
-  0 - Sair
-! Escolha uma opção: GARRAFA|200|5|ROLHA:1#SAL:5#VIDRO:10
-! HIDROGENIO|200|5000
-  ROLHA|2|500
-  SAL|16|500
-  VIDRO|10|500
---- 50,56 ----
-  3 - Visualizar lotes fornecidos por parceiro
-  4 - Visualizar lotes de um dado produto
-  0 - Sair
-! Escolha uma opção: HIDROGENIO|200|5000
-  ROLHA|2|500
-  SAL|16|500
-  VIDRO|10|500
-***************
-*** 98,103 ****
---- 106,115 ----
-  6 - Mostrar vendas (e desagregações) com parceiro
-  0 - Sair
-  Escolha uma opção: Identificador do parceiro: R1|António Figueiredo|Lisboa|NORMAL|0|0|0|0
-+ NEW|ROLHA|2
-+ NEW|HIDROGENIO|200
-+ NEW|VIDRO|10
-+ NEW|SAL|16
-  Gestão de Parceiros
-  1 - Mostrar parceiro
-  2 - Mostrar parceiros

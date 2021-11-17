@@ -1,5 +1,6 @@
 package ggc.app.transactions;
 
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import ggc.app.exception.UnknownPartnerKeyException;
@@ -34,8 +35,18 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
       throw new UnknownPartnerKeyException(idPartner);
     } 
     catch(ProductDoesNotExistException pdne) {
-      addStringField("key", Message.requestAddRecipe());
-
+      // Simple Product
+      if(Form.requestString(Message.requestAddRecipe()).equals("n")) {  
+        try {
+          _receiver.registerSimpleProduct(idProduct, idPartner, price, quantity);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+      // Aggregate Product
+      else {
+        // TO-DO 
+      }
     }
   }
 

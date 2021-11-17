@@ -2,12 +2,14 @@ package ggc.app.transactions;
 
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import ggc.app.exception.UnavailableProductException;
 import ggc.app.exception.UnknownPartnerKeyException;
 import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.WarehouseManager;
 //FIXME import classes
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.ProductDoesNotExistException;
+import ggc.core.exception.ProductInsuficientAmountException;
 
 /**
  * 
@@ -30,12 +32,17 @@ public class DoRegisterSaleTransaction extends Command<WarehouseManager> {
     int quantity = integerField("quantity");
     
     try {
-      _receiver.addSaleByCredit(date, quantity, _receiver.getProduct(idProduct), _receiver.getPartner(idPartner));
-    } catch(ProductDoesNotExistException pdne) {
+      _receiver.addSaleByCredit(idPartner, date, idProduct, quantity);
+    } 
+    catch(ProductDoesNotExistException pdne) {
       throw new UnknownProductKeyException(idProduct);
-    } catch(PartnerDoesNotExistException pdne) {
+    } 
+    catch(PartnerDoesNotExistException pdne) {
       throw new UnknownPartnerKeyException(idPartner);
     } 
+    catch(ProductInsuficientAmountException pdne) {
+      throw new UnavailableProductException(idProduct, quantity, pdne.getQuantityAvailable());
+    }
   }
 
 }

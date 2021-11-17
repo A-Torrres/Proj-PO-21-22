@@ -1,6 +1,7 @@
 package ggc.core;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Recipe implements Serializable {
 
     private double _alpha;
     private AggregateProduct _aggregateProduct;
-    private List<Component> _recipeList;
+    private Collection<Component> _recipeList;
 
     //nao e possivel definir receitas cujos produtos nao sejam previamente conhecidos
     Recipe(double alpha, AggregateProduct aggrProduct, List<Component> recipeList) {
@@ -21,6 +22,10 @@ public class Recipe implements Serializable {
 
     AggregateProduct getAggregateProduct() {
         return _aggregateProduct;
+    }
+
+    double getAlpha() {
+        return _alpha;
     }
 
     /**
@@ -36,7 +41,6 @@ public class Recipe implements Serializable {
             if(it.hasNext())
                 components += "#";
         }
-
         return components;
     }
 

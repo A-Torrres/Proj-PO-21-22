@@ -2,10 +2,9 @@ package ggc.core;
 
 public class Acquisition extends Transaction {
 
-    
-
-    Acquisition(Date paymentDate, double baseValue, int quant, Product product, Partner partner) {
-        super(paymentDate, baseValue, quant, product, partner);
+    Acquisition(int id, Date paymentDate, double price, 
+                int quantity, Product product, Partner partner) {
+        super(id, paymentDate, price, quantity, product, partner);
     }
 
     // COMPRA|id|idParceiro|idProduto|quantidade|valor-pago|data-pagamento
@@ -16,7 +15,7 @@ public class Acquisition extends Transaction {
                 getPartner().getID() + '|' +
                 getProduct().getID() +'|' +
                 getQuantity() + '|' +
-                getBaseValue() + '|' +
+                Math.round(getBaseValue()) + '|' +
                 getPaymentDate().getDay();
     }
     

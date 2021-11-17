@@ -1,15 +1,16 @@
-
 package ggc.core;
 
 public class SaleByCredit extends Sale {
 
     private Date _deadLine;
-    private double _amountPaid;
+    private double _amountPaid;    // mudar nome. amountTOPay, isto n se paga as mijinhas
     private PaymentPeriod _paymentPeriod = PaymentPeriod.P1;
 
-    SaleByCredit(Date paymentD, double baseValue, int quant, Product prod, Partner part) {
-        super(paymentD, baseValue, quant, prod, part);
-        _deadLine = new Date(paymentD.getDay() + prod.getDeadLine());
+    SaleByCredit(int id, Date date, double baseValue, int quantity, Product product, Partner partner) {
+        super(id, date, baseValue, quantity, product, partner);
+        _deadLine = date;
+        _amountPaid = baseValue;
+        //_deadLine = new Date(paymentD.getDay() + prod.getDeadLine());
     }
 
     int updatePeriod(Date currentDate) {
@@ -47,26 +48,22 @@ public class SaleByCredit extends Sale {
         return getBaseValue() * getQuantity() * modifier;
     }
 
-    @Override
-    boolean isPaid() {
-        return _amountPaid != 0;
-    }
-
     void pay(Date date) {
         _amountPaid = getActualTotalPrice(date);
     }
 
+    // VENDA|id|idParceiro|idProduto|quantidade|valor-base|valor-a-pagamento|data-limite|data-pagamento
     @Override
     public String toString() {
-        return "VENDA" + 
-                getID() + 
-                getPartner().getID() + 
-                getProduct().getID() +
-                getQuantity() + 
-                getBaseValue() + 
-                _amountPaid + 
-                _deadLine.toString() + 
-                getPaymentDate().getDay();
+        return "VENDA" + '|' +
+                getID() + '|' +
+                getPartner().getID() + '|' +
+                getProduct().getID() + '|' +
+                getQuantity() + '|' +
+                Math.round(getBaseValue())  + '|' +
+                Math.round(_amountPaid) + '|' +
+                _deadLine.getDay();
+                //+ '|' +getPaymentDate().getDay();
     }
 
 }

@@ -71,7 +71,7 @@ public class Parser {
     int stock = Integer.parseInt(components[4]);
 
     if(!_store.existsProduct(idProduct))
-      _store.addProduct(idProduct, new SimpleProduct(idProduct, price));
+      _store.addProduct(idProduct, new SimpleProduct(idProduct));
 
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);
@@ -80,30 +80,38 @@ public class Parser {
     product.addBatch(batch, price);
     partner.addBatch(batch);
   }
-  
-  
+
   //BATCH_M|idProduto|idParceiro|prec ̧o|stock-actual|agravamento|componente-1:quantidade-1#...#componente-n:quantidade-n
-  private void parseAggregateProduct(String[] components, String line) throws BadEntryException, NumberFormatException, ProductDoesNotExistException, PartnerDoesNotExistException {
+  private void parseAggregateProduct(String[] components, String line) throws BadEntryException, ProductDoesNotExistException, PartnerDoesNotExistException {
     if (components.length != 7)
       throw new BadEntryException("Invalid number of fields (7) in aggregate batch description: " + line);
     
     String idProduct = components[1];
     String idPartner = components[2];
 
-    ArrayList<Component> recipeComponents = new ArrayList<>();
-
-    if(!_store.existsProduct(idProduct))
+    if (!_store.existsProduct(idProduct)) {
+      ArrayList<Product> products = new ArrayList<>();
+      ArrayList<Integer> quantities = new ArrayList<>();
+      
       for (String component : components[6].split("#")) {
         String[] recipeComponent = component.split(":");
-        recipeComponents.add(new Component(Integer.parseInt(recipeComponent[0]), _store.getProduct(components[1])));
+        products.add(_store.getProduct(recipeComponent[0]));
+        quantities.add(Integer.parseInt(recipeComponent[1]));
       }
-    
-    AggregateProduct aggregatedProduct = new AggregateProduct(idProduct, Double.parseDouble(components[3]));
-    Recipe recipe = new Recipe(Double.parseDouble(components[5]), aggregatedProduct, recipeComponents);
-    aggregatedProduct.addRecipe(recipe);
-    
-    _store.addProduct(idProduct, aggregatedProduct);
+      
+      ArrayList<Component> recipeComponents = new ArrayList<>();
+      
+      for(int i = 0; i < products.size(); i++) {
+        recipeComponents.add(new Component(quantities.get(i), products.get(i)));
+      }
 
+      AggregateProduct aggregatedProduct = new AggregateProduct(idProduct);
+      Recipe recipe = new Recipe(Double.parseDouble(components[5]), aggregatedProduct, recipeComponents);
+      aggregatedProduct.addRecipe(recipe);
+      
+      _store.addProduct(idProduct, aggregatedProduct);      
+    }
+    
     Product product = _store.getProduct(idProduct);
     Partner partner = _store.getPartner(idPartner);
     double price = Double.parseDouble(components[3]);

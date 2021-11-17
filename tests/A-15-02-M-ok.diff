@@ -1,5 +1,5 @@
 *** tests/A-15-02-M-ok.out	2021-11-07 16:04:59.270429000 +0000
---- tests/A-15-02-M-ok.outhyp	2021-11-13 00:52:53.190750129 +0000
+--- tests/A-15-02-M-ok.outhyp	2021-11-17 00:50:19.546766452 +0000
 ***************
 *** 16,22 ****
   4 - Registar compra
@@ -27,34 +27,3 @@
   1 - Visualizar
   2 - Registar desagregação
   3 - Registar venda
-***************
-*** 48,55 ****
-  3 - Visualizar lotes fornecidos por parceiro
-  4 - Visualizar lotes de um dado produto
-  0 - Sair
-! Escolha uma opção: GARRAFA|S1|1000|500
-! HIDROGENIO|S1|200|5000
-  ROLHA|M1|30|500
-  ROLHA|R1|20|500
-  SAL|S1|1000|500
---- 58,64 ----
-  3 - Visualizar lotes fornecidos por parceiro
-  4 - Visualizar lotes de um dado produto
-  0 - Sair
-! Escolha uma opção: HIDROGENIO|S1|200|5000
-  ROLHA|M1|30|500
-  ROLHA|R1|20|500
-  SAL|S1|1000|500
-***************
-*** 80,85 ****
---- 89,98 ----
-  6 - Mostrar vendas (e desagregações) com parceiro
-  0 - Sair
-  Escolha uma opção: Identificador do parceiro: M1|Rohit Figueiredo|New Delhi, India|NORMAL|0|0|0|0
-+ NEW|ROLHA|20
-+ NEW|HIDROGENIO|200
-+ NEW|VIDRO|1000
-+ NEW|SAL|1000
-  Gestão de Parceiros
-  1 - Mostrar parceiro
-  2 - Mostrar parceiros
