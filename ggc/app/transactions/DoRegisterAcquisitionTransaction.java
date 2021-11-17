@@ -3,7 +3,12 @@ package ggc.app.transactions;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ggc.app.exception.UnknownPartnerKeyException;
+import ggc.app.exception.UnknownProductKeyException;
 import ggc.core.WarehouseManager;
 import ggc.core.exception.PartnerDoesNotExistException;
 import ggc.core.exception.ProductDoesNotExistException;
@@ -30,22 +35,34 @@ public class DoRegisterAcquisitionTransaction extends Command<WarehouseManager> 
 
     try {
       _receiver.registerAcquisition(idPartner, idProduct, price, quantity);
-    }
-    catch(PartnerDoesNotExistException pdne) {
+    } catch(PartnerDoesNotExistException pdne) {
       throw new UnknownPartnerKeyException(idPartner);
-    } 
-    catch(ProductDoesNotExistException pdne) {
+    } catch(ProductDoesNotExistException pdne) {
       // Simple Product
       if(Form.requestString(Message.requestAddRecipe()).equals("n")) {  
         try {
           _receiver.registerSimpleProduct(idProduct, idPartner, price, quantity);
         } catch (Exception e) {
-          e.printStackTrace();
+          //!Should not happen
         }
       }
       // Aggregate Product
       else {
-        // TO-DO 
+        int amount = Form.requestInteger(Message.requestAmount());
+        double alpha = Form.requestReal(Message.requestAlpha());
+        List<String> componentIDs = new ArrayList<>();
+        List<Integer> componentAmounts = new ArrayList<>();
+        for(int i = 0; i < amount; i++) {
+          componentIDs.add(Form.requestString(Message.requestProductKey()));
+          componentAmounts.add(Form.requestInteger(Message.requestAmount()));
+        }
+        try {
+          _receiver.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
+        } catch (ProductDoesNotExistException pdnee) {
+          throw new UnknownProductKeyException(idProduct); //Caso algum componente não exista
+        } catch (PartnerDoesNotExistException pdnee) {
+          //!Should not happen
+        }
       }
     }
   }

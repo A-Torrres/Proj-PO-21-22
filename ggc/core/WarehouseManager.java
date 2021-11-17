@@ -4,6 +4,7 @@ package ggc.core;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -181,6 +182,11 @@ public class WarehouseManager {
   public void registerSimpleProduct(String idProduct, String idPartner, double price, int quantity) 
       throws PartnerDoesNotExistException, ProductDoesNotExistException {
     _warehouse.registerSimpleProduct(idProduct, idPartner, price, quantity);
+  }
+
+  public void registerAggregateProduct(String idProduct, String idPartner, double price, int quantity, double alpha,
+      List<String> componentIDs, List<Integer> componentAmounts) throws ProductDoesNotExistException, PartnerDoesNotExistException {
+    _warehouse.registerAggregateProduct(idProduct, idPartner, price, quantity, alpha, componentIDs, componentAmounts);
   }
   
 }

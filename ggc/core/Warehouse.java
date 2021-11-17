@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import java.io.IOException;
 
 import ggc.core.exception.BadEntryException;
@@ -286,6 +287,19 @@ public class Warehouse implements Serializable {
     sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, baseValue, quantity, product, partner);
     _transactions.put(sale.getID(), sale);
     // atualizar _balance
+  }
+
+  public void registerAggregateProduct(String idProduct, String idPartner, double price, int quantity, double alpha,
+      List<String> componentIDs, List<Integer> componentAmounts) throws ProductDoesNotExistException, PartnerDoesNotExistException {
+    AggregateProduct aggProd = new AggregateProduct(idProduct);
+    List<Component> components = new ArrayList<>();
+    for(int i = 0; i <= componentIDs.size() && i <= componentAmounts.size(); i++) {
+      components.add(new Component(componentAmounts.get(i), getProduct(componentIDs.get(i))));
+    }
+    aggProd.addRecipe(new Recipe(alpha, aggProd, components));
+    
+    addProduct(idProduct, aggProd);
+    registerAcquisition(idPartner, idProduct, price, quantity);
   }
 
 }
