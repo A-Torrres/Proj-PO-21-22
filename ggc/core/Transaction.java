@@ -14,8 +14,7 @@ public abstract class Transaction implements Serializable {
     private Product _product;
     private Partner _partner;
 
-    Transaction(int id, Date paymentDate, double baseValue,  
-                int quantity, Product product, Partner partner) {
+    Transaction(int id, Date paymentDate, double baseValue, int quantity, Product product, Partner partner) {
         _id = id;
         _paymentDate = paymentDate;
         _baseValue = baseValue;

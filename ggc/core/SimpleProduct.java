@@ -2,7 +2,7 @@ package ggc.core;
 
 public class SimpleProduct extends Product {
     
-    private static final int DEADLINE = 5;
+    private final int DEADLINE = 5;
 
     SimpleProduct(String id){
         super(id);

@@ -35,8 +35,8 @@ class Normal implements PartnerState, Serializable {
         switch(p){
             case P1: return 0.9;
             case P2: return 1.0;
-            case P3: return 1.0 + diff*0.05;
-            case P4: return 1.0 + diff*0.1;
+            case P3: return 1.0 - diff*0.05; 
+            case P4: return 1.0 - diff*0.1;
         }
         return 1.0;
     }
@@ -83,8 +83,8 @@ class Selection implements PartnerState, Serializable {
         switch(p){
             case P1: return 0.9;
             case P2: if(diff >= 2) return 0.95; else return 1.0;
-            case P3: if(diff < -1) return 1.0 + diff*0.02; else return 1.0;
-            case P4: return 1.0 + diff*0.05;
+            case P3: if(diff < -1) return 1.0 - diff*0.02; else return 1.0;
+            case P4: return 1.0 - diff*0.05;
         }
         return 1.0;
     }

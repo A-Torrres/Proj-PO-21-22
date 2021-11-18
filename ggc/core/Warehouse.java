@@ -70,8 +70,9 @@ public class Warehouse implements Serializable {
    */
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
-    for (Partner partner : getPartners())
-      partner.verifyLatePayments(_date);
+
+    for (Partner partner : getPartners()) 
+      partner.verifyLatePayments(getCurrentDate());
   }
 
   double getAvailableBalance() {
@@ -293,6 +294,10 @@ public class Warehouse implements Serializable {
   Collection<Acquisition> getAcquisitionsByPartner(String id) throws PartnerDoesNotExistException {
     return getPartner(id).getAcquisitions();
   }
+  
+  Collection<Sale> getSalesByPartner(String id) throws PartnerDoesNotExistException {
+    return getPartner(id).getSales();
+  }
 
   void registerSaleByCredit(String idPartner, int date, String idProduct, int quantity)
       throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
@@ -330,10 +335,48 @@ public class Warehouse implements Serializable {
     product.removeEmptyBatches();
     
     sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, getCurrentDate(), baseValue, quantity, product, partner);
+    partner.addSale(sale);
     addTransaction(sale);
   }
 
+  void registerBreakdown(String idPartner, String idProduct, int quantity)
+      throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
+    Partner partner = getPartner(idPartner);
+    Product product = getProduct(idProduct);
+    double priceToPay = 0;
+    Collection<Batch> batches = new ArrayList<>();
+
+    if(!product.checkQuantity(quantity))
+      throw new ProductInsuficientAmountException(idProduct, quantity, product.getTotalQuantity());
+    
+    // TODO
+    /*
+    if(is simple) return;
+    
+    remove quantity de product do warehouse (like the for loop in registerSaleByCredit)
+    priceToPay = baseValue
+
+    por cada componente da receita de product {
+      if(ve se existem batches desse produto) {
+        vai buscar o batch do product com preco mais baixo
+        add quantidade ao batch, onde quantidade = quantity * quantityDoComponente
+        batches.add(este batch)
+      }
+      else {
+        cria novo batch onde "price" = maxprice do produto e "quantity" = quantity * quantityDoComponente
+        batches.add(este batch)
+      }
+      priceToPay -= price do batch * quantity * quantityDoComponent
+    }
+    
+    breakDown = new BreakDownSale(NEXT_TRANSACTION_ID++, getCurrentDate(), priceToPay, quantity, product, partner, batches)
+    partner.addSale(breakDown);
+    addTransaction(breakDown);
+    */
+  }
+
 }
+
 
 class BatchPriceComp implements Comparator<Batch> {
 

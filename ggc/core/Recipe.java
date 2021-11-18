@@ -13,7 +13,6 @@ public class Recipe implements Serializable {
     private AggregateProduct _aggregateProduct;
     private Collection<Component> _recipeList;
 
-    //nao e possivel definir receitas cujos produtos nao sejam previamente conhecidos
     Recipe(double alpha, AggregateProduct aggrProduct, List<Component> recipeList) {
         _alpha = alpha;
         _aggregateProduct = aggrProduct;

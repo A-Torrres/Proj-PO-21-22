@@ -2,7 +2,7 @@ package ggc.core;
 
 public class AggregateProduct extends Product{
     
-    private static final int DEADLINE = 3;
+    private final int DEADLINE = 3;
     private Recipe _recipe;
     
 

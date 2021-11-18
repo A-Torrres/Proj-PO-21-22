@@ -18,11 +18,7 @@ public class Partner implements Observer, Serializable {
     private Collection<Batch> _batches = new ArrayList<>();
     private Collection<Notification> _notifications = new ArrayList<>();
     private Collection<Acquisition> _acquisitions = new ArrayList<>();
-
     private Collection<Sale> _sales = new ArrayList<>();
-
-    private double _valorVendasEfetuadas;   //por simplicidade
-    private double _valorVendasPagas;       //por simplicidade
 
 
     Partner (String id, String name, String address) {
@@ -88,20 +84,18 @@ public class Partner implements Observer, Serializable {
         }
     }
 
-    void verifyLatePayments(Date date) {
-        for(Sale sale : _sales) {
-            if(sale instanceof SaleByCredit) {
-                if(-_status.getGracePeriod() > sale.updatePeriod(date) && !sale.isLate()) {
+    void verifyLatePayments(Date currentDate) {
+        for(Sale sale: _sales)
+            if(sale instanceof SaleByCredit)
+                if(-_status.getGracePeriod() > sale.updatePeriod(currentDate) && !sale.isLate()) {
                     _points *= _status.getPointsRemaining();
                     _status = _status.getPrevious();
                     sale.setPaymentAsLate();
                 }
-            }
-        }
     }
 
-    public ArrayList<Sale> getSales() {
-        return (ArrayList<Sale>) _sales;
+    Collection<Sale> getSales() {
+        return _sales;
     }
 
     Collection<Acquisition> getAcquisitions() {
@@ -128,6 +122,28 @@ public class Partner implements Observer, Serializable {
         return total;
     }
 
+    void addSale(Sale sale) {
+        _sales.add(sale);
+    }
+
+    double getValueOfSales() {
+        double total = 0;
+        for(Sale sale: _sales)
+            if(sale instanceof SaleByCredit)
+                total += sale.getBaseValue();
+        
+        return total;
+    }
+    
+    double getPaidSales() {
+        double total = 0;
+        for(Sale sale: _sales)
+            if(sale instanceof SaleByCredit && sale.isPaid())
+                total += sale.getCurrentPrice();
+        
+        return total;
+    }
+
     /**
    * @return id|nome|endereço|estatuto|pontos|valor-compras|
    *        valor-vendas-efectuadas|valor-vendas-pagas
@@ -140,8 +156,8 @@ public class Partner implements Observer, Serializable {
                 _status.toString() + "|" +
                 Math.round(_points) + "|" + 
                 Math.round(getTotalAquisitionsAmountPayed()) + "|" +
-                Math.round(_valorVendasEfetuadas) + "|" + 
-                Math.round(_valorVendasPagas);
+                Math.round(getValueOfSales()) + "|" + 
+                Math.round(getPaidSales());
     }
 
 }

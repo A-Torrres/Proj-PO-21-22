@@ -15,10 +15,31 @@ public class SaleByCredit extends Sale {
         updatePeriod(currentDate);
     }
 
+    boolean isLate() {
+        return _paymentLate;
+    }
+
+    void setPaymentAsLate() {
+        _paymentLate = true;
+    }
+
+    boolean isPaid() {
+        return _amountPaid != 0;
+    }
+
+    double getAcountingPrice() {
+        return _amountToPay;
+    }
+
+    double getCurrentPrice() {
+        return getAcountingPrice();
+    }
+
     int updatePeriod(Date currentDate) {
         if(!isPaid()) {
             int diff = _deadLine.difference(currentDate);
             int prodDeadline = getProduct().getDeadLine();
+
             if(diff >= prodDeadline) {
                 _paymentPeriod = PaymentPeriod.P1;
             }
@@ -52,33 +73,12 @@ public class SaleByCredit extends Sale {
         _amountToPay = getBaseValue() * modifier; 
     }
 
-    boolean isLate() {
-        return _paymentLate;
-    }
-
-    double getAcountingPrice() {
-        return _amountToPay;
-    }
-
-    double getCurrentPrice() {
-        return getAcountingPrice();
-    }
-
-
-    void setPaymentAsLate() {
-        _paymentLate = true;
-    }
-
     void pay(Date date) {
         setPaymentDate(date);
         _amountPaid = _amountToPay;
 
         if(!isLate()) 
             getPartner().addPoints(_amountPaid * 10);
-    }
-
-    boolean isPaid() {
-        return _amountPaid != 0;
     }
 
     // VENDA|id|idParceiro|idProduto|quantidade|valor-base|valor-a-pagamento|data-limite|data-pagamento

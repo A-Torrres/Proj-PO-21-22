@@ -157,6 +157,10 @@ public class WarehouseManager {
   public Collection<Acquisition> getAcquisitionsByPartner(String id) throws PartnerDoesNotExistException {
     return Collections.unmodifiableCollection( _warehouse.getAcquisitionsByPartner(id));
   }
+  
+  public Collection<Sale> getSalesByPartner(String id) throws PartnerDoesNotExistException {
+    return Collections.unmodifiableCollection( _warehouse.getSalesByPartner(id));
+  }
 
   public void addProduct(String id, Product product) {
     _warehouse.addProduct(id, product);
@@ -165,6 +169,11 @@ public class WarehouseManager {
   public void registerSaleByCredit(String idPartner, int date, String idProduct, int quantity) 
       throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
     _warehouse.registerSaleByCredit(idPartner, date, idProduct, quantity);
+  }
+  
+  public void registerBreakdown(String idPartner,String idProduct, int quantity) 
+      throws PartnerDoesNotExistException, ProductDoesNotExistException, ProductInsuficientAmountException {
+    _warehouse.registerBreakdown(idPartner, idProduct, quantity);
   }
 
   public Transaction getTransaction(int id) throws TransactionDoesNotExistException {

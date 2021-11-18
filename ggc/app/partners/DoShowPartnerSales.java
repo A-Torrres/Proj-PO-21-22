@@ -27,7 +27,7 @@ class DoShowPartnerSales extends Command<WarehouseManager> {
     List<String> salesToString = new ArrayList<>();
 
     try {
-      for(Sale sale : _receiver.getPartner(id).getSales()) {
+      for(Sale sale : _receiver.getSalesByPartner(id)) {
         salesToString.add(sale.toString());
       }
     } 
