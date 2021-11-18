@@ -5,51 +5,76 @@ public class SaleByCredit extends Sale {
     private Date _deadLine;
     private double _amountPaid;
     private double _amountToPay;
-    private PaymentPeriod _paymentPeriod = PaymentPeriod.P1;
+    private PaymentPeriod _paymentPeriod;
+    private boolean _paymentLate = false;
 
-    SaleByCredit(int id, Date date, double baseValue, int quantity, Product product, Partner partner) {
-        super(id, date, baseValue, quantity, product, partner);
-        _deadLine = date;
+    SaleByCredit(int id, Date deadLine, Date currentDate, double baseValue, int quantity, Product product, Partner partner) {
+        super(id, null, baseValue, quantity, product, partner);
+        _deadLine = deadLine;
         _amountToPay = baseValue;
+        updatePeriod(currentDate);
     }
 
     int updatePeriod(Date currentDate) {
-        if(_amountPaid == 0) {
+        if(!isPaid()) {
             int diff = _deadLine.difference(currentDate);
-            Product prod = super.getProduct();
-            if(diff >= prod.getDeadLine()) {
+            int prodDeadline = getProduct().getDeadLine();
+            if(diff >= prodDeadline) {
                 _paymentPeriod = PaymentPeriod.P1;
             }
-            if(0 <= diff && diff < prod.getDeadLine()) {
+            else if(0 <= diff && diff < prodDeadline) {
                 _paymentPeriod = PaymentPeriod.P2;
             }
-            if(-prod.getDeadLine() <= diff && diff < 0) {
+            else if(-prodDeadline <= diff && diff < 0) {
                 _paymentPeriod = PaymentPeriod.P3;
             }
-            if(-prod.getDeadLine() > diff) {
+            else if(-prodDeadline > diff) {
                 _paymentPeriod = PaymentPeriod.P4;
             }
+            updateAccountingPrice(currentDate);
             return diff;
         }
         return 0;
     }
 
-    double getAcountingPrice(Date currentDate) {
+    void updateAccountingPrice(Date currentDate) {
         double modifier = 1.0;
         PartnerState status = getPartner().getStatus();
+        int diff = _deadLine.difference(currentDate);
 
         switch(_paymentPeriod) {
-            case P1: modifier = status.getModifier(PaymentPeriod.P1, _deadLine.difference(currentDate));
-            case P2: modifier = status.getModifier(PaymentPeriod.P2, _deadLine.difference(currentDate));
-            case P3: modifier = status.getModifier(PaymentPeriod.P3, _deadLine.difference(currentDate));
-            case P4: modifier = status.getModifier(PaymentPeriod.P4, _deadLine.difference(currentDate));
+            case P1: modifier = status.getModifier(PaymentPeriod.P1, diff); break;
+            case P2: modifier = status.getModifier(PaymentPeriod.P2, diff); break;
+            case P3: modifier = status.getModifier(PaymentPeriod.P3, diff); break;
+            case P4: modifier = status.getModifier(PaymentPeriod.P4, diff); break;
         }
 
-        return getBaseValue() * modifier;
+        _amountToPay = getBaseValue() * modifier; 
+    }
+
+    boolean isLate() {
+        return _paymentLate;
+    }
+
+    double getAcountingPrice() {
+        return _amountToPay;
+    }
+
+    double getCurrentPrice() {
+        return getAcountingPrice();
+    }
+
+
+    void setPaymentAsLate() {
+        _paymentLate = true;
     }
 
     void pay(Date date) {
-        _amountPaid = getAcountingPrice(date);
+        setPaymentDate(date);
+        _amountPaid = _amountToPay;
+
+        if(!isLate()) 
+            getPartner().addPoints(_amountPaid * 10);
     }
 
     boolean isPaid() {
@@ -68,7 +93,7 @@ public class SaleByCredit extends Sale {
                             Math.round(_amountToPay) + '|' +
                             _deadLine.getDay();
         if(isPaid())
-            toReturn += getPaymentDate().getDay();
+            toReturn += "|" + getPaymentDate().getDay();
         
         return toReturn;
     }

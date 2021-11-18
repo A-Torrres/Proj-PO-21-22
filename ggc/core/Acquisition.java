@@ -15,6 +15,11 @@ public class Acquisition extends Transaction {
         // Do nothing
     }
 
+    double getCurrentPrice() {
+        return getBaseValue();
+    }
+
+
     // COMPRA|id|idParceiro|idProduto|quantidade|valor-pago|data-pagamento
     @Override
     public String toString() {

@@ -30,5 +30,17 @@ public class BreakDownSale extends Sale {
 
     int updatePeriod(Date date){ return 0; }
 
+    void setPaymentAsLate() {
+        //Do nothing
+    }
+
+    boolean isLate() {
+        return false;
+    }
+
+    double getCurrentPrice() {
+        return getBaseValue();
+    }
+
 }
 

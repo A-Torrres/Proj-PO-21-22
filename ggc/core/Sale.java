@@ -13,4 +13,8 @@ public abstract class Sale extends Transaction {
 
     abstract int updatePeriod(Date date);
 
+    abstract boolean isLate();
+
+    abstract void setPaymentAsLate();
+
 }

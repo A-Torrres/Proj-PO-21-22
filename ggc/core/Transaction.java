@@ -50,6 +50,10 @@ public abstract class Transaction implements Serializable {
     Partner getPartner() {
         return _partner;
     }
+
+    void setPaymentDate(Date paymentDate) {
+        _paymentDate = paymentDate;
+    }
     
     abstract void pay(Date date);
 
@@ -58,7 +62,8 @@ public abstract class Transaction implements Serializable {
    **/
     abstract boolean isPaid();
 
-    @Override
-    abstract public String toString();    
+    abstract double getCurrentPrice();
 
+    @Override
+    abstract public String toString();
 }

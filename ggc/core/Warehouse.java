@@ -70,7 +70,7 @@ public class Warehouse implements Serializable {
    */
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
-    for (Partner partner : this.getPartners())
+    for (Partner partner : getPartners())
       partner.verifyLatePayments(_date);
   }
 
@@ -79,8 +79,14 @@ public class Warehouse implements Serializable {
   }
   
   double getAccountingBalance() {
-    //TODO
-    return _balance;
+    double balance = 0;
+    for(Transaction t : getTransactions()) {
+      if(t instanceof Acquisition)
+        balance -= t.getCurrentPrice();
+      else
+        balance += t.getCurrentPrice();
+    }
+    return balance;
   }
 
   Transaction getTransaction(int id) throws TransactionDoesNotExistException {
@@ -89,6 +95,10 @@ public class Warehouse implements Serializable {
     if(t == null)
       throw new TransactionDoesNotExistException();
     return t;
+  }
+
+  Collection<Transaction> getTransactions() {
+    return _transactions.values();
   }
 
   Collection<Transaction> getPaidTransactionsByPartner(String id) throws PartnerDoesNotExistException {
@@ -103,8 +113,10 @@ public class Warehouse implements Serializable {
   void pay(int id) throws TransactionDoesNotExistException {
     Transaction transaction = getTransaction(id);
 
-    if(!transaction.isPaid())
+    if(!transaction.isPaid()) {
       transaction.pay(getCurrentDate());
+      _balance += transaction.getCurrentPrice();
+    }
   }
 
   /**
@@ -317,7 +329,7 @@ public class Warehouse implements Serializable {
     _partners.forEach( (id, p)-> p.removeEmptyBatches());
     product.removeEmptyBatches();
     
-    sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, baseValue, quantity, product, partner);
+    sale = new SaleByCredit(NEXT_TRANSACTION_ID++, paymentDate, getCurrentDate(), baseValue, quantity, product, partner);
     addTransaction(sale);
   }
 

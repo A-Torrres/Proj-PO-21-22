@@ -78,11 +78,12 @@ public class Partner implements Observer, Serializable {
     }
 
     void updateStatus() {
-        if(_status.getPointThreshold() > _points) {
-            _status.getPrevious();
+        if(_status.getPointThreshold() > _points && _status != Normal.getStatus()) {
+            _status = _status.getPrevious();
             updateStatus();
-        } else if(_status.getNext().getPointThreshold() < _points) {
-            _status.getNext();
+        } 
+        else if(_status.getNext().getPointThreshold() < _points && _status != Elite.getStatus()) {
+            _status = _status.getNext();
             updateStatus();
         }
     }
@@ -90,9 +91,10 @@ public class Partner implements Observer, Serializable {
     void verifyLatePayments(Date date) {
         for(Sale sale : _sales) {
             if(sale instanceof SaleByCredit) {
-                if(-_status.getGracePeriod() > sale.updatePeriod(date)) {
+                if(-_status.getGracePeriod() > sale.updatePeriod(date) && !sale.isLate()) {
                     _points *= _status.getPointsRemaining();
                     _status = _status.getPrevious();
+                    sale.setPaymentAsLate();
                 }
             }
         }
