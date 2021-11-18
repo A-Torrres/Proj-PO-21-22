@@ -35,7 +35,7 @@ public class SaleByCredit extends Sale {
             return diff;
         }
         return 0;
-    }
+    } 
 
     void updateAccountingPrice(Date currentDate) {
         double modifier = 1.0;
