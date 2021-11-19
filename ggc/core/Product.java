@@ -32,6 +32,8 @@ public abstract class Product implements Serializable, Observable {
         return _maxPrice;
     }
 
+    abstract Recipe getRecipe();
+
     @Override
     public boolean addObserver(Observer obs) {
         return _observers.add(obs);

@@ -24,7 +24,7 @@ public class SaleByCredit extends Sale {
     }
 
     boolean isPaid() {
-        return _amountPaid != 0;
+        return _amountPaid == _amountToPay;
     }
 
     double getAcountingPrice() {
@@ -77,7 +77,7 @@ public class SaleByCredit extends Sale {
         setPaymentDate(date);
         _amountPaid = _amountToPay;
 
-        if(!isLate()) 
+        if(_paymentPeriod == PaymentPeriod.P1 || _paymentPeriod == PaymentPeriod.P2) 
             getPartner().addPoints(_amountPaid * 10);
     }
 

@@ -21,6 +21,10 @@ public class AggregateProduct extends Product{
         return DEADLINE;
     }
 
+    Recipe getRecipe() {
+        return _recipe;
+    }
+
     /**
      * AggregateProduct's recipe is immutable once declared
      */

@@ -34,6 +34,10 @@ public class Batch implements Serializable {
         return _partner.getID();
     }
 
+    void addQuanity(int quantity) {
+        _quantity += quantity;
+    }
+
     void removeQuantity(int quantity) {
         _quantity -= quantity;
     }

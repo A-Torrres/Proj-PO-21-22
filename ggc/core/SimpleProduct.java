@@ -13,6 +13,10 @@ public class SimpleProduct extends Product {
         return DEADLINE;
     }
 
+    Recipe getRecipe() {
+        return null;
+    }
+
     /**
     * @return idProduto|preço-máximo|stock-actual-total
     */

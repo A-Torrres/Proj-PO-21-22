@@ -18,6 +18,10 @@ public class Component implements Serializable {
         return _quantity;
     }
 
+    Product getProduct() {
+        return _product;
+    }
+
     /**
     * @return componente:quantidade
     */

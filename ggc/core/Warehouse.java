@@ -71,8 +71,9 @@ public class Warehouse implements Serializable {
   void advanceDate(int days) throws NegativeDaysException {
     _date.add(days);
 
-    for (Partner partner : getPartners()) 
+    for (Partner partner : getPartners())
       partner.verifyLatePayments(getCurrentDate());
+
   }
 
   double getAvailableBalance() {
@@ -170,14 +171,6 @@ public class Warehouse implements Serializable {
     
     addProduct(idProduct, aggProd);
     registerAcquisition(idPartner, idProduct, price, quantity);
-  }
-
-  void addBatch(String productID, Batch batch) throws ProductDoesNotExistException {
-    try {
-      this.getProduct(productID).addBatch(batch, batch.getPrice());
-    } catch(ProductDoesNotExistException pdne) {
-      throw pdne;
-    }
   }
 
   /**
@@ -344,35 +337,63 @@ public class Warehouse implements Serializable {
     Partner partner = getPartner(idPartner);
     Product product = getProduct(idProduct);
     double priceToPay = 0;
-    Collection<Batch> batches = new ArrayList<>();
+    Collection<Batch> breakDownBatches = new ArrayList<>();
+    List<Batch> batches;
+    int quantityToGet = quantity;
 
     if(!product.checkQuantity(quantity))
       throw new ProductInsuficientAmountException(idProduct, quantity, product.getTotalQuantity());
     
-    // TODO
-    /*
-    if(is simple) return;
+    if(product instanceof SimpleProduct) 
+      return;
     
-    remove quantity de product do warehouse (like the for loop in registerSaleByCredit)
-    priceToPay = baseValue
+    batches = new ArrayList<>(product.getBatches());
+    Collections.sort(batches, new BatchPriceComp());
 
-    por cada componente da receita de product {
-      if(ve se existem batches desse produto) {
-        vai buscar o batch do product com preco mais baixo
-        add quantidade ao batch, onde quantidade = quantity * quantityDoComponente
-        batches.add(este batch)
-      }
-      else {
-        cria novo batch onde "price" = maxprice do produto e "quantity" = quantity * quantityDoComponente
-        batches.add(este batch)
-      }
-      priceToPay -= price do batch * quantity * quantityDoComponent
+    for(Batch b: batches) {
+      int amount = b.getQuantity();
+      int amountToConsum = quantityToGet;
+      // se o batch atual n tiver suficiente tiramos tudo o q tem
+      if((amount - quantityToGet) < 0)
+        amountToConsum = amount;
+
+      priceToPay += b.getPrice() * amountToConsum;
+      b.removeQuantity(amountToConsum);
+      quantityToGet -= amountToConsum;
+
+      if(quantityToGet == 0)
+        break;
+    }
+
+    _partners.forEach( (id, p)-> p.removeEmptyBatches());
+    product.removeEmptyBatches();
+
+    for(Component comp: product.getRecipe().getComponents()) {
+      Product compProduct = comp.getProduct();
+      List<Batch> compBatches = new ArrayList<>(compProduct.getBatches());
+      Batch batch;
+      double batchPrice;
+
+      if(!compBatches.isEmpty())
+        batchPrice = compProduct.findMinPrice();
+
+      else batchPrice = compProduct.getMaxPrice();
+      
+      batch = new Batch(batchPrice, quantity * comp.getQuantity(), compProduct, partner);
+      compProduct.addBatch(batch, batchPrice);
+      partner.addBatch(batch);
+      breakDownBatches.add(new Batch(batchPrice, quantity * comp.getQuantity(), compProduct, partner));
+      priceToPay -= batch.getPrice() * quantity * comp.getQuantity();
+    }
+
+    if(priceToPay > 0) {
+      partner.addPoints(priceToPay * 10);
+      _balance += priceToPay;
     }
     
-    breakDown = new BreakDownSale(NEXT_TRANSACTION_ID++, getCurrentDate(), priceToPay, quantity, product, partner, batches)
+    BreakDownSale breakDown = new BreakDownSale(NEXT_TRANSACTION_ID++, getCurrentDate(), priceToPay, quantity, product, partner, breakDownBatches);
     partner.addSale(breakDown);
     addTransaction(breakDown);
-    */
   }
 
 }

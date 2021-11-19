@@ -19,6 +19,10 @@ public class Recipe implements Serializable {
         _recipeList = recipeList;
     }
 
+    Collection<Component> getComponents() {
+        return _recipeList;
+    }
+
     AggregateProduct getAggregateProduct() {
         return _aggregateProduct;
     }

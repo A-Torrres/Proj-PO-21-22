@@ -3,6 +3,7 @@ package ggc.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class BreakDownSale extends Sale {
 
@@ -13,12 +14,14 @@ public class BreakDownSale extends Sale {
                     Product product, Partner partner, Collection<Batch> batches) {
         
         super(id, paymentDate, baseValue, quantity, product, partner);
-        _valuePaid = Math.abs(baseValue);
+        if(baseValue < 0)
+            _valuePaid = 0;
+        else _valuePaid = baseValue;
         _batches = new ArrayList<>(batches);
     }
 
     double getCurrentPrice() {
-        return getBaseValue();
+        return _valuePaid;
     }
 
     boolean isPaid() {
@@ -46,6 +49,16 @@ public class BreakDownSale extends Sale {
      */
     @Override
     public String toString() {
+        String components = "";
+        Iterator<Batch> it = _batches.iterator();
+        
+        while(it.hasNext()) {
+            Batch b = it.next();
+            components += b.getProductID() + ":" + b.getQuantity() + ":" + Math.round(b.getPrice()) * b.getQuantity();
+            if(it.hasNext())
+                components += "#";
+        }
+
         return "DESAGREGAÇÃO" + '|' +
                 getID() + '|' +
                 getPartner().getID() + '|' +
@@ -53,8 +66,8 @@ public class BreakDownSale extends Sale {
                 getQuantity() + '|' +
                 Math.round(getBaseValue())  + '|' +
                 Math.round(_valuePaid) + '|' +
-                getPaymentDate() + '|' +
-                "idC1:q1:v1#...#idCN:qN:vN";
+                getPaymentDate().getDay() + '|' +
+                components;
     }
 
 }
