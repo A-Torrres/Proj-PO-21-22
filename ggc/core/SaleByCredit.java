@@ -60,7 +60,7 @@ public class SaleByCredit extends Sale {
 
     void updateAccountingPrice(Date currentDate) {
         double modifier = 1.0;
-        PartnerState status = getPartner().getStatus();
+        PartnerState status = getStatus();
         int diff = _deadLine.difference(currentDate);
 
         switch(_paymentPeriod) {

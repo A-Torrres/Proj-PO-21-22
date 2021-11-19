@@ -13,6 +13,7 @@ public abstract class Transaction implements Serializable {
     private int _quantity;
     private Product _product;
     private Partner _partner;
+    private PartnerState _transactionStatus;
 
     Transaction(int id, Date paymentDate, double baseValue, int quantity, Product product, Partner partner) {
         _id = id;
@@ -21,10 +22,15 @@ public abstract class Transaction implements Serializable {
         _quantity = quantity;
         _product = product;
         _partner = partner;
+        _transactionStatus = partner.getStatus();
     }
 
     int getID() {
         return _id;
+    }
+
+    PartnerState getStatus() {
+        return _transactionStatus;
     }
 
     /**
